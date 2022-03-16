@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "njOKqhhhQ7Pm31tqknQ6ioKrpjysXz7SnJ5IgpN79cMAerGiEJGV0/35Mq8Amqy21YQTPJpD7vFke8lduBBang==",
+  "dgSpecHash": "uhNsb7xhZAWopO70WNPwEw98cFTdoDR0b7rMdhAH9M7Adr+PKOYxh+PRlMrAoofULHXoIFnCDhUh99I3zzNSCg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\LesmesLeiton\\source\\repos\\NewUI_hecho\\BZPAY_BE\\BZPAY_BE.csproj",
+  "projectFilePath": "C:\\Users\\LesmesLeiton\\source\\repos\\BZPAY_NEW_UI\\BZPAY_BE\\BZPAY_BE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LesmesLeiton\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\LesmesLeiton\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",

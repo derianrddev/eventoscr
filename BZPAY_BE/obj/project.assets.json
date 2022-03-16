@@ -1316,11 +1316,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LesmesLeiton\\source\\repos\\NewUI_hecho\\BZPAY_BE\\BZPAY_BE.csproj",
+      "projectUniqueName": "C:\\Users\\LesmesLeiton\\Source\\Repos\\BZPAY_NEW_UI\\BZPAY_BE\\BZPAY_BE.csproj",
       "projectName": "BZPAY_BE",
-      "projectPath": "C:\\Users\\LesmesLeiton\\source\\repos\\NewUI_hecho\\BZPAY_BE\\BZPAY_BE.csproj",
+      "projectPath": "C:\\Users\\LesmesLeiton\\Source\\Repos\\BZPAY_NEW_UI\\BZPAY_BE\\BZPAY_BE.csproj",
       "packagesPath": "C:\\Users\\LesmesLeiton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LesmesLeiton\\source\\repos\\NewUI_hecho\\BZPAY_BE\\obj\\",
+      "outputPath": "C:\\Users\\LesmesLeiton\\Source\\Repos\\BZPAY_NEW_UI\\BZPAY_BE\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\LesmesLeiton\\AppData\\Roaming\\NuGet\\NuGet.Config",
