@@ -1,27 +1,25 @@
-using BZPAY_BE.models;
+using BZPAY_BE.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BZPAY_BE.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class LoginController : ControllerBase
+    public class AspnetMembershipController : ControllerBase
     {
-        private readonly ILogger<LoginController> _logger;
+        private readonly ILogger<AspnetMembershipController> _logger;
 
-        public LoginController(ILogger<LoginController> logger)
+        public AspnetMembershipController(ILogger<AspnetMembershipController> logger)
         {
             _logger = logger;
         }
 
         [HttpPost]
-        public LoginResponse IniciarSesion([FromBody] Login login)
+        public LoginResponse IniciarSesion([FromBody] LoginRequest login)
         {
             var response = new LoginResponse();
 
-            response.Result = true;
-            response.User = login;
-            if (login.username == "Lesmes" && login.password == "daf30309483f82484d66608e7d8492c0")
+            if (login.Username == "Lesmes" && login.Password == "daf30309483f82484d66608e7d8492c0")
             {
                 response.Result = true;
                 response.User = login;

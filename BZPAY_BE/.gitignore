@@ -1,0 +1,3 @@
+# Ignora la carpeta bin y obj
+/BZPAY_BE/bin
+/BZPAY_BE/obj

@@ -1,0 +1,209 @@
+﻿++Solution 'NewUI' ‎(2 of 2 projects)
+i:{00000000-0000-0000-0000-000000000000}:NewUI.sln
+++BZPAY_BE
+i:{00000000-0000-0000-0000-000000000000}:BZPAY_BE
+++Connected Services 
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80568
+++Dependencies
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80567
+++Properties
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\properties\
+++BussinessLogic
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\bussinesslogic\
+++Common
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\common\
+++Profiles
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\common\profiles\
+++AspnetUserProfile.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\common\profiles\aspnetuserprofile.cs
+++Controllers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\controllers\
+++auth
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\controllers\auth\
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\bussinesslogic\auth\
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\css\auth\
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\images\auth\
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\pages\auth\
+++DataAccess
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\dataaccess\
+++AspnetUserDo.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\dataaccess\aspnetuserdo.cs
+++LoginRequest.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\dataaccess\loginrequest.cs
+++Models
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\models\
+++Repositories
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\
+++.gitignore
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\.gitignore
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\.gitignore
+++appsettings.json
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\appsettings.json
+++Program.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\program.cs
+++No service dependencies discovered
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80569
+++Analyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:analyzers
+++Frameworks
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:frameworks
+++Packages
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:packages
+++launchSettings.json
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\properties\launchsettings.json
+++AspnetUserController.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\controllers\auth\aspnetusercontroller.cs
+++AspnetApplication.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\models\aspnetapplication.cs
+++AspnetMembership.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\models\aspnetmembership.cs
+++AspnetUser.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\models\aspnetuser.cs
+++MembershipContext.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\models\membershipcontext.cs
+++Implementations
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\implementations\
+++Interfaces
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\interfaces\
+++appsettings.Development.json
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\appsettings.development.json
+++Microsoft.AspNetCore.Analyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.App.Analyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.2\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+++Microsoft.AspNetCore.App.CodeFixes
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.2\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.sourcegenerator.tooling.internal.dll
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.3\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.2\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++Microsoft.NET.Sdk.Razor.SourceGenerators
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
+++System.Text.Json.SourceGeneration
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.AspNetCore.App
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\microsoft.aspnetcore.app
+++Microsoft.NETCore.App
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\microsoft.netcore.app
+++AutoMapper (11.0.1)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80595
+++AutoMapper.Extensions.Microsoft.DependencyInjection (11.0.0)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80590
+++Microsoft.AspNetCore.Cors (2.2.0)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80593
+++Microsoft.EntityFrameworkCore (6.0.3)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80588
+++Microsoft.EntityFrameworkCore.Design (6.0.3)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80591
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.3)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80589
+++Microsoft.EntityFrameworkCore.SqlServer.Design (1.1.6)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80587
+++Microsoft.EntityFrameworkCore.Tools (6.0.3)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80596
+++Swashbuckle.AspNetCore (6.3.0)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80592
+++System.Configuration.ConfigurationManager (6.0.0)
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:>80594
+++ServiceImplementation
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\bussinesslogic\auth\serviceimplementation\
+++ServiceInterface
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\bussinesslogic\auth\serviceinterface\
+++AspnetUserRepository.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\implementations\aspnetuserrepository.cs
+++GenericRepository.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\implementations\genericrepository.cs
+++IAspnetUserRepository.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\interfaces\iaspnetuserrepository.cs
+++IGenericRepository.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\repositories\interfaces\igenericrepository.cs
+++AspnetUserService.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\bussinesslogic\auth\serviceimplementation\aspnetuserservice.cs
+++IAspnetUserService.cs
+i:{5c0857ee-b99a-457a-822f-3f0467e53b38}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_be\bussinesslogic\auth\serviceinterface\iaspnetuserservice.cs
+++BZPAY_FE
+i:{00000000-0000-0000-0000-000000000000}:BZPAY_FE
+++npm
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:>80412
+++.vscode
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\.vscode\
+++public
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\
+++src
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\
+++.env.development.local
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\.env.development.local
+++aspnetcore-https.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\aspnetcore-https.js
+++aspnetcore-react.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\aspnetcore-react.js
+++BZPAY_FE.esproj.user
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\bzpay_fe.esproj.user
+++nuget.config
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\nuget.config
+++package.json
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\package.json
+++package-lock.json
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\package-lock.json
+++README.md
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\readme.md
+++launch.json
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\.vscode\launch.json
+++images
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\images\
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\images\
+++favicon.ico
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\favicon.ico
+++index.html
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\index.html
+++logo192.png
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\logo192.png
+++logo512.png
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\logo512.png
+++manifest.json
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\manifest.json
+++robots.txt
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\robots.txt
+++components
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\components\
+++config
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\config\
+++css
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\css\
+++pages
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\pages\
+++routes
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\routes\
+++index.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\index.js
+++setupProxy.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\setupproxy.js
+++logo.png
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\public\images\logo.png
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\images\logo.png
+++i18next-config.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\config\i18next-config.js
+++Home.css
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\css\home.css
+++index.css
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\css\index.css
+++Home.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\pages\home.js
+++Routes.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\routes\routes.js
+++Login.css
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\css\auth\login.css
+++fondo-login.png
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\images\auth\fondo-login.png
+++Login.js
+i:{aa60f76f-df5a-480a-bc70-809a479c6669}:c:\users\lesmesleiton\source\repos\bzpay_new_ui\bzpay_fe\src\pages\auth\login.js
