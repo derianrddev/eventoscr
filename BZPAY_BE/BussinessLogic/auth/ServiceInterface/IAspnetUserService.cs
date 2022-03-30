@@ -11,6 +11,6 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceInterface
     
     public interface IAspnetUserService
     {
-        Task<AspnetUserDo?> IniciarSesionAsync(LoginRequest login);
+        Task<AspnetUserDo?> StartSessionAsync(LoginRequest login);
     }
 }

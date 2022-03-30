@@ -28,7 +28,7 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             _mapper = mapper;
         }
 
-        public async Task<AspnetUserDo?> IniciarSesionAsync(LoginRequest login)
+        public async Task<AspnetUserDo?> StartSessionAsync(LoginRequest login)
         {
             var user = await _aspnetUserRepository.GetUserByUserNameAsync(login.Username);
             if (user == null) return null;

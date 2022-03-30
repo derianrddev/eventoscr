@@ -25,9 +25,9 @@ namespace BZPAY_BE.Controllers
         [HttpPost]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
         //[ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
-        public async Task<ActionResult<AspnetUserDo>> IniciarSesionAsync([FromBody] LoginRequest login)
+        public async Task<ActionResult<AspnetUserDo>> StartSessionAsync([FromBody] LoginRequest login)
         {
-            AspnetUserDo result  = await _service.IniciarSesionAsync(login);
+            AspnetUserDo result  = await _service.StartSessionAsync(login);
             return (result is null) ? NotFound() : Ok(result);  
         }
 
