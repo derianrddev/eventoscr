@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BZPAY_BE", "BZPAY_BE\BZPAY_
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "BZPAY_FE", "BZPAY_FE\BZPAY_FE.esproj", "{AA60F76F-DF5A-480A-BC70-809A479C6669}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B28731A9-B453-480D-84A1-F91B3FDDA151}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

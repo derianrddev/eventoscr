@@ -68,12 +68,12 @@ function Login() {
 
     const iniciarSesion = async (event) => {
 
-        const url = 'https://localhost:7052/api/Login/IniciarSesion';
+        const url = 'https://localhost:7052/api/AspnetUser/StartSession';
         const origin = 'https://localhost:3000';
 
         const login = {
             username: form.username,
-            password: md5(form.password)
+            password: form.password
         }
 
         const myHeaders = {
@@ -91,13 +91,18 @@ function Login() {
     
             const response = await fetch(url, settings);
             const data = await response.json();
-            if (response.status !== 200)
-                throw Error(data.message);
-            if (data.result) {
-                cookies.set("username", data.user.username, { path: '/' });
-                cookies.set('password', data.user.password, { path: '/' });
+
+            if (!response.status == 200 || !response.status == 404) {
+                const message = `Un error ha ocurrido: ${response.status}`;
+                throw new Error(message);
+            }
+
+            if (response.status === 200) {
+                cookies.set("username", data.userName, { path: '/' });
                 navigate('/Home');
-            } else {
+            }
+                
+            if (response.status === 404) {
                 cambiarCredenciales(false);
             }
 
@@ -128,7 +133,7 @@ function Login() {
                             id="username"
                             className="login_box"
                             onChange = {onChange}
-                            onClick ={onClickUser}
+                            onClick = {onClickUser}
                             placeholder="bzpaycliente"
                             required
                             autoFocus />

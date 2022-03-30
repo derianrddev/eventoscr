@@ -1,0 +1,5 @@
+# Ignora la carpeta bin y obj
+bin/
+obj/
+Debug/
+Release/

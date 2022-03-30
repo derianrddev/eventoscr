@@ -22,7 +22,6 @@ function Home() {
 
     const cerrarSesion = () => {
         cookies.remove('username', { path: '/' });
-        cookies.remove('password', { path: '/' });
         navigate('/');
     }
 
