@@ -1,6 +1,5 @@
 ﻿using BZPAY_BE.DataAccess;
 using BZPAY_BE.Models;
-using OrderService.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace BZPAY_BE.Repositories.Interfaces
