@@ -1,8 +1,5 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-using BZPAY_BE.Repositories.Interfaces;
+﻿using BZPAY_BE.Repositories.Interfaces;
 using BZPAY_BE.Models;
-using BZPAY_BE.DataAccess;
 using BZPAY_UI.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 
