@@ -5,11 +5,12 @@ using BZPAY_BE.Common.Profiles;
 using BZPAY_BE.Models;
 using BZPAY_BE.Repositories.Implementations;
 using BZPAY_BE.Repositories.Interfaces;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("MembershipContext");
@@ -35,6 +36,12 @@ builder.Services.AddSingleton(mapper);
 // Add services to the container.
 builder.Services.AddControllers();
 
+//Add Localization Service
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            .AddDataAnnotationsLocalization();
+builder.Services.AddControllersWithViews();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddEndpointsApiExplorer();
@@ -48,7 +55,7 @@ builder.Services.AddCors(options =>
                                        .AllowAnyMethod()
                                        .WithOrigins("https://localhost:3000");
                             });                                                  
-                    }); 
+                    });
 
 var app = builder.Build();
 
@@ -66,5 +73,16 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var supportedCultures = new[] { "es", "en" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+localizationOptions.RequestCultureProviders.Clear();
+localizationOptions.RequestCultureProviders.Add(new QueryStringRequestCultureProvider() { QueryStringKey = "lang" });
+
+app.UseRequestLocalization(localizationOptions);
 
 app.Run();

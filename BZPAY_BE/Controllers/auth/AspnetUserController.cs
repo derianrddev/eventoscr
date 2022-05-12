@@ -18,17 +18,45 @@ namespace BZPAY_BE.Controllers
         public AspnetUserController(IAspnetUserService service) => _service = service;
 
         /// <summary>
-        /// IniciarSesionAsync
+        /// StartSessionAsync
         /// </summary>
-        /// <param>login"</param>
-        /// <returns>LoginResponse</returns>
+        /// <param>loginRequest</param>
+        /// <returns>AspnetUserDo</returns>
         [HttpPost]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
         public async Task<ActionResult<AspnetUserDo>> StartSessionAsync([FromBody] LoginRequest login)
         {
             AspnetUserDo result  = await _service.StartSessionAsync(login);
             return (result is null) ? NotFound() : Ok(result);  
+        }
+
+        /// <summary>
+        /// ForgotPasswordAsync
+        /// </summary>
+        /// <param>username</param>
+        /// <returns>AspnetUserDo</returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
+        public async Task<ActionResult<AspnetUserDo>> ForgotPasswordAsync([FromBody] string username)
+        {
+            AspnetUserDo result = await _service.ForgotPasswordAsync(username);
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
+        /// <summary>
+        /// UpdatePasswordAsync
+        /// </summary>
+        /// <param>UpdatePasswordRequest</param>
+        /// <returns>AspnetUserDo</returns>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(AspnetUserDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<AspnetUserDo>> UpdatePasswordAsync([FromBody] UpdatePasswordRequest data)
+        {
+            AspnetUserDo result = await _service.UpdatePasswordAsync(data);
+            return (result is null) ? NotFound() : Ok(result);
         }
 
     }

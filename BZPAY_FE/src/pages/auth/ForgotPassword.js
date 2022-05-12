@@ -6,9 +6,9 @@ import Cookies from 'universal-cookie';
 import '../../css/auth/Login.css';
 import { useTranslation } from 'react-i18next';
 import ReCAPTCHA from "react-google-recaptcha";
-import { Link } from 'react-router-dom';
+import Spinner from "react-spinkit";
 
-function Login() {
+function ForgotPassword() {
 
     const captcha = useRef(null);
     const cookies = new Cookies();
@@ -17,12 +17,12 @@ function Login() {
     const [captchaValido, cambiarCaptchaValido] = useState(null);
     const [usuarioValido, cambiarUsuarioValido] = useState(null);
     const [userValido, cambiarUserValido] = useState(null);
-    const [passwordValido, cambiarPasswordValido] = useState(null);
     const [credencialesValido, cambiarCredenciales] = useState(null);
+    const [disable, setDisable] = useState(false);
+    const [isLoading, setIsLoading] = useState(null);
 
     const [form, setForm] = useState({
-        username: '',
-        password: ''
+        username: ''
     });
 
     const onChange = (e) => {
@@ -44,16 +44,11 @@ function Login() {
         cambiarCredenciales(true);
     }
 
-    const onClickPassword = () => {
-        cambiarPasswordValido(true);
-        cambiarCredenciales(true);
-    }
-
     const handleClick = (event) => {
         event.preventDefault();
         var valid = true;
+        
         (form.username === '')? cambiarUserValido(valid = false) : cambiarUserValido(valid = true);
-        (form.password === '') ? cambiarPasswordValido(valid = false) : cambiarPasswordValido(valid = true);
         if (captcha.current.getValue()) {
             cambiarUsuarioValido(valid=true);
             cambiarCaptchaValido(valid=true);
@@ -63,19 +58,16 @@ function Login() {
             cambiarUsuarioValido(valid=false);
             cambiarCaptchaValido(valid=false);
         }
-        if (valid)
-            iniciarSesion();
+        if (valid) {
+            setDisable(true);
+            verifyUser();
+        }
     };
 
-    const iniciarSesion = async (event) => {
+    const verifyUser = async (event) => {
 
-        const url = 'https://localhost:7052/api/AspnetUser/StartSession';
+        const url = 'https://localhost:7052/api/AspnetUser/ForgotPassword';
         const origin = 'https://localhost:3000';
-
-        const login = {
-            username: form.username,
-            password: form.password
-        }
 
         const myHeaders = {
             'Content-Type': 'application/json',
@@ -85,8 +77,10 @@ function Login() {
         const settings = {
             method: 'post',
             headers: myHeaders,
-            body: JSON.stringify(login)
+            body: JSON.stringify(form.username)
         };
+
+        setIsLoading(true);
 
         try {
     
@@ -98,15 +92,12 @@ function Login() {
                 throw new Error(message);
             }
 
-            if (response.status === 200) {
-                cookies.set("username", data.userName, { path: '/' });
-                navigate('/Home');
+            if (response.status === 200 || response.status === 404) {
+                cambiarCredenciales(false);
+                setDisable(false);
+                setIsLoading(false);
             }
                 
-            if (response.status === 404) {
-                cambiarCredenciales(false);
-            }
-
         } catch (error) {
             throw Error(error);
         }
@@ -139,17 +130,6 @@ function Login() {
                             required
                             autoFocus />
                         {userValido === false && < div className="error_usuario">{t('error_user')}</div>}
-                        <p className="input_title">{ t('password') }</p>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            className="login_box"
-                            onChange={onChange}
-                            onClick={onClickPassword}
-                            placeholder="******"
-                            required />
-                        {passwordValido === false && < div className="error_password">{t('error_password')}</div>}
                         <div className="ReCAPTCHA">
                             <ReCAPTCHA
                                 ref={captcha}
@@ -160,10 +140,12 @@ function Login() {
                         </div>
                         <br />
                         {captchaValido === false && < div className="error_captcha">{t('error_captcha')}</div>}
-                        <button className="btn btn-lg btn-primary" type="submit" onClick={handleClick}> {t('login')} </button>
-                        {credencialesValido === false && < div className="invalid_credentials">{t('invalid_credentials')}</div>}
+                        <button className="btn btn-lg btn-primary" type="submit" onClick={handleClick} disabled={disable}> {t('accept')} </button>
                         <br />
-                        <center><Link to="/ForgotPassword">{t('forgot_password')}</Link></center>
+                        <div className='div-spinner'>
+                            {isLoading === true && <Spinner className="ball-pulse-sync" color="#332D61" />}
+                        </div>
+                        {credencialesValido === false && < div className="check_email">{t('check_email')}</div>}
                     </form>
                 </div>
             </div>
@@ -172,4 +154,4 @@ function Login() {
         )
 }
 
-export default Login;
+export default ForgotPassword;

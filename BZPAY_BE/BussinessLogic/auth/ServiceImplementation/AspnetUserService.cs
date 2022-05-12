@@ -2,10 +2,11 @@
 using BZPAY_BE.BussinessLogic.auth.ServiceInterface;
 using BZPAY_BE.DataAccess;
 using BZPAY_BE.Repositories.Interfaces;
-using System.Security.Cryptography;
-using System.Text;
-
-
+using BZPAY_BE.Helpers;
+using Microsoft.Extensions.Localization;
+using System.Globalization;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
 {
@@ -16,23 +17,25 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
     {
         private readonly IAspnetUserRepository _aspnetUserRepository;
         private readonly IMapper _mapper;
+        private readonly IStringLocalizer<SharedResource> _localizer;
         
         /// <summary>
         /// Constructor of AspnetUserService
         /// </summary>
         /// <param name="aspnetUserRepository"></param>
         /// <param name="mapper"></param>
-        public AspnetUserService(IAspnetUserRepository aspnetUserRepository, IMapper mapper)
+        public AspnetUserService(IAspnetUserRepository aspnetUserRepository, IMapper mapper, IStringLocalizer<SharedResource> localizer)
         {
             _aspnetUserRepository = aspnetUserRepository;
             _mapper = mapper;
+            _localizer = localizer;
         }
 
         public async Task<AspnetUserDo?> StartSessionAsync(LoginRequest login)
         {
             var user = await _aspnetUserRepository.GetUserByUserNameAsync(login.Username);
             if (user == null) return null;
-            var encrypt = EncodePassword(login.Password, 1, user.AspnetMembership.PasswordSalt);
+            var encrypt = SecurityHelper.EncodePassword(login.Password, 1, user.AspnetMembership.PasswordSalt);
             if (encrypt != user.AspnetMembership.Password)
                 return null;
             var userDo = _mapper.Map<AspnetUserDo>(user); 
@@ -40,26 +43,49 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             return userDo;
         }
 
-        private static string EncodePassword(string pass, int passwordFormat, string salt)
+        public async Task<AspnetUserDo?> ForgotPasswordAsync(string username)
         {
-            if (passwordFormat == 0)
-                return pass;
-            byte[] bytes = Encoding.Unicode.GetBytes(pass);
-            byte[] src = Convert.FromBase64String(salt);
-            byte[] dst = new byte[src.Length + bytes.Length];
-            byte[] inArray = null;
-            Buffer.BlockCopy(src, 0, dst, 0, src.Length);
-            Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
-            if (passwordFormat == 1)
-            {
-                HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
-                if ((algorithm == null))
-                {
-                    throw new Exception("Invalid HashAlgoritm");
-                }
-                inArray = algorithm.ComputeHash(dst);
-            }
-            return Convert.ToBase64String(inArray);
+            //set culture
+            var culture = Thread.CurrentThread.CurrentCulture.Name;
+            var lang = culture.Substring(0, 2);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+            //Process
+            var user = await _aspnetUserRepository.GetUserByUserNameAsync(username);
+            if (user == null) return null;
+            var userDo = _mapper.Map<AspnetUserDo>(user);
+            userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
+            var response = new ForgotPasswordResponse { UserId = userDo.UserId.ToString(), UserName = userDo.UserName, Hour = DateTime.Now };
+            var link = "https://localhost:3000/RecoverPassword?token=" + SecurityHelper.Encriptar(JsonSerializer.Serialize(response));
+            var subject = _localizer["Subject"];
+            var body = _localizer["Body1"] + "\r\n\n" + link + "\r\n\n" + _localizer["Body2"];
+            MailHelper.RecoverPasswordSendMail(userDo.Membership.Email, subject, body);
+            return userDo;
+        }
+
+        public async Task<AspnetUserDo?> UpdatePasswordAsync(UpdatePasswordRequest data)
+        {   
+            //set culture
+            var culture = Thread.CurrentThread.CurrentCulture.Name;
+            var lang = culture.Substring(0, 2);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+            //Process
+            Regex regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$");
+            var user = await _aspnetUserRepository.GetUserByUserNameAsync(data.Username);
+            if (user == null) return null;
+            var s = data.Password.Trim();
+            var password = ((s.Length % 4 == 0) && Regex.IsMatch(s, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None)) ? SecurityHelper.DesEncriptar(data.Password):data.Password;
+            Match match = regex.Match(password);
+            if (!match.Success) throw new Exception(_localizer["InvalidPassword"]);
+            var minutes = (Clock.Now - data.Hour).TotalMinutes;
+            if (minutes > 30) throw new Exception(_localizer["ExpiredLink"]);
+            user.AspnetMembership.Password = SecurityHelper.EncodePassword(password, 1, user.AspnetMembership.PasswordSalt);
+            user.AspnetMembership.LastPasswordChangedDate = Clock.Now;   
+            var result = await _aspnetUserRepository.UpdateAsync(user);
+            var userDo = _mapper.Map<AspnetUserDo>(result);
+            userDo.Membership = _mapper.Map<AspnetMembershipDo>(result.AspnetMembership);
+            return userDo;
         }
     }
 }

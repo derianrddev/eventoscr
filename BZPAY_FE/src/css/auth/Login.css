@@ -175,35 +175,42 @@ hr {
     margin-bottom:10px;
 }
 
-.error_usuario {
-    color: red;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.error_password {
-    color: red;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.error_captcha {
-    color: red;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
+.invalid_token,
+.expired_link,
+.error_usuario,
+.error_password,
+.error_captcha,
+.passwords_not_match,
+.password_not_valid,
 .invalid_credentials {
     color: red;
     margin-bottom: 20px;
     text-align: center;
 }
+
+.password_changed,
+.check_email {
+    color: green;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
 .error {
     color:red;
 }
 
-    .forgot-password:hover,
-    .forgot-password:active,
-    .forgot-password:focus {
-        color: rgb(12, 97, 33);
-    }
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus {
+    color: rgb(12, 97, 33);
+}
+
+.div-spinner {
+    text-align: center
+}
+
+.password-format {
+    text-align: center;
+    font-weight: bold;
+}
