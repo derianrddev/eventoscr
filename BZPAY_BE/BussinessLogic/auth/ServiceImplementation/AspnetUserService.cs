@@ -58,7 +58,6 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             var userDo = _mapper.Map<AspnetUserDo>(user);
             userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
             var response = new ForgotPasswordResponse { UserId = userDo.UserId.ToString(), UserName = userDo.UserName, Hour = DateTime.Now };
-            //var link = _config.GetValue<string>("Hosts:FrontEndURL") + "/RecoverPassword?token=" + SecurityHelper.Encriptar(JsonSerializer.Serialize(response));
             var link = _config["Hosts:FrontEndURL"] + "/RecoverPassword?token=" + SecurityHelper.Encriptar(JsonSerializer.Serialize(response));
             var subject = _localizer["Subject"];
             var body = _localizer["Body1"] + "\r\n\n" + link + "\r\n\n" + _localizer["Body2"];
