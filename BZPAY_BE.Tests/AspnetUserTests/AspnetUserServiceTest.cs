@@ -11,6 +11,7 @@ using BZPAY_BE.BussinessLogic.auth.ServiceInterface;
 using BZPAY_BE.BussinessLogic.auth.ServiceImplementation;
 using Microsoft.Extensions.Localization;
 using BZPAY_BE.Helpers.FakeMail;
+using Microsoft.Extensions.Configuration;
 
 namespace BZPAY_BE.UnitTests.AspnetUserTests
 {
@@ -25,6 +26,7 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
         private readonly Mock<IStringLocalizer<SharedResource>> _localizerMock;
         private readonly IAspnetUserService _service;
         private readonly Mock<IEmail> _emailMock;
+        private readonly Mock<IConfiguration> _configMock;
 
         #endregion
 
@@ -39,7 +41,8 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
             _emailMock = new Mock<IEmail>();
             _repositoryMock = new Mock<IAspnetUserRepository>();
             _localizerMock = new Mock<IStringLocalizer<SharedResource>>();
-            _service = new AspnetUserService(_repositoryMock.Object, _mapper, _localizerMock.Object);
+            _configMock = new Mock<IConfiguration>();
+            _service = new AspnetUserService(_repositoryMock.Object, _mapper, _localizerMock.Object, _configMock.Object);
 
         }
 
@@ -82,6 +85,7 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
             subject.DoSomethingThatCausesAnEmailToGetSent();
             var fakeLocalizedString = new LocalizedString("Body1", "This is a testing Localized String");
             var fakeRequest = "PLK_TEST1";
+            var fakeFrontUrl = "https://localhost:3000";
 
             _repositoryMock.Setup(repository => repository
                                             .GetUserByUserNameAsync(It.IsAny<string>()))
@@ -94,6 +98,8 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
 
             _emailMock.Setup(x => x.Send(It.IsAny<Message>()))
                       .Verifiable();
+
+            _configMock.SetupGet(x => x[It.Is<string>(s => s == "Hosts:FrontEndURL")]).Returns(fakeFrontUrl);
 
             // Act
             AspnetUserDo? result = await _service.ForgotPasswordAsync(fakeRequest);

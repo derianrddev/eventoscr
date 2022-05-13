@@ -18,17 +18,19 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
         private readonly IAspnetUserRepository _aspnetUserRepository;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IConfiguration _config;
         
         /// <summary>
         /// Constructor of AspnetUserService
         /// </summary>
         /// <param name="aspnetUserRepository"></param>
         /// <param name="mapper"></param>
-        public AspnetUserService(IAspnetUserRepository aspnetUserRepository, IMapper mapper, IStringLocalizer<SharedResource> localizer)
+        public AspnetUserService(IAspnetUserRepository aspnetUserRepository, IMapper mapper, IStringLocalizer<SharedResource> localizer,IConfiguration config)
         {
             _aspnetUserRepository = aspnetUserRepository;
             _mapper = mapper;
             _localizer = localizer;
+            _config = config;   
         }
 
         public async Task<AspnetUserDo?> StartSessionAsync(LoginRequest login)
@@ -56,7 +58,8 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             var userDo = _mapper.Map<AspnetUserDo>(user);
             userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
             var response = new ForgotPasswordResponse { UserId = userDo.UserId.ToString(), UserName = userDo.UserName, Hour = DateTime.Now };
-            var link = "https://localhost:3000/RecoverPassword?token=" + SecurityHelper.Encriptar(JsonSerializer.Serialize(response));
+            //var link = _config.GetValue<string>("Hosts:FrontEndURL") + "/RecoverPassword?token=" + SecurityHelper.Encriptar(JsonSerializer.Serialize(response));
+            var link = _config["Hosts:FrontEndURL"] + "/RecoverPassword?token=" + SecurityHelper.Encriptar(JsonSerializer.Serialize(response));
             var subject = _localizer["Subject"];
             var body = _localizer["Body1"] + "\r\n\n" + link + "\r\n\n" + _localizer["Body2"];
             MailHelper.RecoverPasswordSendMail(userDo.Membership.Email, subject, body);
