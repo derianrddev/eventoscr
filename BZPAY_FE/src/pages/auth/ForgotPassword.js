@@ -129,7 +129,7 @@ function ForgotPassword() {
                             placeholder = {t('bzpayclient')}
                             required
                             autoFocus />
-                        {userValido === false && < div className="error_usuario">{t('error_user')}</div>}
+                        {userValido === false && < div className="user_error">{t('user_error')}</div>}
                         <div className="ReCAPTCHA">
                             <ReCAPTCHA
                                 ref={captcha}

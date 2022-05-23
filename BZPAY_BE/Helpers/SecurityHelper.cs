@@ -5,20 +5,20 @@ namespace BZPAY_BE.Helpers
 {
     public static class SecurityHelper
     {
-        /// Encripta una cadena.
-        public static string Encriptar(string _cadenaAencriptar)
+        /// Encript a string.
+        public static string Encript(string _cadenaAEncript)
         {
             string result = string.Empty;
-            byte[] encryted = Encoding.UTF8.GetBytes(_cadenaAencriptar);
+            byte[] encryted = Encoding.UTF8.GetBytes(_cadenaAEncript);
             result = Convert.ToBase64String(encryted);
             return result;
         }
 
-        /// desencripta una cadena.
-        public static string DesEncriptar(string _cadenaAdesencriptar)
+        /// unencript a string.
+        public static string DesEncript(string _cadenaAdesEncript)
         {
             string result = string.Empty;
-            byte[] decryted = Convert.FromBase64String(_cadenaAdesencriptar);
+            byte[] decryted = Convert.FromBase64String(_cadenaAdesEncript);
             result = Encoding.UTF8.GetString(decryted);
             return result;
         }

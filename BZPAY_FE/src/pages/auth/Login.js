@@ -138,7 +138,7 @@ function Login() {
                             placeholder = {t('bzpayclient')}
                             required
                             autoFocus />
-                        {userValido === false && < div className="error_usuario">{t('error_user')}</div>}
+                        {userValido === false && < div className="user_error">{t('user_error')}</div>}
                         <p className="input_title">{ t('password') }</p>
                         <input
                             type="password"

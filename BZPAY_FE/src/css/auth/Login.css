@@ -164,11 +164,11 @@ hr {
     transition: all 0.218s;
 }
 
-    .btn.btn-signin:hover,
-    .btn.btn-signin:active,
-    .btn.btn-signin:focus {
-        /*background-color: rgb(12, 97, 33);*/
-    }
+.btn.btn-signin:hover,
+.btn.btn-signin:active,
+.btn.btn-signin:focus {
+    /*background-color: rgb(12, 97, 33);*/
+}
 
 .forgot-password {
     color: rgb(104, 145, 162);
@@ -177,7 +177,7 @@ hr {
 
 .invalid_token,
 .expired_link,
-.error_usuario,
+.user_error,
 .error_password,
 .error_captcha,
 .passwords_not_match,
