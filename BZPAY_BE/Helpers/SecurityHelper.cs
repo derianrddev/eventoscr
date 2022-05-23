@@ -15,10 +15,10 @@ namespace BZPAY_BE.Helpers
         }
 
         /// unencript a string.
-        public static string DesEncript(string _cadenaAdesEncript)
+        public static string Decript(string _cadenaADecript)
         {
             string result = string.Empty;
-            byte[] decryted = Convert.FromBase64String(_cadenaAdesEncript);
+            byte[] decryted = Convert.FromBase64String(_cadenaADecript);
             result = Encoding.UTF8.GetString(decryted);
             return result;
         }

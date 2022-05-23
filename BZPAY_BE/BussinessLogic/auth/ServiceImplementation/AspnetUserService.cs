@@ -77,7 +77,7 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             var user = await _aspnetUserRepository.GetUserByUserNameAsync(data.Username);
             if (user == null) return null;
             var s = data.Password.Trim();
-            var password = ((s.Length % 4 == 0) && Regex.IsMatch(s, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None)) ? SecurityHelper.DesEncript(data.Password):data.Password;
+            var password = ((s.Length % 4 == 0) && Regex.IsMatch(s, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None)) ? SecurityHelper.Decript(data.Password):data.Password;
             Match match = regex.Match(password);
             if (!match.Success) throw new Exception(_localizer["InvalidPassword"]);
             var minutes = (Clock.Now - data.Hour).TotalMinutes;
