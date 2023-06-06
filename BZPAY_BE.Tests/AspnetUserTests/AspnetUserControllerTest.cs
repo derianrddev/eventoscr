@@ -17,7 +17,7 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
     {
         #region Fields
         private readonly Mock<IAspnetUserService> _serviceMock;
-        private readonly AspnetUserController _controller;
+        private readonly EventosController _controller;
         #endregion
 
         #region Constructor

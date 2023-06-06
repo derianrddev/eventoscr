@@ -1,6 +1,6 @@
 ﻿using BZPAY_BE.Repositories.Interfaces;
 using BZPAY_BE.Models;
-using BZPAY_UI.Repositories.Implementations;
+using BZPAY_BE.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BZPAY_BE.Repositories.Implementations
@@ -8,21 +8,23 @@ namespace BZPAY_BE.Repositories.Implementations
     /// <summary>
     /// Repository for AspnetMembership
     /// </summary>
-    public class AspnetUserRepository : GenericRepository<AspnetUser>, IAspnetUserRepository
+    public class AspnetUserRepository : GenericRepository<User>, IAspnetUserRepository
     {
         /// <summary>
         /// Constructor of AspnetUserRepository
         /// </summary>
         /// <param name="membershipContext"></param>
-        public AspnetUserRepository(MembershipContext membershipContext) : base(membershipContext)
+        public AspnetUserRepository(SpecialticketContext specialticketContext) : base(specialticketContext)
         {
         }       
 
-        public async Task<AspnetUser?> GetUserByUserNameAsync(string username)
+        public async Task<User?> GetUserByUserNameAsync(string username)
         {
-            AspnetUser user = await _context.AspnetUsers
-                .Include(x => x.AspnetMembership)
+            User user = await _context.Users
+                //.Include(x => x.AspnetMembership)
                 .SingleOrDefaultAsync(x => x.UserName == username);
+
+            //User user = await _context.User.Where(u => u.UserName == username).SingleOrDefaultAsync();
             return user;
         }
     }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 namespace BZPAY_BE.BussinessLogic.auth.ServiceInterface
 {
     /// <summary>
-    /// Service Interface for AspnetUser. 
+    /// Service Interface for Users. 
     /// </summary>
     
     public interface IAspnetUserService
     {
-        Task<AspnetUserDo?> StartSessionAsync(LoginRequest login);
-        Task<AspnetUserDo?> ForgotPasswordAsync(string username);
-        Task<AspnetUserDo?> UpdatePasswordAsync(UpdatePasswordRequest data);
+        Task<User?> StartSessionAsync(LoginRequest login);
+        //Task<User?> ForgotPasswordAsync(string username);
+        //Task<User?> UpdatePasswordAsync(UpdatePasswordRequest data);
     }
 }

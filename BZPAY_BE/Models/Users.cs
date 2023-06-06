@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BZPAY_BE.Models
 {
-    public partial class AspnetUser
+    public partial class Users
     {
         public Guid ApplicationId { get; set; }
         public Guid UserId { get; set; }

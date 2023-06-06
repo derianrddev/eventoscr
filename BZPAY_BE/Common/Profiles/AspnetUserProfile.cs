@@ -15,14 +15,14 @@ namespace BZPAY_BE.Common.Profiles
 		/// </summary>
 		public AspnetUserProfile()
 		{
-            AspnetUserMapper(CreateMap<AspnetUser, AspnetUserDo>());
+            AspnetUserMapper(CreateMap<Users, AspnetUserDo>());
 		}
 
         /// <summary>
-        /// Mapped AspnetUser to AspnetUserDo
+        /// Mapped Users to AspnetUserDo
         /// </summary>
         /// <param name="mappingExpression"></param>
-        private void AspnetUserMapper(IMappingExpression<AspnetUser, AspnetUserDo> mappingExpression)
+        private void AspnetUserMapper(IMappingExpression<Users, AspnetUserDo> mappingExpression)
         {
             mappingExpression.ForMember(dest => dest.ApplicationId, act => act.MapFrom(src => src.ApplicationId))
                              .ForMember(dest => dest.UserId, act => act.MapFrom(src => src.UserId))

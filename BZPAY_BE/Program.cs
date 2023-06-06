@@ -9,18 +9,38 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using BZPAY_BE.BussinessLogic.Implementations;
+using BZPAY_BE.BussinessLogic.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("MembershipContext");
-builder.Services.AddDbContext<MembershipContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<SpecialticketContext>(options =>
+{
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 // Add services
 builder.Services.AddScoped<IAspnetUserService, AspnetUserService>();
+//builder.Services.AddScoped<IEscenarioService, EscenarioService>();
+//builder.Services.AddScoped<ITipoEscenarioService, TipoEscenarioService>();
+//builder.Services.AddScoped<IAsientoService, AsientoService>();
+builder.Services.AddScoped<IEventoService, EventoService>();
+//builder.Services.AddScoped<ITipoEventoService, TipoEventoService>();
+//builder.Services.AddScoped<IEntradaService, EntradaService>();
+//builder.Services.AddScoped<ICompraService, CompraService>();
 
 // Add repositories
 builder.Services.AddScoped<IAspnetUserRepository, AspnetUserRepository>();
+//builder.Services.AddScoped<IEscenarioRepository, EscenarioRepository>();
+//builder.Services.AddScoped<ITipoEscenarioRepository, TipoEscenarioRepository>();
+//builder.Services.AddScoped<IAsientoRepository, AsientoRepository>();
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+//builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
+//builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
+//builder.Services.AddScoped<ICompraRepository, CompraRepository>();
+
 
 // Auto Mapper Configurations
 var mappingConfig = new MapperConfiguration(mc =>

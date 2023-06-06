@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BZPAY_BE.Repositories.Interfaces
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T:class
     {
         /// <summary>
         /// This method is to get a single record using ID.

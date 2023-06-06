@@ -8,7 +8,7 @@ namespace BZPAY_BE.Models
         public AspnetApplication()
         {
             AspnetMemberships = new HashSet<AspnetMembership>();
-            AspnetUsers = new HashSet<AspnetUser>();
+            Users = new HashSet<Users>();
         }
 
         public string ApplicationName { get; set; } = null!;
@@ -17,6 +17,6 @@ namespace BZPAY_BE.Models
         public string? Description { get; set; }
 
         public virtual ICollection<AspnetMembership> AspnetMemberships { get; set; }
-        public virtual ICollection<AspnetUser> AspnetUsers { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
     }
 }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 namespace BZPAY_BE.Repositories.Interfaces
 {
     /// <summary>
-    /// Repository interface for AspnetUser
+    /// Repository interface for Users
     /// </summary>
-    public interface IAspnetUserRepository : IGenericRepository<AspnetUser>
+    public interface IAspnetUserRepository : IGenericRepository<User>
     {
-        Task<AspnetUser?> GetUserByUserNameAsync(string username);
+        Task<User?> GetUserByUserNameAsync(string username);
     }
 
 }

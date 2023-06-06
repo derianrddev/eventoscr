@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using BZPAY_BE.Models;
 using BZPAY_BE.Repositories.Interfaces;
+using BZPAY_BE.Models;
 
-namespace BZPAY_UI.Repositories.Implementations
+namespace BZPAY_BE.Repositories.Implementations
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly MembershipContext _context;
+        protected readonly SpecialticketContext _context;
 
         /// <summary>
         /// Contructor of GenericRepository
         /// </summary>
-        public GenericRepository(MembershipContext context)
+        public GenericRepository(SpecialticketContext context)
         {
             _context = context;
         }
