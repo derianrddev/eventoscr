@@ -16,14 +16,14 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
     public class AspnetUserControllerTest
     {
         #region Fields
-        private readonly Mock<IAspnetUserService> _serviceMock;
+        private readonly Mock<IUserService> _serviceMock;
         private readonly EventosController _controller;
         #endregion
 
         #region Constructor
         public AspnetUserControllerTest()
         {
-            _serviceMock = new Mock<IAspnetUserService>();
+            _serviceMock = new Mock<IUserService>();
             _controller = new AspnetUserController(_serviceMock.Object);
         }
         #endregion

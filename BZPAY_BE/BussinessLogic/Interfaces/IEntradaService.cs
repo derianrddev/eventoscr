@@ -4,6 +4,7 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Services.Interfaces
 {
@@ -13,15 +14,15 @@ namespace BZPAY_BE.Services.Interfaces
     
     public interface IEntradaService
     {
-        Task<IEnumerable<Entrada>> GetAllEntradasAsync();
+        //Task<IEnumerable<Entrada>> GetAllEntradasAsync();
 
-        Task<Entrada> GetEntradaByIdAsync(int? id);
+        //Task<Entrada> GetEntradaByIdAsync(int? id);
 
-        Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
+        //Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
 
-        Task<Entrada> CreateEntradaAsync(Entrada entrada);
+        Task<EntradaDo?> CreateEntradaAsync(Entrada entrada);
 
-        Task<Entrada> UpdateEntradaAsync(Entrada entrada);
+        Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada);
 
         Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id);
 

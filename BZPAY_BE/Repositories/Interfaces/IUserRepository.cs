@@ -7,7 +7,7 @@ namespace BZPAY_BE.Repositories.Interfaces
     /// <summary>
     /// Repository interface for Users
     /// </summary>
-    public interface IAspnetUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<User>
     {
         Task<User?> GetUserByUserNameAsync(string username);
     }

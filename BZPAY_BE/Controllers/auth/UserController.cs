@@ -12,11 +12,11 @@ namespace BZPAY_BE.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class EventosController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IAspnetUserService _service;
+        private readonly IUserService _service;
 
-        public EventosController(IAspnetUserService service) => _service = service;
+        public UserController(IUserService service) => _service = service;
 
         /// <summary>
         /// StartSessionAsync
@@ -25,10 +25,10 @@ namespace BZPAY_BE.Controllers
         /// <returns>AspnetUserDo</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
-        public async Task<ActionResult<AspnetUserDo>> StartSessionAsync([FromBody] LoginRequest login)
+        [ProducesResponseType(typeof(UserDo),StatusCodes.Status200OK)]
+        public async Task<ActionResult<UserDo>> StartSessionAsync([FromBody] LoginRequest login)
         {
-            User result  = await _service.StartSessionAsync(login);
+            UserDo result  = await _service.StartSessionAsync(login);
             return (result is null) ? NotFound() : Ok(result);  
         }
 

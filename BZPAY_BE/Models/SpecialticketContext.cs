@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BZPAY_BE.Models;
 
-public partial class SpecialticketContext : DbContext
+public partial class SpecialticketContext : IdentityDbContext
 {
     public SpecialticketContext()
     {

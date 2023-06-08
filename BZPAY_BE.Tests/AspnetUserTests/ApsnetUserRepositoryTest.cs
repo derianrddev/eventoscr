@@ -13,7 +13,7 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
         #region Fields
         private readonly DbContextOptions<MembershipContext> _dbOptions;
         private readonly MembershipContext _context;
-        private readonly AspnetUserRepository _repository;
+        private readonly UserRepository _repository;
         #endregion
 
         #region Contructor

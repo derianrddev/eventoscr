@@ -8,13 +8,13 @@ namespace BZPAY_BE.Repositories.Implementations
     /// <summary>
     /// Repository for AspnetMembership
     /// </summary>
-    public class AspnetUserRepository : GenericRepository<User>, IAspnetUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
         /// <summary>
         /// Constructor of AspnetUserRepository
         /// </summary>
         /// <param name="membershipContext"></param>
-        public AspnetUserRepository(SpecialticketContext specialticketContext) : base(specialticketContext)
+        public UserRepository(SpecialticketContext specialticketContext) : base(specialticketContext)
         {
         }       
 

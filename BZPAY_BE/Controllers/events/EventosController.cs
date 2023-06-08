@@ -24,51 +24,59 @@ namespace BZPAY_BE.Controllers.Events
         /// </summary>
         /// <param>loginRequest</param>
         /// <returns>AspnetUserDo</returns>
+    
+        //[HttpPost]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(UserDo),StatusCodes.Status200OK)]
+        //public async Task<ActionResult<EventoDo>> GetAllEventosAsync()
+        //{
+        //    EventoDo result  = (EventoDo)await _service.GetAllEventosAsync();
+        //    return (result is null) ? NotFound() : Ok(result);  
+        //}
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Evento>>> GetAllEventosAsync()
+        [ProducesResponseType(typeof(List<EventoDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<EventoDo>>> GetAllEventosAsync()
         {
-            IEnumerable<Evento> result  = await _service.GetAllEventosAsync();
-            return (result is null) ? NotFound() : Ok(result);  
+            var eventos = await _service.GetAllEventosAsync();
+            if (eventos == null)
+            {
+                return NotFound();
+            }
+            return Ok(eventos);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(AspnetUserDo), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Evento>> GetEventoByIdAsync([FromBody] int id)
+        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<EventoDo>> GetEventoByIdAsync([FromBody] int id)
         {
-            Evento result = await _service.GetEventoByIdAsync(id);
+            EventoDo result = await _service.GetEventoByIdAsync(id);
             return (result is null) ? NotFound() : Ok(result);
         }
 
-        /// <summary>
-        /// ForgotPasswordAsync
-        /// </summary>
-        /// <param>username</param>
-        /// <returns>AspnetUserDo</returns>
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(AspnetUserDo),StatusCodes.Status200OK)]
-        //public async Task<ActionResult<AspnetUserDo>> ForgotPasswordAsync([FromBody] string username)
-        //{
-        //    AspnetUserDo result = await _service.ForgotPasswordAsync(username);
-        //    return (result is null) ? NotFound() : Ok(result);
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<EventoDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<DetalleEventoDo>>> GetAllDetalleEventosAsync()
+        {
+            var detalleEventos = await _service.GetAllDetalleEventosAsync();
+            if (detalleEventos == null)
+            {
+                return NotFound();
+            }
+            return Ok(detalleEventos);
+        }
 
-        /// <summary>
-        /// UpdatePasswordAsync
-        /// </summary>
-        /// <param>UpdatePasswordRequest</param>
-        /// <returns>AspnetUserDo</returns>
-        //[HttpPut]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(typeof(AspnetUserDo), StatusCodes.Status200OK)]
-        //public async Task<ActionResult<AspnetUserDo>> UpdatePasswordAsync([FromBody] UpdatePasswordRequest data)
-        //{
-        //    AspnetUserDo result = await _service.UpdatePasswordAsync(data);
-        //    return (result is null) ? NotFound() : Ok(result);
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<DetalleEventoDo>> GetDetalleEventosByIdAsync([FromBody] int id)
+        {
+            DetalleEventoDo result = await _service.GetDetalleEventosByIdAsync(id);
+            return (result is null) ? NotFound() : Ok(result);
+        }
 
     }
 }

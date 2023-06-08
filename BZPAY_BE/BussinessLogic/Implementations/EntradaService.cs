@@ -9,6 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BZPAY_BE.DataAccess;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace BZPAY_BE.Services.Implementations
 {
@@ -18,7 +21,9 @@ namespace BZPAY_BE.Services.Implementations
     public class EntradaService : IEntradaService
     {
         private readonly IEntradaRepository _entradaRepository;
+        private readonly IMapper _mapper;
         private readonly IConfiguration _config;
+        private readonly UserManager<Proyecto1specialticketuser> _userManager;
 
         public EntradaService()
         {
@@ -28,43 +33,50 @@ namespace BZPAY_BE.Services.Implementations
         /// Constructor of EntradaService
         /// </summary>
         /// <param name="entradaRepository"></param>
-        public EntradaService(IEntradaRepository entradaRepository, IConfiguration config)
+        public EntradaService(IEntradaRepository entradaRepository, IMapper mapper, IConfiguration config, UserManager<Proyecto1specialticketuser> userManager)
         {
             _entradaRepository = entradaRepository;
-            _config = config;   
+            _mapper = mapper;
+            _config = config;
+            _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Entrada>> GetAllEntradasAsync()
-        {
-            var lista = await _entradaRepository.GetAllEntradasAsync();
-            return lista;
-        }
+        //public async Task<IEnumerable<Entrada>> GetAllEntradasAsync()
+        //{
+        //    var lista = await _entradaRepository.GetAllEntradasAsync();
+        //    return lista;
+        //}
 
-        public async Task<Entrada> GetEntradaByIdAsync(int? id)
-        {
-             var lista = await _entradaRepository.GetEntradaByIdAsync(id);
-             return lista;
-        }
+        //public async Task<Entrada> GetEntradaByIdAsync(int? id)
+        //{
+        //     var lista = await _entradaRepository.GetEntradaByIdAsync(id);
+        //     return lista;
+        //}
 
-        public async Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento)
-        {
-            var lista = await _entradaRepository.GetEntradaByEventoAndAsientoAsync(idAsiento, idEvento);
-            return lista;
-        }
+        //public async Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento)
+        //{
+        //    var lista = await _entradaRepository.GetEntradaByEventoAndAsientoAsync(idAsiento, idEvento);
+        //    return lista;
+        //}
 
-        public async Task<Entrada> CreateEntradaAsync(Entrada entrada)
+        public async Task<EntradaDo?> CreateEntradaAsync(Entrada entrada)
         {
             entrada.Active = true;
+            //var userId = _userManager.GetUserId(User);
+            //entrada.CreatedBy = userId;
+            //entrada.UpdatedBy = userId;
             var lista = await _entradaRepository.AddAsync(entrada);
-            return lista;
+            var entradaDo = _mapper.Map<EntradaDo?>(lista);
+            return entradaDo;
         }
 
-        public async Task<Entrada> UpdateEntradaAsync(Entrada entrada)
+        public async Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada)
         {
             DateTime currentDateTime = DateTime.Now;
             entrada.UpdatedAt = currentDateTime;
             var lista = await _entradaRepository.UpdateAsync(entrada);
-            return lista;
+            var entradaDo = _mapper.Map<EntradaDo?>(lista);
+            return entradaDo;
         }
 
         public async Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id)

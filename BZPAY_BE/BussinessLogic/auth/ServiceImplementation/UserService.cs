@@ -14,9 +14,9 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
     /// <summary>
     /// Service for Aspnet Users
     /// </summary>
-    public class AspnetUserService : IAspnetUserService
+    public class UserService : IUserService
     {
-        private readonly IAspnetUserRepository _aspnetUserRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<SharedResource> _localizer;
         private readonly IConfiguration _config;
@@ -26,22 +26,22 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
         /// </summary>
         /// <param name="aspnetUserRepository"></param>
         /// <param name="mapper"></param>
-        public AspnetUserService(IAspnetUserRepository aspnetUserRepository, IMapper mapper, IStringLocalizer<SharedResource> localizer,IConfiguration config)
+        public UserService(IUserRepository UserRepository, IMapper mapper, IStringLocalizer<SharedResource> localizer,IConfiguration config)
         {
-            _aspnetUserRepository = aspnetUserRepository;
+            _userRepository = UserRepository;
             _mapper = mapper;
             _localizer = localizer;
             _config = config;   
         }
 
-        public async Task<User?> StartSessionAsync(LoginRequest login)
+        public async Task<UserDo?> StartSessionAsync(LoginRequest login)
         {
-            var user = await _aspnetUserRepository.GetUserByUserNameAsync(login.Username);
+            var user = await _userRepository.GetUserByUserNameAsync(login.Username);
             if (user == null) return null;
             //var encrypt = SecurityHelper.EncodePassword(login.Password, 1, user.AspnetMembership.PasswordSalt);
             //if (encrypt != user.AspnetMembership.Password)
             //    return null;
-            var userDo = _mapper.Map<User>(user);
+            var userDo = _mapper.Map<UserDo>(user);
             //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
             return userDo;
         }

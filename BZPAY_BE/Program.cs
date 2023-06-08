@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using BZPAY_BE.BussinessLogic.Implementations;
 using BZPAY_BE.BussinessLogic.Interfaces;
+using BZPAY_BE.Services.Interfaces;
+using BZPAY_BE.Services.Implementations;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,31 +25,34 @@ builder.Services.AddDbContext<SpecialticketContext>(options =>
 });
 
 // Add services
-builder.Services.AddScoped<IAspnetUserService, AspnetUserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<IEscenarioService, EscenarioService>();
 //builder.Services.AddScoped<ITipoEscenarioService, TipoEscenarioService>();
 //builder.Services.AddScoped<IAsientoService, AsientoService>();
 builder.Services.AddScoped<IEventoService, EventoService>();
 //builder.Services.AddScoped<ITipoEventoService, TipoEventoService>();
-//builder.Services.AddScoped<IEntradaService, EntradaService>();
+builder.Services.AddScoped<IEntradaService, EntradaService>();
 //builder.Services.AddScoped<ICompraService, CompraService>();
 
 // Add repositories
-builder.Services.AddScoped<IAspnetUserRepository, AspnetUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 //builder.Services.AddScoped<IEscenarioRepository, EscenarioRepository>();
 //builder.Services.AddScoped<ITipoEscenarioRepository, TipoEscenarioRepository>();
 //builder.Services.AddScoped<IAsientoRepository, AsientoRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 //builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
-//builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
+builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
 //builder.Services.AddScoped<ICompraRepository, CompraRepository>();
 
 
 // Auto Mapper Configurations
 var mappingConfig = new MapperConfiguration(mc =>
 {
-    mc.AddProfile(new AspnetUserProfile());
+    mc.AddProfile(new UserProfile());
     mc.AddProfile(new AspnetMembershipProfile());
+    mc.AddProfile(new EventoProfile());
+    mc.AddProfile(new DetallesEventosProfile());
+    mc.AddProfile(new EntradaProfile());
 });
 
 IMapper mapper = mappingConfig.CreateMapper();
@@ -76,6 +82,17 @@ builder.Services.AddCors(options =>
                                        .WithOrigins("https://localhost:3000");
                             });                                                  
                     });
+
+builder.Services.AddIdentity<Proyecto1specialticketuser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+})
+    .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<SpecialticketContext>();
+
+
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 

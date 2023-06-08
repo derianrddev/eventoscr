@@ -21,10 +21,10 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
     public class AspnetUserServiceTest
     {
         #region Fields
-        private readonly Mock<IAspnetUserRepository> _repositoryMock;
+        private readonly Mock<IUserRepository> _repositoryMock;
         private readonly IMapper _mapper;
         private readonly Mock<IStringLocalizer<SharedResource>> _localizerMock;
-        private readonly IAspnetUserService _service;
+        private readonly IUserService _service;
         private readonly Mock<IEmail> _emailMock;
         private readonly Mock<IConfiguration> _configMock;
 
@@ -39,10 +39,10 @@ namespace BZPAY_BE.UnitTests.AspnetUserTests
                                                                 }
                                                         ));
             _emailMock = new Mock<IEmail>();
-            _repositoryMock = new Mock<IAspnetUserRepository>();
+            _repositoryMock = new Mock<IUserRepository>();
             _localizerMock = new Mock<IStringLocalizer<SharedResource>>();
             _configMock = new Mock<IConfiguration>();
-            _service = new AspnetUserService(_repositoryMock.Object, _mapper, _localizerMock.Object, _configMock.Object);
+            _service = new UserService(_repositoryMock.Object, _mapper, _localizerMock.Object, _configMock.Object);
 
         }
 

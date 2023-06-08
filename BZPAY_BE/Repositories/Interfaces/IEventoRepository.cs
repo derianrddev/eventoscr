@@ -13,7 +13,7 @@ namespace BZPAY_BE.Repositories.Interfaces
     {
         Task<IEnumerable<Evento>> GetAllEventosAsync();
         Task<Evento> GetEventoByIdAsync(int? id);
-        Task<IEnumerable<DetalleEvento>> GetDetalleEventosAsync();
+        Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync();
         Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id);
         Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id);
     }

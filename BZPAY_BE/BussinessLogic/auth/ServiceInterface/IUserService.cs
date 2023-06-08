@@ -9,9 +9,9 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceInterface
     /// Service Interface for Users. 
     /// </summary>
     
-    public interface IAspnetUserService
+    public interface IUserService
     {
-        Task<User?> StartSessionAsync(LoginRequest login);
+        Task<UserDo?> StartSessionAsync(LoginRequest login);
         //Task<User?> ForgotPasswordAsync(string username);
         //Task<User?> UpdatePasswordAsync(UpdatePasswordRequest data);
     }

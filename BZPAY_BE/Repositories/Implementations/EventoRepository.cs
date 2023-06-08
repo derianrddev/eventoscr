@@ -41,7 +41,7 @@ namespace BZPAY_BE.Repositories.Implementations
             return eventos;
         }
 
-        public async Task<IEnumerable<DetalleEvento>> GetDetalleEventosAsync()
+        public async Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync()
         {
             var now = DateTime.Now;
             var listaEventos = await (from ev in _context.Eventos
