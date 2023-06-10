@@ -36,14 +36,14 @@ namespace BZPAY_BE.Controllers.Events
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(List<EntradaDo>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<EntradaDo>>> CreateEntradaAsync(Entrada entrada, string userId)
+        [ProducesResponseType(typeof(EntradaDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<EntradaDo>> CreateEntradaAsync(int disponibles, string tipoAsiento, decimal precio, int idEvento, string userId)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var entradaDo = await _service.CreateEntradaAsync(entrada, userId);
+                    var entradaDo = await _service.CreateEntradaAsync(disponibles, tipoAsiento, precio, idEvento, userId);
                     //return RedirectToAction(nameof(Index));
                     return Ok(entradaDo);
                 }
@@ -59,8 +59,21 @@ namespace BZPAY_BE.Controllers.Events
                     }
                 }
             }
-            return Ok(entrada);
 
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<DetalleEntradaDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<DetalleEntradaDo>>> GetAllDetalleEventosAsync(int idEvento)
+        {
+            var detalleEntradas = await _service.GetDetalleEntradasAsync(idEvento);
+            if (detalleEntradas == null)
+            {
+                return NotFound();
+            }
+            return Ok(detalleEntradas);
         }
 
     }

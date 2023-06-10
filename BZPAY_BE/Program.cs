@@ -53,6 +53,7 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new EventoProfile());
     mc.AddProfile(new DetallesEventosProfile());
     mc.AddProfile(new EntradaProfile());
+    mc.AddProfile(new DetallesEntradasProfile());
 });
 
 IMapper mapper = mappingConfig.CreateMapper();
