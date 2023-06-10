@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BZPAY_BE.Models;
 
-public partial class Proyecto1specialticketuser : IdentityUser
+public partial class Proyecto1specialticketuser
 {
     public string Id { get; set; } = null!;
 

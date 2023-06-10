@@ -14,13 +14,13 @@ namespace BZPAY_BE.Services.Interfaces
     
     public interface IEntradaService
     {
-        //Task<IEnumerable<Entrada>> GetAllEntradasAsync();
+        Task<IEnumerable<EntradaDo?>> GetAllEntradasAsync();
 
         //Task<Entrada> GetEntradaByIdAsync(int? id);
 
         //Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
 
-        Task<EntradaDo?> CreateEntradaAsync(Entrada entrada);
+        Task<EntradaDo?> CreateEntradaAsync(Entrada entrada, string userId);
 
         Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada);
 

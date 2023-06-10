@@ -23,7 +23,6 @@ namespace BZPAY_BE.Services.Implementations
         private readonly IEntradaRepository _entradaRepository;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        private readonly UserManager<Proyecto1specialticketuser> _userManager;
 
         public EntradaService()
         {
@@ -33,19 +32,21 @@ namespace BZPAY_BE.Services.Implementations
         /// Constructor of EntradaService
         /// </summary>
         /// <param name="entradaRepository"></param>
-        public EntradaService(IEntradaRepository entradaRepository, IMapper mapper, IConfiguration config, UserManager<Proyecto1specialticketuser> userManager)
+        public EntradaService(IEntradaRepository entradaRepository, IMapper mapper, IConfiguration config)
         {
             _entradaRepository = entradaRepository;
             _mapper = mapper;
             _config = config;
-            _userManager = userManager;
+
         }
 
-        //public async Task<IEnumerable<Entrada>> GetAllEntradasAsync()
-        //{
-        //    var lista = await _entradaRepository.GetAllEntradasAsync();
-        //    return lista;
-        //}
+        public async Task<IEnumerable<EntradaDo?>> GetAllEntradasAsync()
+        {
+            var lista = await _entradaRepository.GetAllEntradasAsync();
+            if (lista == null) return null;
+            var listaEntradasDo = lista.Select(entrada => _mapper.Map<EntradaDo?>(entrada)).ToList();
+            return listaEntradasDo;
+        }
 
         //public async Task<Entrada> GetEntradaByIdAsync(int? id)
         //{
@@ -59,13 +60,13 @@ namespace BZPAY_BE.Services.Implementations
         //    return lista;
         //}
 
-        public async Task<EntradaDo?> CreateEntradaAsync(Entrada entrada)
+        public async Task<EntradaDo?> CreateEntradaAsync(Entrada entrada, string userId)
         {
             entrada.Active = true;
             //var userId = _userManager.GetUserId(User);
-            //entrada.CreatedBy = userId;
-            //entrada.UpdatedBy = userId;
-            var lista = await _entradaRepository.AddAsync(entrada);
+            entrada.CreatedBy = userId;
+            entrada.UpdatedBy = userId;
+            var lista = await _entradaRepository.CreateEntradaAsync(entrada);
             var entradaDo = _mapper.Map<EntradaDo?>(lista);
             return entradaDo;
         }

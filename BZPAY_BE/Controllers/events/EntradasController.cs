@@ -5,34 +5,45 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Models.Entities;
 using BZPAY_BE.Services.Implementations;
 using BZPAY_BE.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using System;
 
-namespace BZPAY_BE.Controllers.events
+namespace BZPAY_BE.Controllers.Events
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
     public class EntradasController : ControllerBase
     {
         private readonly IEntradaService _service;
-        private readonly IEventoService _eventoService;
 
         public EntradasController(IEntradaService service) => _service = service;
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<EntradaDo>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<EntradaDo>>> CreateEntradaAsync([Bind("Disponibles,TipoAsiento,Precio,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,Active,IdEvento")] Entrada entrada)
+        public async Task<ActionResult<List<EntradaDo>>> GetAllEntradasAsync()
+        {
+            var entradas = await _service.GetAllEntradasAsync();
+            if (entradas == null)
+            {
+                return NotFound();
+            }
+            return Ok(entradas);
+        }
+
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<EntradaDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<EntradaDo>>> CreateEntradaAsync(Entrada entrada, string userId)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var entradaDo = await _service.CreateEntradaAsync(entrada);
+                    var entradaDo = await _service.CreateEntradaAsync(entrada, userId);
                     //return RedirectToAction(nameof(Index));
                     return Ok(entradaDo);
                 }

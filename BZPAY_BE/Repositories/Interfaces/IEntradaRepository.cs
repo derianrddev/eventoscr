@@ -16,8 +16,11 @@ namespace BZPAY_BE.Repositories.Interfaces
         Task<Entrada> GetEntradaByIdAsync(int? id);
 
         Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
+        
+        Task<Entrada> CreateEntradaAsync(Entrada entrada);
 
         Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id);
+
 
     }
 

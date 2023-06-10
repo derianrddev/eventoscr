@@ -83,15 +83,6 @@ builder.Services.AddCors(options =>
                             });                                                  
                     });
 
-builder.Services.AddIdentity<Proyecto1specialticketuser, IdentityRole>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = false;
-    options.SignIn.RequireConfirmedEmail = false;
-})
-    .AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<SpecialticketContext>();
-
-
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

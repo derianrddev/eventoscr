@@ -13,6 +13,7 @@ namespace BZPAY_BE.Repositories.Implementations
     /// </summary>
     public class EntradaRepository : GenericRepository<Entrada>, IEntradaRepository
     {
+        
         /// <summary>
         /// Constructor of EntradaRepository
         /// </summary>
@@ -23,9 +24,11 @@ namespace BZPAY_BE.Repositories.Implementations
 
         public async Task<IEnumerable<Entrada>> GetAllEntradasAsync()
         {
-            return await _context.Entradas
+            var listaEntradas = await _context.Entradas
                                  .Where(x=>x.Active)
                                  .ToListAsync();
+
+            return listaEntradas;
         }
 
         public async Task<Entrada> GetEntradaByIdAsync(int? id)
@@ -55,6 +58,26 @@ namespace BZPAY_BE.Repositories.Implementations
             return asiento;
         }
 
+        public async Task<Entrada> CreateEntradaAsync(Entrada entrada)
+        {
+            var nuevaEntrada =  new Entrada
+            {
+                Disponibles = entrada.Disponibles,
+                TipoAsiento = entrada.TipoAsiento,
+                Precio = entrada.Precio,
+                CreatedAt = entrada.CreatedAt,
+                CreatedBy = entrada.CreatedBy,
+                UpdatedAt = entrada.UpdatedAt,
+                UpdatedBy = entrada.UpdatedBy,
+                Active = entrada.Active,
+                IdEvento = entrada.IdEvento
+            };
+            _context.Entradas.Add(nuevaEntrada);
+            _context.SaveChanges();
+
+            return nuevaEntrada;
+        }
+
         public async Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id)
         {
             var listaEntradas = await _context.Entradas
@@ -69,5 +92,7 @@ namespace BZPAY_BE.Repositories.Implementations
 
             return listaEntradas;
         }
+
+        
     }
 }
