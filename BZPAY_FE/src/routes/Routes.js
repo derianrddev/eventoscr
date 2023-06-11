@@ -4,16 +4,19 @@ import Home from '../pages/Home';
 import Login from '../pages/auth/Login';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import RecoverPassword from '../pages/auth/RecoverPassword';
+import { MasterPage } from "../components/MasterPage";
 
 function App() {
     return (
         <Router>
-            <Routes>    
-                <Route exact path="/" element={<Login />} />
-                <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
-                <Route exact path="/RecoverPassword" element={<RecoverPassword />} />
-                <Route exact path="/Home" element={<Home />} />
-            </Routes>
+            <MasterPage>
+                <Routes>    
+                    <Route exact path="/" element={<Login />} />
+                    <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
+                    <Route exact path="/RecoverPassword" element={<RecoverPassword />} />
+                    <Route exact path="/Home" element={<Home />} />
+                </Routes>
+            </MasterPage>
         </Router>
     );
 }
