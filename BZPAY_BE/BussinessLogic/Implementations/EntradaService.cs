@@ -85,21 +85,6 @@ namespace BZPAY_BE.Services.Implementations
 
         public async Task<EntradaDo?> UpdateEntradaAsync(EntradaDo entradaDo, string userId)
         {
-
-            //var entrada = new Entrada
-            //{
-            //    Id = entradaDo.Id,
-            //    Disponibles = entradaDo.Disponibles,
-            //    TipoAsiento = entradaDo.TipoAsiento,
-            //    Precio = entradaDo.Precio,
-            //    CreatedAt = entradaDo.CreatedAt,
-            //    CreatedBy = entradaDo.CreatedBy,
-            //    UpdatedAt = DateTime.Now,
-            //    UpdatedBy = userId,
-            //    Active = entradaDo.Active,
-            //    IdEvento = entradaDo.IdEvento,
-            //};
-
             var entradaActualizada = await _entradaRepository.UpdateEntradaAsync(entradaDo, userId);
             var entradaDoActualizado = _mapper.Map<EntradaDo?>(entradaActualizada);
             return entradaDoActualizado;

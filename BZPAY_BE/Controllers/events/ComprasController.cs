@@ -20,7 +20,7 @@ namespace BZPAY_BE.Controllers.Events
             _compraService = compraService;
         }
 
-        [HttpPost]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<CompraDo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<CompraDo>>> GetCompraByIdClienteAsync(string id)
@@ -36,7 +36,7 @@ namespace BZPAY_BE.Controllers.Events
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(CompraDo), StatusCodes.Status200OK)]
-        public async Task<ActionResult<CompraDo>> Create(int cantidad,int idEntrada, string userId)
+        public async Task<ActionResult<CompraDo>> CreateCompraAsync(int cantidad,int idEntrada, string userId)
         {
             var error = false;
 
