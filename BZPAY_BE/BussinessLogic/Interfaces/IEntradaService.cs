@@ -20,11 +20,11 @@ namespace BZPAY_BE.Services.Interfaces
 
         //Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
 
-        Task<EntradaDo?> CreateEntradaAsync(Entrada entrada, string userId);
+        Task<EntradaDo?> CreateEntradaAsync(int disponibles, string tipoAsiento, decimal precio, int idEvento, string userId);
 
-        Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada);
+        //Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada);
 
-        Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id);
+        Task<IEnumerable<DetalleEntradaDo?>> GetDetalleEntradasAsync(int? idEvento);
 
         //Task<Entrada> CreateEntradasAsync(IFormCollection form);
 

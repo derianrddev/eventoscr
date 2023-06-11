@@ -60,30 +60,42 @@ namespace BZPAY_BE.Services.Implementations
         //    return lista;
         //}
 
-        public async Task<EntradaDo?> CreateEntradaAsync(Entrada entrada, string userId)
+        public async Task<EntradaDo?> CreateEntradaAsync(int disponibles, string tipoAsiento, decimal precio, 
+            int idEvento, string userId)
         {
-            entrada.Active = true;
-            //var userId = _userManager.GetUserId(User);
-            entrada.CreatedBy = userId;
-            entrada.UpdatedBy = userId;
-            var lista = await _entradaRepository.CreateEntradaAsync(entrada);
+            var entrada = new Entrada
+            {
+                Disponibles = disponibles,
+                TipoAsiento = tipoAsiento,
+                Precio = precio,
+                CreatedAt = DateTime.Now,
+                CreatedBy = userId,
+                UpdatedAt = DateTime.Now,
+                UpdatedBy = userId,
+                Active = true,
+                IdEvento = idEvento,
+            };
+
+            var lista = await _entradaRepository.AddAsync(entrada);
             var entradaDo = _mapper.Map<EntradaDo?>(lista);
             return entradaDo;
         }
 
-        public async Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada)
-        {
-            DateTime currentDateTime = DateTime.Now;
-            entrada.UpdatedAt = currentDateTime;
-            var lista = await _entradaRepository.UpdateAsync(entrada);
-            var entradaDo = _mapper.Map<EntradaDo?>(lista);
-            return entradaDo;
-        }
+        //public async Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada)
+        //{
+        //    DateTime currentDateTime = DateTime.Now;
+        //    entrada.UpdatedAt = currentDateTime;
+        //    var lista = await _entradaRepository.UpdateAsync(entrada);
+        //    var entradaDo = _mapper.Map<EntradaDo?>(lista);
+        //    return entradaDo;
+        //}
 
-        public async Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id)
+        public async Task<IEnumerable<DetalleEntradaDo?>> GetDetalleEntradasAsync(int? idEvento)
         {
-            var lista = await _entradaRepository.GetDetalleEntradasAsync(id);
-            return lista;
+            var lista = await _entradaRepository.GetDetalleEntradasAsync(idEvento);
+            if (lista == null) return null;
+            var listaEntradasDo = lista.Select(detalleEntrada => _mapper.Map<DetalleEntradaDo?>(detalleEntrada)).ToList();
+            return listaEntradasDo;
         }
 
         //public async Task<Entrada> CreateEntradasAsync(IFormCollection collection)

@@ -58,30 +58,10 @@ namespace BZPAY_BE.Repositories.Implementations
             return asiento;
         }
 
-        public async Task<Entrada> CreateEntradaAsync(Entrada entrada)
-        {
-            var nuevaEntrada =  new Entrada
-            {
-                Disponibles = entrada.Disponibles,
-                TipoAsiento = entrada.TipoAsiento,
-                Precio = entrada.Precio,
-                CreatedAt = entrada.CreatedAt,
-                CreatedBy = entrada.CreatedBy,
-                UpdatedAt = entrada.UpdatedAt,
-                UpdatedBy = entrada.UpdatedBy,
-                Active = entrada.Active,
-                IdEvento = entrada.IdEvento
-            };
-            _context.Entradas.Add(nuevaEntrada);
-            _context.SaveChanges();
-
-            return nuevaEntrada;
-        }
-
-        public async Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? id)
+        public async Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? idEvento)
         {
             var listaEntradas = await _context.Entradas
-                    .Where(e => e.IdEvento == id && e.Active == true)
+                    .Where(e => e.IdEvento == idEvento && e.Active == true)
                     .Select(e => new DetalleEntrada
                     {
                         Id = e.Id,

@@ -49,7 +49,7 @@ namespace BZPAY_BE.Controllers.Events
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(EventoDo), StatusCodes.Status200OK)]
         public async Task<ActionResult<EventoDo>> GetEventoByIdAsync([FromBody] int id)
         {
             EventoDo result = await _service.GetEventoByIdAsync(id);
@@ -58,7 +58,7 @@ namespace BZPAY_BE.Controllers.Events
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(List<EventoDo>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<DetalleEventoDo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<DetalleEventoDo>>> GetAllDetalleEventosAsync()
         {
             var detalleEventos = await _service.GetAllDetalleEventosAsync();
@@ -71,7 +71,7 @@ namespace BZPAY_BE.Controllers.Events
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(DetalleEventoDo), StatusCodes.Status200OK)]
         public async Task<ActionResult<DetalleEventoDo>> GetDetalleEventosByIdAsync([FromBody] int id)
         {
             DetalleEventoDo result = await _service.GetDetalleEventosByIdAsync(id);
