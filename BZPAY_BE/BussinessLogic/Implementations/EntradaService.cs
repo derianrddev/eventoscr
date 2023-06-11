@@ -48,11 +48,13 @@ namespace BZPAY_BE.Services.Implementations
             return listaEntradasDo;
         }
 
-        //public async Task<Entrada> GetEntradaByIdAsync(int? id)
-        //{
-        //     var lista = await _entradaRepository.GetEntradaByIdAsync(id);
-        //     return lista;
-        //}
+        public async Task<EntradaDo?> GetEntradaByIdAsync(int? id)
+        {
+            var entrada = await _entradaRepository.GetEntradaByIdAsync(id);
+            var entradaDo = _mapper.Map<EntradaDo?>(entrada);
+            return entradaDo;
+        }
+
 
         //public async Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento)
         //{
@@ -76,19 +78,32 @@ namespace BZPAY_BE.Services.Implementations
                 IdEvento = idEvento,
             };
 
-            var lista = await _entradaRepository.AddAsync(entrada);
-            var entradaDo = _mapper.Map<EntradaDo?>(lista);
+            var nuevaEntrada = await _entradaRepository.AddAsync(entrada);
+            var entradaDo = _mapper.Map<EntradaDo?>(nuevaEntrada);
             return entradaDo;
         }
 
-        //public async Task<EntradaDo?> UpdateEntradaAsync(Entrada entrada)
-        //{
-        //    DateTime currentDateTime = DateTime.Now;
-        //    entrada.UpdatedAt = currentDateTime;
-        //    var lista = await _entradaRepository.UpdateAsync(entrada);
-        //    var entradaDo = _mapper.Map<EntradaDo?>(lista);
-        //    return entradaDo;
-        //}
+        public async Task<EntradaDo?> UpdateEntradaAsync(EntradaDo entradaDo, string userId)
+        {
+
+            //var entrada = new Entrada
+            //{
+            //    Id = entradaDo.Id,
+            //    Disponibles = entradaDo.Disponibles,
+            //    TipoAsiento = entradaDo.TipoAsiento,
+            //    Precio = entradaDo.Precio,
+            //    CreatedAt = entradaDo.CreatedAt,
+            //    CreatedBy = entradaDo.CreatedBy,
+            //    UpdatedAt = DateTime.Now,
+            //    UpdatedBy = userId,
+            //    Active = entradaDo.Active,
+            //    IdEvento = entradaDo.IdEvento,
+            //};
+
+            var entradaActualizada = await _entradaRepository.UpdateEntradaAsync(entradaDo, userId);
+            var entradaDoActualizado = _mapper.Map<EntradaDo?>(entradaActualizada);
+            return entradaDoActualizado;
+        }
 
         public async Task<IEnumerable<DetalleEntradaDo?>> GetDetalleEntradasAsync(int? idEvento)
         {
