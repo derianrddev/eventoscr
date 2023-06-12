@@ -62,6 +62,14 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             return userDo;
         }
 
+        public async Task<IEnumerable<UserDo?>> GetUsersWithReservationsAsync()
+        {
+            var users = await _userRepository.GetUsersWithReservationsAsync();
+            if (users == null) return null;
+            var listUsers = users.Select(user => _mapper.Map<UserDo?>(user)).ToList();
+            return listUsers;
+        }
+
         //public async Task<AspnetUserDo?> ForgotPasswordAsync(string username)
         //{
         //    //set culture

@@ -50,6 +50,15 @@ namespace BZPAY_BE.Controllers
             return (result is null) ? NotFound() : Ok(result);
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<UserDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<UserDo>>> GetUsersWithReservationsAsync()
+        {
+            var result = await _service.GetUsersWithReservationsAsync();
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
         /// <summary>
         /// ForgotPasswordAsync
         /// </summary>

@@ -2,6 +2,7 @@
 using BZPAY_BE.Models;
 using BZPAY_BE.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
+using BZPAY_BE.Models.Entities;
 
 namespace BZPAY_BE.Repositories.Implementations
 {
@@ -34,6 +35,18 @@ namespace BZPAY_BE.Repositories.Implementations
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             return user;
+        }
+
+        public async Task<IEnumerable<User?>> GetUsersWithReservationsAsync()
+        {
+            DateTime defaultDate = DateTime.Parse("0001-01-01 00:00:00");
+
+            var usersWithReservations = await (from us in _context.Users
+                                          join c in _context.Compras on us.Id equals c.IdCliente
+                                          where c.FechaPago == defaultDate
+                                          select us).Distinct().ToListAsync();
+
+            return usersWithReservations;
         }
     }
 }
