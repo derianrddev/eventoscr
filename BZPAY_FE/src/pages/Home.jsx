@@ -24,11 +24,11 @@ function Home() {
     navigate("/");
   };
 
-  /* useEffect(() => {
+  useEffect(() => {
         if (!cookies.get('username')) {
             navigate('/');
         }
-    }, []); */
+    }, []);
 
   return (
     <>
