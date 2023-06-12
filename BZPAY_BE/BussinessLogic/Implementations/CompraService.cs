@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BZPAY_BE.DataAccess;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BZPAY_BE.Services.Implementations
 {
@@ -56,11 +58,11 @@ namespace BZPAY_BE.Services.Implementations
         //    return lista;
         //}
 
-        public async Task<IEnumerable<CompraDo?>> GetCompraByIdClienteAsync(string? id)
+        public async Task<IEnumerable<ImprimirEntradaDo?>> GetCompraByIdClienteAsync(string? id)
         {
-            var lista = await _compraRepository.GetCompraByIdClienteAsync(id);
+            var lista = await _compraRepository.GetCompraByClienteAsync(id);
             if (lista == null) return null;
-            var listaComprasDo = lista.Select(compra => _mapper.Map<CompraDo?>(compra)).ToList();
+            var listaComprasDo = lista.Select(compra => _mapper.Map<ImprimirEntradaDo?>(compra)).ToList();
             return listaComprasDo;
         }
 
@@ -83,6 +85,15 @@ namespace BZPAY_BE.Services.Implementations
             return compraDo;
         }
 
+        public async Task<ImprimirEntradaDo?> ImprimirEntradaAsync(int? idCompra)
+        {
+            var compra = await _compraRepository.ImprimirEntradaAsync(idCompra);
+            if (compra == null) return null;
+            var ImprimirEntradaDo = _mapper.Map<ImprimirEntradaDo?>(compra);
+            return ImprimirEntradaDo;
+        }
+
+
         //public async Task<Compra> UpdateCompraAsync(Compra compra)
         //{
         //    DateTime currentDateTime = DateTime.Now;
@@ -91,11 +102,11 @@ namespace BZPAY_BE.Services.Implementations
         //    return lista;
         //}
 
-        public async Task<IEnumerable<ImprimirEntrada>> GetCompraByClienteAsync(string? idCliente)
-        {
-            var lista = await _compraRepository.GetCompraByClienteAsync(idCliente);
-            return lista;
-        }
+        //public async Task<IEnumerable<ImprimirEntrada>> GetCompraByClienteAsync(string? idCliente)
+        //{
+        //    var lista = await _compraRepository.GetCompraByClienteAsync(idCliente);
+        //    return lista;
+        //}
 
         //public DateTime GetFechaReserva(int? id)
         //{

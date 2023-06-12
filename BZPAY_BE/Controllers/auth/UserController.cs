@@ -32,6 +32,24 @@ namespace BZPAY_BE.Controllers
             return (result is null) ? NotFound() : Ok(result);  
         }
 
+        [HttpGet("{username}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<UserDo>> GetUserByUserNameAsync(string username)
+        {
+            UserDo result = await _service.GetUserByUserNameAsync(username);
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<UserDo>> GetUserByIdAsync(string id)
+        {
+            UserDo result = await _service.GetUserByIdAsync(id);
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
         /// <summary>
         /// ForgotPasswordAsync
         /// </summary>

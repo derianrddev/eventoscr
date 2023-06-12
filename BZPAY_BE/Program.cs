@@ -55,6 +55,7 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new EntradaProfile());
     mc.AddProfile(new DetallesEntradasProfile());
     mc.AddProfile(new CompraProfile());
+    mc.AddProfile(new ImprimirEntradaProfile());
 });
 
 IMapper mapper = mappingConfig.CreateMapper();

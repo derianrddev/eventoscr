@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using BZPAY_BE.Models.Entities;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Repositories.Implementations
 {
@@ -107,6 +108,38 @@ namespace BZPAY_BE.Repositories.Implementations
                                     }).ToListAsync();
 
             return listaEntradaComprada;
+        }
+
+        public async Task<ImprimirEntrada> ImprimirEntradaAsync(int? idCompra)
+        {
+            DateTime currentDateTime = DateTime.Now;
+            var compra = await _context.Compras.FindAsync(idCompra);
+            compra.FechaPago = currentDateTime;
+
+            await _context.SaveChangesAsync();
+
+            var entradaComprada = await (from c in _context.Compras
+                                         join us in _context.Users on c.IdCliente equals us.Id
+                                         join en in _context.Entradas on c.IdEntrada equals en.Id
+                                         join ev in _context.Eventos on en.IdEvento equals ev.Id
+                                         join te in _context.TipoEventos on ev.IdTipoEvento equals te.Id
+                                         join es in _context.Escenarios on ev.IdEscenario equals es.Id
+                                         where c.Id == idCompra
+                                         select new ImprimirEntrada
+                                         {
+                                             Id = c.Id,
+                                             Cantidad = c.Cantidad,
+                                             FechaReserva = c.FechaReserva,
+                                             FechaPago = currentDateTime,
+                                             TipoAsiento = en.TipoAsiento,
+                                             Precio = en.Precio,
+                                             Total = en.Precio * c.Cantidad,
+                                             Evento = ev.Descripcion,
+                                             Escenario = es.Nombre,
+                                             IdCliente = c.IdCliente,
+                                             UserName = us.UserName,
+                                         }).FirstOrDefaultAsync();
+            return entradaComprada;
         }
     }
 }

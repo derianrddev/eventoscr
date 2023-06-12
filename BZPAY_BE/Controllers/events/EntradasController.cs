@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using System;
+using System.Drawing.Printing;
+using System.Drawing;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
 
 namespace BZPAY_BE.Controllers.Events
 {
@@ -68,7 +72,7 @@ namespace BZPAY_BE.Controllers.Events
         [HttpGet("{idEvento}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<DetalleEntradaDo>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<DetalleEntradaDo>>> GetAllDetalleEventosAsync(int idEvento)
+        public async Task<ActionResult<List<DetalleEntradaDo>>> GetDetalleEntradasAsync(int idEvento)
         {
             var detalleEntradas = await _service.GetDetalleEntradasAsync(idEvento);
             if (detalleEntradas == null)
@@ -77,6 +81,6 @@ namespace BZPAY_BE.Controllers.Events
             }
             return Ok(detalleEntradas);
         }
-
+   
     }
 }
