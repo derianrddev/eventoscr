@@ -24,5 +24,11 @@ namespace BZPAY_BE.DataAccess
 
         public int IdEscenario { get; set; }
 
+        public string DescripcionEscenario { get; set; }
+
+        public string Escenario { get; set; }
+
+        public string Localizacion { get; set; }
+
     }
 }

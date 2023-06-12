@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Repositories.Implementations
 {
@@ -31,6 +32,33 @@ namespace BZPAY_BE.Repositories.Implementations
             return listaEventos;
         }
 
+        public async Task<IEnumerable<EventoDo>> GetAllEventosDescripAsync()
+        {
+            var listaEventos = await (from ev in _context.Eventos
+                                      join tev in _context.TipoEventos on ev.IdTipoEvento equals tev.Id
+                                      join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
+                                      join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
+                                      where ev.Active == true
+                                      orderby ev.Id ascending
+                                      select new EventoDo
+                                      {
+                                          Id = ev.Id,
+                                          Descripcion = ev.Descripcion,
+                                          Fecha = ev.Fecha,
+                                          CreatedAt = ev.CreatedAt,
+                                          CreatedBy = ev.CreatedBy,
+                                          UpdatedAt = ev.UpdatedAt,
+                                          UpdatedBy = ev.UpdatedBy,
+                                          Active = ev.Active,
+                                          IdTipoEvento = ev.IdTipoEvento,
+                                          IdEscenario = ev.IdEscenario,
+                                          DescripcionEscenario = tev.Descripcion,
+                                          Escenario = esc.Nombre,
+                                          Localizacion = esc.Localizacion
+                                      }).Distinct().ToListAsync();
+            return listaEventos;
+        }
+
         public async Task<Evento> GetEventoByIdAsync(int? id)
         {
             var eventos = await _context.Eventos
@@ -39,6 +67,33 @@ namespace BZPAY_BE.Repositories.Implementations
                                        .Where(e => e.Active)
                                        .FirstOrDefaultAsync(m => m.Id == id);
             return eventos;
+        }
+
+        public async Task<EventoDo> GetEventoByIdDescripAsync(int? id)
+        {
+            var evento = await (from ev in _context.Eventos
+                                join tev in _context.TipoEventos on ev.IdTipoEvento equals tev.Id
+                                join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
+                                join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
+                                where ev.Active == true && ev.Id == id
+                                select new EventoDo
+                                {
+                                    Id = ev.Id,
+                                    Descripcion = ev.Descripcion,
+                                    Fecha = ev.Fecha,
+                                    CreatedAt = ev.CreatedAt,
+                                    CreatedBy = ev.CreatedBy,
+                                    UpdatedAt = ev.UpdatedAt,
+                                    UpdatedBy = ev.UpdatedBy,
+                                    Active = ev.Active,
+                                    IdTipoEvento = ev.IdTipoEvento,
+                                    IdEscenario = ev.IdEscenario,
+                                    DescripcionEscenario = tev.Descripcion,
+                                    Escenario = esc.Nombre,
+                                    Localizacion = esc.Localizacion
+                                }).FirstOrDefaultAsync();
+
+            return evento;
         }
 
         public async Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync()

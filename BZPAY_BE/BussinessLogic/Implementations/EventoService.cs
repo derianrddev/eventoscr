@@ -36,7 +36,7 @@ namespace BZPAY_BE.BussinessLogic.Implementations
 
         public async Task<IEnumerable<EventoDo?>> GetAllEventosAsync()
         {
-            var lista = await _eventoRepository.GetAllEventosAsync();
+            var lista = await _eventoRepository.GetAllEventosDescripAsync();
             if (lista == null) return null;
             //var tempList = lista.FirstOrDefault();
             var listaEventosDo = lista.Select(evento => _mapper.Map<EventoDo?>(evento)).ToList();
@@ -45,7 +45,7 @@ namespace BZPAY_BE.BussinessLogic.Implementations
 
         public async Task<EventoDo?> GetEventoByIdAsync(int? id)
         {
-            var evento = await _eventoRepository.GetEventoByIdAsync(id);
+            var evento = await _eventoRepository.GetEventoByIdDescripAsync(id);
             var eventoDo = _mapper.Map<EventoDo?>(evento);
             return eventoDo;
         }
