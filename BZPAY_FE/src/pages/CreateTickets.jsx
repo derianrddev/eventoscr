@@ -1,43 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
 export const CreateTickets = () => {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  const fetchEvents = async () => {
-    const url = "https://localhost:7052/api/Eventos/GetAllEventos";
-    const origin = "https://localhost:3000";
-
-    const myHeaders = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": origin,
-    };
-
-    const settings = {
-      method: "post",
-      headers: myHeaders,
-    };
-
-    try {
-      const response = await fetch(url, settings);
-      const data = await response.json();
-
-      if (!response.status == 200) {
-        const message = `Un error ha ocurrido: ${response.status}`;
-        throw new Error(message);
-      }
-
-      if (response.status === 200) {
-        console.log(data);
-        setEvents(data);
-      }
-    } catch (error) {
-      throw Error(error);
-    }
-  };
+  const location = useLocation();
+  const event = location.state.data;
 
   const formatDate = (unformattedDate) => {
     const date = new Date(unformattedDate);
@@ -51,36 +17,36 @@ export const CreateTickets = () => {
     return formattedDate;
   }
 
-  const createTicket = (eventId) => {
-    // Lógica para crear la entrada del evento
-    // ...
-  };
-
   return (
-    <div className="container mt-5 text-center">
-      <h1 className="py-5">Eventos sin entradas</h1>
+    <div className="container text-center" style={{ height: "calc(100vh - 56px)", padding: "100px 0" }}>
+      <h1 className="mb-5">Detalles del evento</h1>
       <div className="row">
-        {events.map((event) => (
-          <div className="col-md-4" key={event.id}>
-            <div className="card mt-3">
-              <div className="card-body">
-                <h5 className="card-title">{event.descripcion}</h5>
-                <p className="card-text"><i class="fa-solid fa-calendar-days pe-2"></i>{formatDate(event.fecha)}</p>
-                <button
-                  className="btn btn-success"
-                  style={{
-                    backgroundColor: "#198754",
-                    borderRadius: "5px",
-                  }}
-                  onClick={() => createTicket(event.id)}
-                >
-                  Crear Entrada
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+        <div className="col-md-6">
+          <h5>Descripción:</h5>
+          <p>{event.descripcion}</p>
+        </div>
+        <div className="col-md-6">
+          <h5>Tipo de evento:</h5>
+          <p>{event.tipoEvento}</p>
+        </div>
+        <div className="col-md-6">
+          <h5>Fecha:</h5>
+          <p>{formatDate(event.fecha)}</p>
+        </div>
+        <div className="col-md-6">
+          <h5>Escenario:</h5>
+          <p>{event.escenario}</p>
+        </div>
+        <div className="col-md-6">
+          <h5>Tipo de escenario:</h5>
+          <p>{event.tipoEscenario}</p>
+        </div>
+        <div className="col-md-6">
+          <h5>Localización:</h5>
+          <p>{event.localizacion}</p>
+        </div>
       </div>
     </div>
   );
 };
+

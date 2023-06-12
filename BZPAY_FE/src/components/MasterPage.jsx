@@ -67,7 +67,7 @@ export const MasterPage = ({ children }) => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/CreateTickets"
+                    to="/Events"
                     className="nav-link"
                     aria-current="page"
                   >
@@ -100,7 +100,7 @@ export const MasterPage = ({ children }) => {
               </li>
               <li className="nav-item">
                 <Link
-                  to="/CreateTickets"
+                  to="/Events"
                   className="nav-link"
                   aria-current="page"
                 >
