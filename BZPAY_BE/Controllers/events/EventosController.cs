@@ -78,5 +78,14 @@ namespace BZPAY_BE.Controllers.Events
             return (result is null) ? NotFound() : Ok(result);
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<DetalleAsientoDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<DetalleAsientoDo>>> GetDetalleAsientosAsync(int id)
+        {
+            var detalleAsientoDo = await _service.GetDetalleAsientosAsync(id);
+            return (detalleAsientoDo is null) ? NotFound() : Ok(detalleAsientoDo);
+        }
+
     }
 }
