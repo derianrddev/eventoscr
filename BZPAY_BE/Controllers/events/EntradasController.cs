@@ -5,7 +5,9 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Models.Entities;
 using BZPAY_BE.Services.Implementations;
 using BZPAY_BE.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using System;
@@ -20,7 +22,7 @@ namespace BZPAY_BE.Controllers.Events
 
         public EntradasController(IEntradaService service) => _service = service;
 
-        [HttpPost]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<EntradaDo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<EntradaDo>>> GetAllEntradasAsync()
@@ -63,7 +65,7 @@ namespace BZPAY_BE.Controllers.Events
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpGet("{idEvento}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<DetalleEntradaDo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<DetalleEntradaDo>>> GetAllDetalleEventosAsync(int idEvento)

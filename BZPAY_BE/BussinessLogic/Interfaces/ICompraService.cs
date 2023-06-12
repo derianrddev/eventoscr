@@ -4,6 +4,7 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Services.Interfaces
 {
@@ -13,23 +14,23 @@ namespace BZPAY_BE.Services.Interfaces
     
     public interface ICompraService
     {
-        Task<IEnumerable<Compra>> GetAllComprasAsync();
+        //Task<IEnumerable<Compra>> GetAllComprasAsync();
 
-        Task<Compra> GetCompraByIdAsync(int? id);
+        //Task<Compra> GetCompraByIdAsync(int? id);
 
-        Task<Compra> GetCompraAnteriorByIdAsync(int? id);
+        //Task<Compra> GetCompraAnteriorByIdAsync(int? id);
 
-        Task<IEnumerable<Compra>> GetCompraByIdClienteAsync(string? id);
+        Task<IEnumerable<CompraDo?>> GetCompraByIdClienteAsync(string? id);
 
-        Task<Compra> CreateCompraAsync(Compra compra);
+        Task<CompraDo?> CreateCompraAsync(int cantidad, int idEntrada, string userId);
 
-        Task<Compra> UpdateCompraAsync(Compra compra);
+        //Task<Compra> UpdateCompraAsync(Compra compra);
 
         Task<IEnumerable<ImprimirEntrada>> GetCompraByClienteAsync(string? idCliente);
 
-        DateTime GetFechaReserva(int? id);
+        //DateTime GetFechaReserva(int? id);
 
-        Task<List<Compra>> GetEntradaCompradaByIdAsync(int? id);
+        //Task<List<Compra>> GetEntradaCompradaByIdAsync(int? id);
 
     }
 }

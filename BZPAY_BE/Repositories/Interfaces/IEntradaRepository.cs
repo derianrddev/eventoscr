@@ -3,6 +3,7 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Repositories.Interfaces
 {
@@ -16,6 +17,8 @@ namespace BZPAY_BE.Repositories.Interfaces
         Task<Entrada> GetEntradaByIdAsync(int? id);
 
         Task<Entrada> GetEntradaByEventoAndAsientoAsync(int? idAsiento, int? idEvento);
+
+        Task<Entrada> UpdateEntradaAsync(EntradaDo entradaDo, string userId);
 
         Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? idEvento);
 

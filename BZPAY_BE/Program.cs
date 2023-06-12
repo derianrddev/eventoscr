@@ -32,7 +32,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEventoService, EventoService>();
 //builder.Services.AddScoped<ITipoEventoService, TipoEventoService>();
 builder.Services.AddScoped<IEntradaService, EntradaService>();
-//builder.Services.AddScoped<ICompraService, CompraService>();
+builder.Services.AddScoped<ICompraService, CompraService>();
 
 // Add repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -42,7 +42,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 //builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
 builder.Services.AddScoped<IEntradaRepository, EntradaRepository>();
-//builder.Services.AddScoped<ICompraRepository, CompraRepository>();
+builder.Services.AddScoped<ICompraRepository, CompraRepository>();
 
 
 // Auto Mapper Configurations
@@ -54,6 +54,7 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new DetallesEventosProfile());
     mc.AddProfile(new EntradaProfile());
     mc.AddProfile(new DetallesEntradasProfile());
+    mc.AddProfile(new CompraProfile());
 });
 
 IMapper mapper = mappingConfig.CreateMapper();

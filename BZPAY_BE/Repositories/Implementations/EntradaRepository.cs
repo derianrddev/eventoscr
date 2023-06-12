@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using BZPAY_BE.Models.Entities;
+using BZPAY_BE.DataAccess;
+using System.Globalization;
 
 namespace BZPAY_BE.Repositories.Implementations
 {
@@ -56,6 +58,26 @@ namespace BZPAY_BE.Repositories.Implementations
                               .FirstOrDefaultAsync();
 
             return asiento;
+        }
+
+        public async Task<Entrada> UpdateEntradaAsync(EntradaDo entradaDo, string userId)
+        {
+            var entrada = await _context.Entradas.FindAsync(entradaDo.Id);
+
+            if (entrada != null)
+            {
+                entrada.Disponibles = entradaDo.Disponibles;
+                entrada.TipoAsiento = entradaDo.TipoAsiento;
+                entrada.Precio = entradaDo.Precio;
+                entrada.UpdatedAt = DateTime.Now;
+                entrada.UpdatedBy = userId;
+                entrada.Active = entradaDo.Active;
+                entrada.IdEvento = entradaDo.IdEvento;
+
+                await _context.SaveChangesAsync();
+            }
+
+            return entrada;
         }
 
         public async Task<IEnumerable<DetalleEntrada>> GetDetalleEntradasAsync(int? idEvento)
