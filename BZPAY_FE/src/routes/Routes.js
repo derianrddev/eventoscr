@@ -7,6 +7,7 @@ import RecoverPassword from '../pages/auth/RecoverPassword';
 import { MasterPage } from "../components/MasterPage";
 import { Events } from "../pages/Events";
 import { CreateTickets } from "../pages/CreateTickets";
+import { AvailableEvents } from "../pages/AvailableEvents";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route exact path="/Home" element={<Home />} />
                     <Route exact path="/Events" element={<Events />} />
                     <Route exact path="/CreateTickets/:eventId" element={<CreateTickets />} />
+                    <Route exact path="/AvailableEvents" element={<AvailableEvents />} />
                 </Routes>
             </MasterPage>
         </Router>
