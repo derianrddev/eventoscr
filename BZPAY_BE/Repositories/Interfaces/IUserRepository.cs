@@ -10,6 +10,7 @@ namespace BZPAY_BE.Repositories.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<User?> GetUserByUserNameAsync(string username);
+        Task<User?> GetUserByIdAsync(string id);
     }
 
 }

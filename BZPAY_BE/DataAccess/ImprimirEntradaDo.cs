@@ -1,22 +1,17 @@
 ﻿using System.ComponentModel;
 
-namespace BZPAY_BE.Models.Entities
+namespace BZPAY_BE.DataAccess
 {
-    public class ImprimirEntrada
+    public class ImprimirEntradaDo
     {
-        [DisplayName("Id de la compra")]
         public int Id { get; set; }
 
-        [DisplayName("Cantidad de entradas")]
         public int Cantidad { get; set; }
 
-        [DisplayName("Fecha de reserva")]
         public DateTime FechaReserva { get; set; }
 
-        [DisplayName("Fecha de pago")]
         public DateTime FechaPago { get; set; }
 
-        [DisplayName("Tipo de asiento")]
         public string? TipoAsiento { get; set; }
 
         public decimal Precio { get; set; }
@@ -29,10 +24,6 @@ namespace BZPAY_BE.Models.Entities
 
         public string? IdCliente { get; set; }
 
-        [DisplayName("Nombre de usuario")]
         public string? UserName { get; set; }
-
     }
-
 }
-

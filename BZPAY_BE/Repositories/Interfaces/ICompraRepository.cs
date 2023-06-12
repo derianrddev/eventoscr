@@ -3,6 +3,7 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Repositories.Interfaces
 {
@@ -24,6 +25,8 @@ namespace BZPAY_BE.Repositories.Interfaces
         DateTime GetFechaReserva(int? id);
 
         Task<List<Compra>> GetEntradaCompradaByIdAsync(int? id);
+
+        Task<ImprimirEntrada> ImprimirEntradaAsync(int? idCompra);
     }
 
     

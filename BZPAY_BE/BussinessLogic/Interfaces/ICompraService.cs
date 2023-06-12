@@ -20,13 +20,15 @@ namespace BZPAY_BE.Services.Interfaces
 
         //Task<Compra> GetCompraAnteriorByIdAsync(int? id);
 
-        Task<IEnumerable<CompraDo?>> GetCompraByIdClienteAsync(string? id);
+        Task<IEnumerable<ImprimirEntradaDo?>> GetCompraByIdClienteAsync(string? id);
 
         Task<CompraDo?> CreateCompraAsync(int cantidad, int idEntrada, string userId);
 
+        Task<ImprimirEntradaDo?> ImprimirEntradaAsync(int? idCompra);
+
         //Task<Compra> UpdateCompraAsync(Compra compra);
 
-        Task<IEnumerable<ImprimirEntrada>> GetCompraByClienteAsync(string? idCliente);
+        //Task<IEnumerable<ImprimirEntrada>> GetCompraByClienteAsync(string? idCliente);
 
         //DateTime GetFechaReserva(int? id);
 

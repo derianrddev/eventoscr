@@ -68,5 +68,18 @@ namespace BZPAY_BE.Controllers.Events
 
             return NotFound();
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ImprimirEntradaDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<ImprimirEntradaDo>> ImprimirEntradaAsync(int? idCompra)
+        {
+            var compras = await _compraService.ImprimirEntradaAsync(idCompra);
+            if (compras == null)
+            {
+                return NotFound();
+            }
+            return Ok(compras);
+        }
     }
 }

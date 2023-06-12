@@ -27,5 +27,13 @@ namespace BZPAY_BE.Repositories.Implementations
             //User user = await _context.User.Where(u => u.UserName == username).SingleOrDefaultAsync();
             return user;
         }
+
+        public async Task<User?> GetUserByIdAsync(string id)
+        {
+            User user = await _context.Users
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            return user;
+        }
     }
 }
