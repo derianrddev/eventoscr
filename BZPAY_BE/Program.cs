@@ -52,6 +52,7 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new AspnetMembershipProfile());
     mc.AddProfile(new EventoProfile());
     mc.AddProfile(new DetallesEventosProfile());
+    mc.AddProfile(new DetalleAsientosProfile());
     mc.AddProfile(new EntradaProfile());
     mc.AddProfile(new DetallesEntradasProfile());
     mc.AddProfile(new CompraProfile());

@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BZPAY_BE.DataAccess;
 using AutoMapper;
+using System.Collections;
 
 namespace BZPAY_BE.BussinessLogic.Implementations
 {
@@ -82,11 +83,12 @@ namespace BZPAY_BE.BussinessLogic.Implementations
             return detalleEventoDo;
         }
 
-        //public async Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id)
-        //{
-        //    var eventoAsientos = await _eventoRepository.GetDetalleAsientosAsync(id);
-        //    return eventoAsientos;
-        //}
+        public async Task<IEnumerable<DetalleAsientoDo?>> GetDetalleAsientosAsync(int? id)
+        {
+            var eventoAsientos = await _eventoRepository.GetDetalleAsientosAsync(id);
+            var eventoAsientosDo = eventoAsientos.Select(eventoAsiento => _mapper.Map<DetalleAsientoDo?>(eventoAsiento)).ToList();
+            return eventoAsientosDo;
+        }
 
     }
 }
