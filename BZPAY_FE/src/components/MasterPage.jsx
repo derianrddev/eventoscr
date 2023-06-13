@@ -1,21 +1,22 @@
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { cleanUser } from "../store/auth/authSlice";
 
 export const MasterPage = ({ children }) => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const redirectAbout = () => {
-  //   navigate('/Nosotros')
-  // }
+  const logout = () => {
+    cookies.remove("username", { path: "/" });
+    dispatch(cleanUser());
 
-  const redirectCategories = () => {
-    navigate("/categorias");
+    // Limpiar los datos del localStorage
+    localStorage.removeItem("user");
+    
+    navigate("/");
   };
-
-  // Disparar el evento 'resize' al cargar la página
-  window.dispatchEvent(new Event("resize"));
 
   return (
     <>
@@ -39,7 +40,7 @@ export const MasterPage = ({ children }) => {
           </div>
           <div
             className="offcanvas offcanvas-end text-bg-dark d-lg-none"
-            tabindex="-1"
+            tabIndex="-1"
             id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel"
           >
@@ -57,27 +58,46 @@ export const MasterPage = ({ children }) => {
             <div className="offcanvas-body pt-0">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li className="nav-item">
-                  <Link
+                  <NavLink
+                    className="nav-link"
+                    exact="true"
                     to="/Home"
-                    className="nav-link active"
+                    activeclassname="active"
                     aria-current="page"
                   >
                     Home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <NavLink
+                    className="nav-link"
+                    exact="true"
+                    to="/Events"
+                    activeclassname="active"
+                    aria-current="page"
+                  >
                     Crear entradas
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <NavLink
+                    className="nav-link"
+                    exact="true"
+                    to="/AvailableEvents"
+                    activeclassname="active"
+                    aria-current="page"
+                  >
                     Reservar entradas
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
                     Entrega de entradas
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#" onClick={() => logout()}>
+                    <i className="fa-solid fa-right-from-bracket"></i>
                   </a>
                 </li>
               </ul>
@@ -86,28 +106,56 @@ export const MasterPage = ({ children }) => {
           <div className="d-none d-lg-flex">
             <ul className="navbar-nav flex-row justify-content-end flex-grow-1 pe-3 gap-2">
               <li className="nav-item">
-                <Link
+                <NavLink
+                  className="nav-link"
+                  exact="true"
                   to="/Home"
-                  className="nav-link active"
+                  activeclassname="active"
                   aria-current="page"
                 >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink
+                  className="nav-link"
+                  exact="true"
+                  to="/Events"
+                  activeclassname="active"
+                  aria-current="page"
+                >
                   Crear entradas
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink
+                  className="nav-link"
+                  exact="true"
+                  to="/AvailableEvents"
+                  activeclassname="active"
+                  aria-current="page"
+                >
                   Reservar entradas
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
                   Entrega de entradas
                 </a>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="btn btn-danger mb-0"
+                  style={{
+                    backgroundColor: "#dc3545",
+                    borderRadius: "5px",
+                    height: "40px",
+                  }}
+                  onClick={() => logout()}
+                >
+                  <i className="fa-solid fa-right-from-bracket"></i> Cerrar
+                  Sesión
+                </button>
               </li>
             </ul>
           </div>

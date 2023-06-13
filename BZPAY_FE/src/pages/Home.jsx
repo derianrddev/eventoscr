@@ -19,16 +19,11 @@ function Home() {
     i18n.changeLanguage("es");
   }
 
-  const cerrarSesion = () => {
-    cookies.remove("username", { path: "/" });
-    navigate("/");
-  };
-
-  /* useEffect(() => {
+  useEffect(() => {
         if (!cookies.get('username')) {
             navigate('/');
         }
-    }, []); */
+    }, []);
 
   return (
     <>
