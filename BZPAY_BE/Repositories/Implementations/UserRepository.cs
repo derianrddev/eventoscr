@@ -3,6 +3,7 @@ using BZPAY_BE.Models;
 using BZPAY_BE.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 using BZPAY_BE.Models.Entities;
+using BZPAY_BE.DataAccess;
 
 namespace BZPAY_BE.Repositories.Implementations
 {
@@ -47,6 +48,35 @@ namespace BZPAY_BE.Repositories.Implementations
                                           select us).Distinct().ToListAsync();
 
             return usersWithReservations;
+        }
+
+        public async Task<UserRoles?> ChangeRoleToUserAsync(string userId, string roleId)
+        {
+            var userRole = await _context.UserRoles.FindAsync(userId);
+
+            if (userRole != null)
+            {
+                userRole.RoleId = roleId;
+
+                await _context.SaveChangesAsync();
+
+                return userRole;
+            }
+            else
+            {
+                var newUserRole = new UserRoles
+                {
+                    UserId = userId,
+                    RoleId = roleId
+                };
+
+                _context.UserRoles.Add(newUserRole);
+                await _context.SaveChangesAsync();
+                
+                return newUserRole;
+            }
+
+
         }
     }
 }

@@ -20,7 +20,11 @@ namespace BZPAY_BE.BussinessLogic.Interfaces
 
         //Task<EventoDo?> UpdateEventoAsync(Evento evento);
 
-        Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosAsync();
+        //Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosAsync();
+
+        Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosConEntradasAsync();
+
+        Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosSinEntradasAsync();
 
         Task<DetalleEventoDo?> GetDetalleEventosByIdAsync(int? id);
 

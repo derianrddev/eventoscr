@@ -70,6 +70,13 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             return listUsers;
         }
 
+        public async Task<UserRolesDo?> ChangeRoleToUserAsync(string userId, string roleId)
+        {
+            var userRole = await _userRepository.ChangeRoleToUserAsync(userId, roleId);
+            var userRoleDo = _mapper.Map<UserRolesDo>(userRole);
+            return userRoleDo;
+        }
+
         //public async Task<AspnetUserDo?> ForgotPasswordAsync(string username)
         //{
         //    //set culture

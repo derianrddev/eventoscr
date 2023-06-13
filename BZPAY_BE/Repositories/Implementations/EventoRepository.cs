@@ -96,7 +96,30 @@ namespace BZPAY_BE.Repositories.Implementations
             return evento;
         }
 
-        public async Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync()
+        //public async Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync()
+        //{
+        //    var now = DateTime.Now;
+        //    var listaEventos = await (from ev in _context.Eventos
+        //                              join tev in _context.TipoEventos on ev.IdTipoEvento equals tev.Id
+        //                              join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
+        //                              join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
+        //                              where ev.Fecha > now && ev.Active == true
+        //                              orderby ev.Id ascending
+        //                              select new DetalleEvento
+        //                              {
+        //                                  Id = ev.Id,
+        //                                  Descripcion = ev.Descripcion,
+        //                                  TipoEvento = tev.Descripcion,
+        //                                  Fecha = ev.Fecha,
+        //                                  TipoEscenario = te.Descripcion,
+        //                                  Escenario = esc.Nombre,
+        //                                  Localizacion = esc.Localizacion
+        //                              }).Distinct().ToListAsync();
+
+        //    return listaEventos;
+        //}
+
+        public async Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosConEntradasAsync()
         {
             var now = DateTime.Now;
             var listaEventos = await (from ev in _context.Eventos
@@ -104,6 +127,30 @@ namespace BZPAY_BE.Repositories.Implementations
                                       join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
                                       join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
                                       where ev.Fecha > now && ev.Active == true
+                                            && _context.Entradas.Any(en => en.IdEvento == ev.Id)
+                                      orderby ev.Id ascending
+                                      select new DetalleEvento
+                                      {
+                                          Id = ev.Id,
+                                          Descripcion = ev.Descripcion,
+                                          TipoEvento = tev.Descripcion,
+                                          Fecha = ev.Fecha,
+                                          TipoEscenario = te.Descripcion,
+                                          Escenario = esc.Nombre,
+                                          Localizacion = esc.Localizacion
+                                      }).Distinct().ToListAsync();
+            return listaEventos;
+        }
+
+        public async Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosSinEntradasAsync()
+        {
+            var now = DateTime.Now;
+            var listaEventos = await (from ev in _context.Eventos
+                                      join tev in _context.TipoEventos on ev.IdTipoEvento equals tev.Id
+                                      join esc in _context.Escenarios on ev.IdEscenario equals esc.Id
+                                      join te in _context.TipoEscenarios on esc.Id equals te.IdEscenario
+                                      where ev.Fecha > now && ev.Active == true
+                                            && !_context.Entradas.Any(en => en.IdEvento == ev.Id)
                                       orderby ev.Id ascending
                                       select new DetalleEvento
                                       {
@@ -118,6 +165,7 @@ namespace BZPAY_BE.Repositories.Implementations
 
             return listaEventos;
         }
+
 
         public async Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id)
         {
@@ -189,5 +237,7 @@ namespace BZPAY_BE.Repositories.Implementations
 
             return (IEnumerable<Evento>)await listaEventos;
         }
+
+
     }
 }

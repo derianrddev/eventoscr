@@ -16,7 +16,9 @@ namespace BZPAY_BE.Repositories.Interfaces
         Task<IEnumerable<EventoDo>> GetAllEventosDescripAsync();
         Task<Evento> GetEventoByIdAsync(int? id);
         Task<EventoDo> GetEventoByIdDescripAsync(int? id);
-        Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync();
+        //Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosAsync();
+        Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosConEntradasAsync();
+        Task<IEnumerable<DetalleEvento>> GetAllDetalleEventosSinEntradasAsync();
         Task<DetalleEvento> GetDetalleEventosByIdAsync(int? id);
         Task<IEnumerable<DetalleAsiento>> GetDetalleAsientosAsync(int? id);
     }

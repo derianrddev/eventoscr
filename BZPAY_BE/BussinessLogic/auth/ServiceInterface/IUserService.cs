@@ -15,6 +15,7 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceInterface
         Task<UserDo?> GetUserByUserNameAsync(string username);
         Task<UserDo?> GetUserByIdAsync(string id);
         Task<IEnumerable<UserDo?>> GetUsersWithReservationsAsync();
+        Task<UserRolesDo?> ChangeRoleToUserAsync(string userId, string roleId);
         //Task<User?> ForgotPasswordAsync(string username);
         //Task<User?> UpdatePasswordAsync(UpdatePasswordRequest data);
     }
