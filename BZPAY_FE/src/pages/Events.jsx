@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatDate, getRequest } from "../helpers";
 
 export const Events = () => {
   const navigate = useNavigate();
@@ -11,78 +12,15 @@ export const Events = () => {
 
   const fetchEvents = async () => {
     const url = "https://localhost:7052/api/Eventos/GetAllDetalleEventos";
-    const origin = "https://localhost:3000";
+    const result = await getRequest(url);
 
-    const myHeaders = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": origin,
-    };
-
-    const settings = {
-      method: "get",
-      headers: myHeaders,
-    };
-
-    try {
-      const response = await fetch(url, settings);
-      const data = await response.json();
-
-      if (!response.status == 200) {
-        const message = `Un error ha ocurrido: ${response.status}`;
-        throw new Error(message);
-      }
-
-      if (response.status === 200) {
-        console.log(data);
-        setEvents(data);
-      }
-    } catch (error) {
-      throw Error(error);
+    if (result.ok) {
+      setEvents(result.data);
     }
   };
 
-  const formatDate = (unformattedDate) => {
-    const date = new Date(unformattedDate);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-  
-    // Formatear la fecha como "DD/MM/YYYY"
-    const formattedDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
-  
-    return formattedDate;
-  }
-
   const createTicket = async(eventId) => {
-    const url = `https://localhost:7052/api/Eventos/GetDetalleEventosById/${eventId}`;
-    const origin = "https://localhost:3000";
-
-    const myHeaders = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": origin,
-    };
-
-    const settings = {
-      method: "get",
-      headers: myHeaders,
-    };
-
-    try {
-      const response = await fetch(url, settings);
-      const data = await response.json();
-
-      if (!response.status == 200) {
-        const message = `Un error ha ocurrido: ${response.status}`;
-        throw new Error(message);
-      }
-
-      if (response.status === 200) {
-        console.log(data);
-        navigate(`/CreateTickets/${eventId}`, { state: { data } });
-      }
-    } catch (error) {
-      throw Error(error);
-    }
+    navigate(`/CreateTickets/${eventId}`, { state: { eventId } });
   };
 
   return (

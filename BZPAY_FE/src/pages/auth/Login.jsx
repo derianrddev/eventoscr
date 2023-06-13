@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import md5 from "md5";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Cookies from "universal-cookie";
 import "../../css/auth/Login.css";
 import { useTranslation } from "react-i18next";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/auth/authSlice";
 
 function Login() {
   const captcha = useRef(null);
   const cookies = new Cookies();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const [captchaValido, cambiarCaptchaValido] = useState(null);
   const [usuarioValido, cambiarUsuarioValido] = useState(null);
   const [userValido, cambiarUserValido] = useState(null);
@@ -99,6 +100,11 @@ function Login() {
 
       if (response.status === 200) {
         cookies.set("username", data.userName, { path: "/" });
+        dispatch(setUser(data));
+
+        // Guardar la información en el localStorage
+        localStorage.setItem("user", JSON.stringify(data));
+
         navigate("/Home");
       }
 
@@ -124,12 +130,15 @@ function Login() {
       <div className="container" style={{ padding: "35px 0" }}>
         <div className="card card-container mt-5">
           <br />
-          <h1 className="text-center text-white text-with-border" style={{ borderRadius: "5px" }}>
+          <h1
+            className="text-center text-white text-with-border"
+            style={{ borderRadius: "5px" }}
+          >
             <span style={{ color: "#001489" }}>E</span>ve
             <span style={{ color: "#DA291C" }}>nto</span>sC
             <span style={{ color: "#001489" }}>R</span>
           </h1>
-          <hr/>
+          <hr />
           <form className="form-signin">
             <span id="reauth-email" className="reauth-email"></span>
             <p className="input_title text-dark">{t("user")}</p>
@@ -192,7 +201,9 @@ function Login() {
             )}
             <br />
             <center>
-              <Link className="text-dark" to="/ForgotPassword">{t("forgot_password")}</Link>
+              <Link className="text-dark" to="/ForgotPassword">
+                {t("forgot_password")}
+              </Link>
             </center>
           </form>
         </div>

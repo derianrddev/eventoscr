@@ -1,14 +1,20 @@
+import { useDispatch } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { cleanUser } from "../store/auth/authSlice";
 
 export const MasterPage = ({ children }) => {
   const cookies = new Cookies();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const logout = () => {
     cookies.remove("username", { path: "/" });
+    dispatch(cleanUser());
+
+    // Limpiar los datos del localStorage
+    localStorage.removeItem("user");
+    
     navigate("/");
   };
 
@@ -34,7 +40,7 @@ export const MasterPage = ({ children }) => {
           </div>
           <div
             className="offcanvas offcanvas-end text-bg-dark d-lg-none"
-            tabindex="-1"
+            tabIndex="-1"
             id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel"
           >
@@ -54,9 +60,9 @@ export const MasterPage = ({ children }) => {
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
-                    exact
+                    exact="true"
                     to="/Home"
-                    activeClassName="active"
+                    activeclassname="active"
                     aria-current="page"
                   >
                     Home
@@ -65,9 +71,9 @@ export const MasterPage = ({ children }) => {
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
-                    exact
+                    exact="true"
                     to="/Events"
-                    activeClassName="active"
+                    activeclassname="active"
                     aria-current="page"
                   >
                     Crear entradas
@@ -76,9 +82,9 @@ export const MasterPage = ({ children }) => {
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
-                    exact
+                    exact="true"
                     to="/AvailableEvents"
-                    activeClassName="active"
+                    activeclassname="active"
                     aria-current="page"
                   >
                     Reservar entradas
@@ -102,9 +108,9 @@ export const MasterPage = ({ children }) => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  exact
+                  exact="true"
                   to="/Home"
-                  activeClassName="active"
+                  activeclassname="active"
                   aria-current="page"
                 >
                   Home
@@ -113,9 +119,9 @@ export const MasterPage = ({ children }) => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  exact
+                  exact="true"
                   to="/Events"
-                  activeClassName="active"
+                  activeclassname="active"
                   aria-current="page"
                 >
                   Crear entradas
@@ -124,9 +130,9 @@ export const MasterPage = ({ children }) => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  exact
+                  exact="true"
                   to="/AvailableEvents"
-                  activeClassName="active"
+                  activeclassname="active"
                   aria-current="page"
                 >
                   Reservar entradas
@@ -143,7 +149,7 @@ export const MasterPage = ({ children }) => {
                   style={{
                     backgroundColor: "#dc3545",
                     borderRadius: "5px",
-                    height: "40px"
+                    height: "40px",
                   }}
                   onClick={() => logout()}
                 >
