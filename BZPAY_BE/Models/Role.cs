@@ -13,6 +13,8 @@ public partial class Role
 
     public string? ConcurrencyStamp { get; set; }
 
+    public virtual ICollection<UserRoles> UserRoles { get; set; } = new List<UserRoles>();
+
     public virtual ICollection<Roleclaim> Roleclaims { get; set; } = new List<Roleclaim>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();

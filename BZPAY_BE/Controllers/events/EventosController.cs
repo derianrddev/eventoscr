@@ -56,12 +56,38 @@ namespace BZPAY_BE.Controllers.Events
             return (result is null) ? NotFound() : Ok(result);
         }
 
+        //[HttpGet]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(List<DetalleEventoDo>), StatusCodes.Status200OK)]
+        //public async Task<ActionResult<List<DetalleEventoDo>>> GetAllDetalleEventosAsync()
+        //{
+        //    var detalleEventos = await _service.GetAllDetalleEventosAsync();
+        //    if (detalleEventos == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(detalleEventos);
+        //}
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<DetalleEventoDo>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<DetalleEventoDo>>> GetAllDetalleEventosAsync()
+        public async Task<ActionResult<List<DetalleEventoDo>>> GetAllDetalleEventosConEntradasAsync()
         {
-            var detalleEventos = await _service.GetAllDetalleEventosAsync();
+            var detalleEventos = await _service.GetAllDetalleEventosConEntradasAsync();
+            if (detalleEventos == null)
+            {
+                return NotFound();
+            }
+            return Ok(detalleEventos);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<DetalleEventoDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<DetalleEventoDo>>> GetAllDetalleEventosSinEntradasAsync()
+        {
+            var detalleEventos = await _service.GetAllDetalleEventosSinEntradasAsync();
             if (detalleEventos == null)
             {
                 return NotFound();

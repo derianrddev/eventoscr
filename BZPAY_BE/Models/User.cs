@@ -39,6 +39,8 @@ public partial class User
 
     public virtual Proyecto1specialticketuser? Proyecto1specialticketuser { get; set; }
 
+    public virtual ICollection<UserRoles> UserRoles { get; set; } = new List<UserRoles>();
+
     public virtual ICollection<Userclaim> Userclaims { get; set; } = new List<Userclaim>();
 
     public virtual ICollection<Userlogin> Userlogins { get; set; } = new List<Userlogin>();

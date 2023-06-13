@@ -39,6 +39,8 @@ public partial class SpecialticketContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<UserRoles> UserRoles { get; set; }
+
     public virtual DbSet<Userclaim> Userclaims { get; set; }
 
     public virtual DbSet<Userlogin> Userlogins { get; set; }
@@ -370,6 +372,23 @@ public partial class SpecialticketContext : DbContext
                         j.ToTable("userroles");
                         j.HasIndex(new[] { "RoleId" }, "FK_UserRoles_Roles_RoleId");
                     });
+        });
+
+        modelBuilder.Entity<UserRoles>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.RoleId })
+                .HasName("PRIMARY")
+                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+
+            entity.ToTable("userrole");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserRoles)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_UserRoles_Users_UserId");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.UserRoles)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK_UserRoles_Role_UserId");
         });
 
         modelBuilder.Entity<Userclaim>(entity =>

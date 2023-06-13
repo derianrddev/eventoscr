@@ -81,5 +81,6 @@ namespace BZPAY_BE.Controllers.Events
             }
             return Ok(compras);
         }
+
     }
 }

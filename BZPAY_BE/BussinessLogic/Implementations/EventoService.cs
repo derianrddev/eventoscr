@@ -68,12 +68,28 @@ namespace BZPAY_BE.BussinessLogic.Implementations
         //    return eventoDo;
         //}
 
-        public async Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosAsync()
+        //public async Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosAsync()
+        //{
+        //    var lista = await _eventoRepository.GetAllDetalleEventosAsync();
+        //    var listaDetalleEventosDo = lista.Select(detalleEvento => _mapper.Map<DetalleEventoDo?>(detalleEvento)).ToList();
+        //    return listaDetalleEventosDo;
+
+        //}
+
+        public async Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosConEntradasAsync()
         {
-            var lista = await _eventoRepository.GetAllDetalleEventosAsync();
+            var lista = await _eventoRepository.GetAllDetalleEventosConEntradasAsync();
             var listaDetalleEventosDo = lista.Select(detalleEvento => _mapper.Map<DetalleEventoDo?>(detalleEvento)).ToList();
             return listaDetalleEventosDo;
-  
+
+        }
+
+        public async Task<IEnumerable<DetalleEventoDo?>> GetAllDetalleEventosSinEntradasAsync()
+        {
+            var lista = await _eventoRepository.GetAllDetalleEventosSinEntradasAsync();
+            var listaDetalleEventosDo = lista.Select(detalleEvento => _mapper.Map<DetalleEventoDo?>(detalleEvento)).ToList();
+            return listaDetalleEventosDo;
+
         }
 
         public async Task<DetalleEventoDo?> GetDetalleEventosByIdAsync(int? id)
