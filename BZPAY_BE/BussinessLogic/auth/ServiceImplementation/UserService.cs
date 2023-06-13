@@ -62,6 +62,31 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             return userDo;
         }
 
+        public async Task<IEnumerable<UserDo?>> GetAllUsersAsync()
+        {
+            var users = await _userRepository.GetAllUsersAsync();
+            if (users == null) return null;
+            var listUsers = users.Select(user => _mapper.Map<UserDo?>(user)).ToList();
+            return listUsers;
+        }
+
+        public async Task<IEnumerable<DetalleUsuariosDo?>> GetAllDetalleUsuariosAsync()
+        {
+            var detalleUsuarios = await _userRepository.GetAllDetalleUsuariosAsync();
+            if (detalleUsuarios == null) return null;
+            var detalleUsuariosDo = detalleUsuarios.Select(detalleUsuario => _mapper.Map<DetalleUsuariosDo?>(detalleUsuario)).ToList();
+            return detalleUsuariosDo;
+        }
+
+        public async Task<DetalleUsuariosDo?> GetDetalleUsuariosByIdAsync(string id)
+        {
+            var detalleUsuario = await _userRepository.GetDetalleUsuariosByIdAsync(id);
+            if (detalleUsuario == null) return null;
+            var detalleUsuarioDo = _mapper.Map<DetalleUsuariosDo>(detalleUsuario);
+            return detalleUsuarioDo;
+        }
+
+
         public async Task<IEnumerable<UserDo?>> GetUsersWithReservationsAsync()
         {
             var users = await _userRepository.GetUsersWithReservationsAsync();
@@ -75,6 +100,14 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             var userRole = await _userRepository.ChangeRoleToUserAsync(userId, roleId);
             var userRoleDo = _mapper.Map<UserRolesDo>(userRole);
             return userRoleDo;
+        }
+
+        public async Task<IEnumerable<RoleDo?>> GetAllRolesAsync()
+        {
+            var roles = await _userRepository.GetAllRolesAsync();
+            if (roles == null) return null;
+            var listRoles = roles.Select(role => _mapper.Map<RoleDo?>(role)).ToList();
+            return listRoles;
         }
 
         //public async Task<AspnetUserDo?> ForgotPasswordAsync(string username)

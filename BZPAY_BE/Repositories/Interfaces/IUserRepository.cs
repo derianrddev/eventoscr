@@ -1,5 +1,6 @@
 ﻿using BZPAY_BE.DataAccess;
 using BZPAY_BE.Models;
+using BZPAY_BE.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace BZPAY_BE.Repositories.Interfaces
@@ -11,8 +12,12 @@ namespace BZPAY_BE.Repositories.Interfaces
     {
         Task<User?> GetUserByUserNameAsync(string username);
         Task<User?> GetUserByIdAsync(string id);
+        Task<IEnumerable<User?>> GetAllUsersAsync();
+        Task<IEnumerable<DetalleUsuarios?>> GetAllDetalleUsuariosAsync();
+        Task<DetalleUsuarios?> GetDetalleUsuariosByIdAsync(string id);
         Task<IEnumerable<User?>> GetUsersWithReservationsAsync();
         Task<UserRoles?> ChangeRoleToUserAsync(string userId, string roleId);
+        Task<IEnumerable<Role?>> GetAllRolesAsync();
     }
 
 }

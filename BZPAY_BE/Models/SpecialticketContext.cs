@@ -29,7 +29,7 @@ public partial class SpecialticketContext : DbContext
 
     public virtual DbSet<Proyecto1specialticketuser> Proyecto1specialticketusers { get; set; }
 
-    public virtual DbSet<Role> Roles { get; set; }
+    public virtual DbSet<Role> Role { get; set; }
 
     public virtual DbSet<Roleclaim> Roleclaims { get; set; }
 
@@ -271,12 +271,38 @@ public partial class SpecialticketContext : DbContext
                 .HasConstraintName("FK_Proyecto1SpecialTicketUsers_Users_Id");
         });
 
+        //modelBuilder.Entity<Role>(entity =>
+        //{
+        //    entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+        //    entity.ToTable("roles");
+        //});
+
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
             entity.ToTable("roles");
+
+            entity.HasKey(e => e.Id);
+
+            // Mapeo de propiedades
+            entity.Property(e => e.Id)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .IsRequired();
+
+            entity.Property(e => e.Name)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.NormalizedName)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.ConcurrencyStamp)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
         });
+
 
         modelBuilder.Entity<Roleclaim>(entity =>
         {
@@ -347,48 +373,113 @@ public partial class SpecialticketContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("Updated_By");
         });
 
+        //modelBuilder.Entity<User>(entity =>
+        //{
+        //    entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+        //    entity.ToTable("users");
+
+        //    entity.Property(e => e.LockoutEnd).HasMaxLength(6);
+
+        //    entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+        //        .UsingEntity<Dictionary<string, object>>(
+        //            "Userrole",
+        //            r => r.HasOne<Role>().WithMany()
+        //                .HasForeignKey("RoleId")
+        //                .HasConstraintName("FK_UserRoles_Roles_RoleId"),
+        //            l => l.HasOne<User>().WithMany()
+        //                .HasForeignKey("UserId")
+        //                .HasConstraintName("FK_UserRoles_Users_UserId"),
+        //            j =>
+        //            {
+        //                j.HasKey("UserId", "RoleId")
+        //                    .HasName("PRIMARY")
+        //                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+        //                j.ToTable("userroles");
+        //                j.HasIndex(new[] { "RoleId" }, "FK_UserRoles_Roles_RoleId");
+        //            });
+        //});
+
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
             entity.ToTable("users");
 
-            entity.Property(e => e.LockoutEnd).HasMaxLength(6);
+            entity.HasKey(e => e.Id);
 
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Userrole",
-                    r => r.HasOne<Role>().WithMany()
-                        .HasForeignKey("RoleId")
-                        .HasConstraintName("FK_UserRoles_Roles_RoleId"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK_UserRoles_Users_UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "RoleId")
-                            .HasName("PRIMARY")
-                            .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-                        j.ToTable("userroles");
-                        j.HasIndex(new[] { "RoleId" }, "FK_UserRoles_Roles_RoleId");
-                    });
+            // Mapeo de propiedades
+            entity.Property(e => e.Id)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .IsRequired();
+
+            entity.Property(e => e.UserName)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.NormalizedUserName)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.Email)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.NormalizedEmail)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.EmailConfirmed)
+                .IsRequired();
+
+            entity.Property(e => e.PasswordHash)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.SecurityStamp)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.ConcurrencyStamp)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.PhoneNumber)
+                .HasColumnType("longtext")
+                .IsUnicode(false);
+
+            entity.Property(e => e.PhoneNumberConfirmed)
+                .IsRequired();
+
+            entity.Property(e => e.TwoFactorEnabled)
+                .IsRequired();
+
+            entity.Property(e => e.LockoutEnd)
+                .HasColumnType("datetime(6)");
+
+            entity.Property(e => e.LockoutEnabled)
+                .IsRequired();
+
+            entity.Property(e => e.AccessFailedCount)
+                .IsRequired();
         });
 
         modelBuilder.Entity<UserRoles>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.RoleId })
-                .HasName("PRIMARY")
-                .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+            entity.HasKey(e => new { e.UserId, e.RoleId });
 
-            entity.ToTable("userrole");
+            entity.ToTable("userroles");
 
-            entity.HasOne(d => d.User).WithMany(p => p.UserRoles)
+            entity.HasOne(d => d.User)
+                .WithMany(p => p.UserRoles)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_UserRoles_Users_UserId");
 
-            entity.HasOne(d => d.Role).WithMany(p => p.UserRoles)
+            entity.HasOne(d => d.Role)
+                .WithMany(p => p.UserRoles)
                 .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK_UserRoles_Role_UserId");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_UserRoles_Roles_RoleId");
         });
 
         modelBuilder.Entity<Userclaim>(entity =>
