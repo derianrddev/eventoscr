@@ -53,6 +53,33 @@ namespace BZPAY_BE.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(List<UserDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<UserDo>>> GetAllUsersAsync()
+        {
+            var result = await _service.GetAllUsersAsync();
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<DetalleUsuariosDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<DetalleUsuariosDo>>> GetAllDetalleUsuariosAsync()
+        {
+            var result = await _service.GetAllDetalleUsuariosAsync();
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(DetalleUsuariosDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<DetalleUsuariosDo>> GetDetalleUsuariosByIdAsync(string id)
+        {
+            var result = await _service.GetDetalleUsuariosByIdAsync(id);
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<UserDo>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<UserDo>>> GetUsersWithReservationsAsync()
         {
             var result = await _service.GetUsersWithReservationsAsync();
@@ -66,6 +93,15 @@ namespace BZPAY_BE.Controllers
         {
             var userRole = await _service.ChangeRoleToUserAsync(userId, roleId);
             return (userRole is null) ? NotFound() : Ok(userRole);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(List<RoleDo>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<RoleDo>>> GetAllRolesAsync()
+        {
+            var result = await _service.GetAllRolesAsync();
+            return (result is null) ? NotFound() : Ok(result);
         }
 
         /// <summary>
