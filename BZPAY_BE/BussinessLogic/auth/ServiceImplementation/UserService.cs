@@ -41,9 +41,14 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             //var encrypt = SecurityHelper.EncodePassword(login.Password, 1, user.AspnetMembership.PasswordSalt);
             //if (encrypt != user.AspnetMembership.Password)
             //    return null;
-            var userDo = _mapper.Map<UserDo>(user);
-            //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
-            return userDo;
+            var passwordValidation = SecurityHelper.ValidatePassword(login.Password, user.PasswordHash);
+            if (passwordValidation)
+            {
+                var userDo = _mapper.Map<UserDo>(user);
+                //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
+                return userDo;
+            }
+            return null;
         }
 
         public async Task<UserDo?> GetUserByUserNameAsync(string username)
