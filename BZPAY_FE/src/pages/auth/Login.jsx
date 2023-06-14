@@ -123,10 +123,7 @@ export const Login = () => {
   }, []);
 
   return (
-    <div
-      className="m-0 row justify-content-center align-items-center login"
-      style={{ height: "calc(100vh - 56px)" }}
-    >
+    <div className="m-0 vh-100 row justify-content-center align-items-center login">
       <div className="container" style={{ padding: "35px 0" }}>
         <div className="card card-container mt-5">
           <br />
@@ -210,4 +207,4 @@ export const Login = () => {
       </div>
     </div>
   );
-}
+};

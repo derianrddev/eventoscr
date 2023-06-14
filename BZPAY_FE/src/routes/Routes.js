@@ -30,23 +30,19 @@ function App() {
 
   return (
     <Router>
-      <MasterPage>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
+      <Routes>
+        <Route exact path="/" element={<Login />} />
+        <Route element={<MasterPage />}>
           <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
           <Route exact path="/RecoverPassword" element={<RecoverPassword />} />
           <Route exact path="/Home" element={<Home />} />
           <Route exact path="/Events" element={<Events />} />
-          <Route
-            exact
-            path="/CreateTickets/:eventId"
-            element={<CreateTickets />}
-          />
+          <Route exact path="/CreateTickets/:eventId" element={<CreateTickets />} />
           <Route exact path="/AvailableEvents" element={<AvailableEvents />} />
           <Route exact path="/BuyTickets/:eventId" element={<BuyTickets />} />
           <Route exact path="/TicketDelivery" element={<TicketDelivery />} />
-        </Routes>
-      </MasterPage>
+        </Route>
+      </Routes>
     </Router>
   );
 }

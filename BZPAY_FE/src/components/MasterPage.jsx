@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { cleanUser } from "../store/auth/authSlice";
 
-export const MasterPage = ({ children }) => {
+export const MasterPage = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -173,7 +173,7 @@ export const MasterPage = ({ children }) => {
           </div>
         </div>
       </nav>
-      {children}
+        <Outlet />
       <footer className="text-center text-white bg-dark">
         <div className="py-3">Todos los derechos reservados hasta 2023.</div>
       </footer>

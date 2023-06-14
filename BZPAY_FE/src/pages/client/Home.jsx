@@ -1,29 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import "../../css/Home.css";
 import Cookies from "universal-cookie";
-import { useTranslation } from "react-i18next";
 
 export const Home = () => {
-  const utf8 = require("utf8");
   const cookies = new Cookies();
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
-
-  function changeToEnglish() {
-    i18n.changeLanguage("en");
-  }
-
-  function changeToSpanish() {
-    i18n.changeLanguage("es");
-  }
 
   useEffect(() => {
-        if (!cookies.get('username')) {
-            navigate('/');
-        }
-    }, []);
+    if (!cookies.get("username")) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
@@ -45,94 +33,29 @@ export const Home = () => {
               <p className="text-light">
                 Reserva entradas para los mejores eventos en Costa Rica
               </p>
-              <button
+              <NavLink
                 className="btn btn-success btn-lg"
-                href="#"
                 style={{
                   backgroundColor: "#198754",
                   borderRadius: "5px",
+                  height: "48px",
+                  cursor: "pointer"
                 }}
+                exact="true"
+                to="/AvailableEvents"
+                aria-current="page"
               >
-                Explorar Eventos
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Eventos destacados */}
-      <section className="eventos-destacados mt-4">
-        <div className="container">
-          <h2 className="text-center fw-bold">Eventos Destacados</h2>
-          <div className="row text-center">
-            <div className="col-md-4">
-              <div className="card mt-3">
-                <div className="card-body">
-                  <h5 className="card-title">Nombre del Evento 1</h5>
-                  <p className="card-text">Breve descripción del evento 1.</p>
-                  <p className="card-text">Fecha: 01 de enero de 2024</p>
-                  <p className="card-text">Ubicación: Ciudad, Costa Rica</p>
-                  <button
-                    href="#"
-                    className="btn btn-primary"
-                    style={{
-                      backgroundColor: "#0d6efd",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Más detalles
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card mt-3">
-                <div className="card-body">
-                  <h5 className="card-title">Nombre del Evento 2</h5>
-                  <p className="card-text">Breve descripción del evento 2.</p>
-                  <p className="card-text">Fecha: 15 de febrero de 2024</p>
-                  <p className="card-text">Ubicación: Playa, Costa Rica</p>
-                  <button
-                    href="#"
-                    className="btn btn-primary"
-                    style={{
-                      backgroundColor: "#0d6efd",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Más detalles
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <div className="card mt-3">
-                <div className="card-body">
-                  <h5 className="card-title">Nombre del Evento 3</h5>
-                  <p className="card-text">Breve descripción del evento 3.</p>
-                  <p className="card-text">Fecha: 10 de marzo de 2024</p>
-                  <p className="card-text">Ubicación: Montaña, Costa Rica</p>
-                  <button
-                    href="#"
-                    className="btn btn-primary"
-                    style={{
-                      backgroundColor: "#0d6efd",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Más detalles
-                  </button>
-                </div>
-              </div>
+                Explorar eventos
+              </NavLink>
             </div>
           </div>
         </div>
       </section>
 
       {/* Categorías de eventos */}
-      <section className="categorias-eventos">
+      <section className="categorias-eventos mt-4">
         <div className="container">
-          <h2 className="text-center fw-bold">Categorías de Eventos</h2>
+          <h2 className="text-center fw-bold">Categorías de eventos</h2>
           <div className="row">
             <div className="col-md-4">
               <div className="card mt-3 p-0">
@@ -195,7 +118,7 @@ export const Home = () => {
       {/* Testimonios de clientes */}
       <section className="testimonios">
         <div className="container">
-          <h2 className="text-center fw-bold">Testimonios de Clientes</h2>
+          <h2 className="text-center fw-bold">Testimonios de clientes</h2>
           <div className="row">
             <div className="col-md-4">
               <div className="card mt-3">
@@ -247,4 +170,4 @@ export const Home = () => {
       </section>
     </>
   );
-}
+};
