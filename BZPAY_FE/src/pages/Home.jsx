@@ -63,7 +63,7 @@ function Home() {
       {/* Eventos destacados */}
       <section className="eventos-destacados mt-4">
         <div className="container">
-          <h2 className="text-center">Eventos Destacados</h2>
+          <h2 className="text-center fw-bold">Eventos Destacados</h2>
           <div className="row text-center">
             <div className="col-md-4">
               <div className="card mt-3">
@@ -132,7 +132,7 @@ function Home() {
       {/* Categorías de eventos */}
       <section className="categorias-eventos">
         <div className="container">
-          <h2 className="text-center">Categorías de Eventos</h2>
+          <h2 className="text-center fw-bold">Categorías de Eventos</h2>
           <div className="row">
             <div className="col-md-4">
               <div className="card mt-3 p-0">
@@ -195,7 +195,7 @@ function Home() {
       {/* Testimonios de clientes */}
       <section className="testimonios">
         <div className="container">
-          <h2 className="text-center">Testimonios de Clientes</h2>
+          <h2 className="text-center fw-bold">Testimonios de Clientes</h2>
           <div className="row">
             <div className="col-md-4">
               <div className="card mt-3">

@@ -10,6 +10,7 @@ import { Events } from "../pages/Events";
 import { CreateTickets } from "../pages/CreateTickets";
 import { AvailableEvents } from "../pages/AvailableEvents";
 import { setUser } from "../store/auth/authSlice";
+import { BuyTickets } from "../pages/BuyTickets";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,11 @@ function App() {
             element={<CreateTickets />}
           />
           <Route exact path="/AvailableEvents" element={<AvailableEvents />} />
+          <Route
+            exact
+            path="/BuyTickets/:eventId"
+            element={<BuyTickets />}
+          />
         </Routes>
       </MasterPage>
     </Router>

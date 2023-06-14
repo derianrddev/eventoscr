@@ -69,7 +69,7 @@ function Login() {
     if (valid) iniciarSesion();
   };
 
-  const iniciarSesion = async (event) => {
+  const iniciarSesion = async () => {
     const url = "https://localhost:7052/api/User/StartSession";
     const origin = "https://localhost:3000";
 
