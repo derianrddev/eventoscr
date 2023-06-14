@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/auth/authSlice";
 
-function Login() {
+export const Login = () => {
   const captcha = useRef(null);
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function Login() {
     if (valid) iniciarSesion();
   };
 
-  const iniciarSesion = async (event) => {
+  const iniciarSesion = async () => {
     const url = "https://localhost:7052/api/User/StartSession";
     const origin = "https://localhost:3000";
 
@@ -123,10 +123,7 @@ function Login() {
   }, []);
 
   return (
-    <div
-      className="m-0 row justify-content-center align-items-center login"
-      style={{ height: "calc(100vh - 56px)" }}
-    >
+    <div className="m-0 vh-100 row justify-content-center align-items-center login">
       <div className="container" style={{ padding: "35px 0" }}>
         <div className="card card-container mt-5">
           <br />
@@ -210,6 +207,4 @@ function Login() {
       </div>
     </div>
   );
-}
-
-export default Login;
+};

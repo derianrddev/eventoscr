@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { cleanUser } from "../store/auth/authSlice";
 
-export const MasterPage = ({ children }) => {
+export const MasterPage = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const MasterPage = ({ children }) => {
 
     // Limpiar los datos del localStorage
     localStorage.removeItem("user");
-    
+
     navigate("/");
   };
 
@@ -91,9 +91,15 @@ export const MasterPage = ({ children }) => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <NavLink
+                    className="nav-link"
+                    exact="true"
+                    to="/TicketDelivery"
+                    activeclassname="active"
+                    aria-current="page"
+                  >
                     Entrega de entradas
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#" onClick={() => logout()}>
@@ -139,9 +145,15 @@ export const MasterPage = ({ children }) => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink
+                  className="nav-link"
+                  exact="true"
+                  to="/TicketDelivery"
+                  activeclassname="active"
+                  aria-current="page"
+                >
                   Entrega de entradas
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <button
@@ -161,7 +173,7 @@ export const MasterPage = ({ children }) => {
           </div>
         </div>
       </nav>
-      {children}
+        <Outlet />
       <footer className="text-center text-white bg-dark">
         <div className="py-3">Todos los derechos reservados hasta 2023.</div>
       </footer>

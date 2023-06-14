@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
-import { formatDate, getRequest, postRequestUrl } from "../helpers";
+import { formatDate, getRequest, postRequestUrl } from "../../helpers";
 
 export const CreateTickets = () => {
   const location = useLocation();
@@ -76,10 +76,10 @@ export const CreateTickets = () => {
       className="container text-center"
       style={{ minHeight: "calc(100vh - 56px)", paddingTop: "100px" }}
     >
-      <h1 className="mb-5">{event.descripcion}</h1>
+      <h1 className="mb-5 fw-bold">{event.descripcion}</h1>
       <div className="row">
         <div className="col-md-6">
-          <h2 className="mb-4">Detalles del evento</h2>
+          <h3 className="mb-4 fw-bold">Detalles del evento</h3>
           <h5 className="mb-4">
             <strong>Tipo de evento:</strong> {event.tipoEvento}
           </h5>
@@ -97,11 +97,11 @@ export const CreateTickets = () => {
           </h5>
         </div>
         <div className="col-md-6">
-          <h2 className="mb-4">Asientos</h2>
+          <h3 className="mb-4 fw-bold">Asientos</h3>
           {seating.map((seat) => (
             <div className="mb-3 row d-flex align-items-center" key={seat.id}>
               <div className="col-md-6">
-                <h5>{seat.tipoAsiento}</h5>
+                <h5 className="fw-bold">{seat.tipoAsiento}</h5>
                 <p className="mb-1">Cantidad: {seat.cantidad}</p>
               </div>
               <div className="col-md-6">

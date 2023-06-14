@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Home from "../pages/Home";
-import Login from "../pages/auth/Login";
-import ForgotPassword from "../pages/auth/ForgotPassword";
-import RecoverPassword from "../pages/auth/RecoverPassword";
 import { MasterPage } from "../components/MasterPage";
-import { Events } from "../pages/Events";
-import { CreateTickets } from "../pages/CreateTickets";
-import { AvailableEvents } from "../pages/AvailableEvents";
 import { setUser } from "../store/auth/authSlice";
+import {
+  AvailableEvents,
+  BuyTickets,
+  CreateTickets,
+  Events,
+  ForgotPassword,
+  Home,
+  Login,
+  RecoverPassword,
+  TicketDelivery,
+} from "../pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,21 +30,19 @@ function App() {
 
   return (
     <Router>
-      <MasterPage>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
+      <Routes>
+        <Route exact path="/" element={<Login />} />
+        <Route element={<MasterPage />}>
           <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
           <Route exact path="/RecoverPassword" element={<RecoverPassword />} />
           <Route exact path="/Home" element={<Home />} />
           <Route exact path="/Events" element={<Events />} />
-          <Route
-            exact
-            path="/CreateTickets/:eventId"
-            element={<CreateTickets />}
-          />
+          <Route exact path="/CreateTickets/:eventId" element={<CreateTickets />} />
           <Route exact path="/AvailableEvents" element={<AvailableEvents />} />
-        </Routes>
-      </MasterPage>
+          <Route exact path="/BuyTickets/:eventId" element={<BuyTickets />} />
+          <Route exact path="/TicketDelivery" element={<TicketDelivery />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }
