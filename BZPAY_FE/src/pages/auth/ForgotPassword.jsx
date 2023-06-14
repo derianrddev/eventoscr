@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import ReCAPTCHA from "react-google-recaptcha";
 import Spinner from "react-spinkit";
 
-function ForgotPassword() {
+export const ForgotPassword = () => {
 
     const captcha = useRef(null);
     const cookies = new Cookies();
@@ -153,5 +153,3 @@ function ForgotPassword() {
         
         )
 }
-
-export default ForgotPassword;

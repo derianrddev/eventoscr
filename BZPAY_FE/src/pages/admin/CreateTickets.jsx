@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
-import { formatDate, getRequest, postRequestUrl } from "../helpers";
+import { formatDate, getRequest, postRequestUrl } from "../../helpers";
 
 export const CreateTickets = () => {
   const location = useLocation();

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
-import { formatDate, getRequest, postRequestUrl } from "../helpers";
+import { formatDate, getRequest, postRequestUrl } from "../../helpers";
 import { useSelector } from "react-redux";
 
 export const BuyTickets = () => {

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/auth/authSlice";
 
-function Login() {
+export const Login = () => {
   const captcha = useRef(null);
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -211,5 +211,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;

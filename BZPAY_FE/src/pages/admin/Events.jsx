@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDate, getRequest } from "../helpers";
-import img from '../images/llorando.png';
+import { formatDate, getRequest } from "../../helpers";
+import img from '../../images/tarea-completada.png';
 
-export const AvailableEvents = () => {
+export const Events = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    getEvents();
+    fetchEvents();
   }, []);
 
-  const getEvents = async () => {
+  const fetchEvents = async () => {
     const url =
-      "https://localhost:7052/api/Eventos/GetAllDetalleEventosConEntradas";
+      "https://localhost:7052/api/Eventos/GetAllDetalleEventosSinEntradas";
     const result = await getRequest(url);
 
     if (result.ok) {
@@ -21,8 +21,8 @@ export const AvailableEvents = () => {
     }
   };
 
-  const buyTickets = async (eventId) => {
-    navigate(`/BuyTickets/${eventId}`, { state: { eventId } });
+  const createTicket = async (eventId) => {
+    navigate(`/CreateTickets/${eventId}`, { state: { eventId } });
   };
 
   return (
@@ -32,12 +32,12 @@ export const AvailableEvents = () => {
     >
       {events.length === 0 ? (
         <>
-          <h1 className="mb-4 fw-bold">No hay eventos disponibles</h1>
+          <h1 className="mb-4 fw-bold">No hay eventos sin entradas creadas</h1>
           <img src={img} alt="Imagen de eventos vacíos" />
         </>
       ) : (
         <>
-          <h1 className="mb-4 fw-bold">Eventos disponibles</h1>
+          <h1 className="mb-4 fw-bold">Eventos sin entradas creadas</h1>
           <div className="row">
             {events.map((event) => (
               <div className="col-md-4" key={event.id}>
@@ -62,9 +62,9 @@ export const AvailableEvents = () => {
                         backgroundColor: "#198754",
                         borderRadius: "5px",
                       }}
-                      onClick={() => buyTickets(event.id)}
+                      onClick={() => createTicket(event.id)}
                     >
-                      Ver entradas
+                      Crear Entrada
                     </button>
                   </div>
                 </div>

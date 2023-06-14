@@ -14,7 +14,7 @@ export const MasterPage = ({ children }) => {
 
     // Limpiar los datos del localStorage
     localStorage.removeItem("user");
-    
+
     navigate("/");
   };
 
@@ -91,9 +91,15 @@ export const MasterPage = ({ children }) => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <NavLink
+                    className="nav-link"
+                    exact="true"
+                    to="/TicketDelivery"
+                    activeclassname="active"
+                    aria-current="page"
+                  >
                     Entrega de entradas
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#" onClick={() => logout()}>
@@ -139,9 +145,15 @@ export const MasterPage = ({ children }) => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink
+                  className="nav-link"
+                  exact="true"
+                  to="/TicketDelivery"
+                  activeclassname="active"
+                  aria-current="page"
+                >
                   Entrega de entradas
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <button

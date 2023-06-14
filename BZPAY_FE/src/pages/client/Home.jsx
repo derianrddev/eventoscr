@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/Home.css";
+import "../../css/Home.css";
 import Cookies from "universal-cookie";
 import { useTranslation } from "react-i18next";
 
-function Home() {
+export const Home = () => {
   const utf8 = require("utf8");
   const cookies = new Cookies();
   const navigate = useNavigate();
@@ -248,5 +248,3 @@ function Home() {
     </>
   );
 }
-
-export default Home;

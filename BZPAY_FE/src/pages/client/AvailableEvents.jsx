@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDate, getRequest } from "../helpers";
-import img from '../images/tarea-completada.png';
+import { formatDate, getRequest } from "../../helpers";
+import img from '../../images/llorando.png';
 
-export const Events = () => {
+export const AvailableEvents = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetchEvents();
+    getEvents();
   }, []);
 
-  const fetchEvents = async () => {
+  const getEvents = async () => {
     const url =
-      "https://localhost:7052/api/Eventos/GetAllDetalleEventosSinEntradas";
+      "https://localhost:7052/api/Eventos/GetAllDetalleEventosConEntradas";
     const result = await getRequest(url);
 
     if (result.ok) {
@@ -21,8 +21,8 @@ export const Events = () => {
     }
   };
 
-  const createTicket = async (eventId) => {
-    navigate(`/CreateTickets/${eventId}`, { state: { eventId } });
+  const buyTickets = async (eventId) => {
+    navigate(`/BuyTickets/${eventId}`, { state: { eventId } });
   };
 
   return (
@@ -32,12 +32,12 @@ export const Events = () => {
     >
       {events.length === 0 ? (
         <>
-          <h1 className="mb-4 fw-bold">No hay eventos sin entradas creadas</h1>
+          <h1 className="mb-4 fw-bold">No hay eventos disponibles</h1>
           <img src={img} alt="Imagen de eventos vacíos" />
         </>
       ) : (
         <>
-          <h1 className="mb-4 fw-bold">Eventos sin entradas creadas</h1>
+          <h1 className="mb-4 fw-bold">Eventos disponibles</h1>
           <div className="row">
             {events.map((event) => (
               <div className="col-md-4" key={event.id}>
@@ -62,9 +62,9 @@ export const Events = () => {
                         backgroundColor: "#198754",
                         borderRadius: "5px",
                       }}
-                      onClick={() => createTicket(event.id)}
+                      onClick={() => buyTickets(event.id)}
                     >
-                      Crear Entrada
+                      Ver entradas
                     </button>
                   </div>
                 </div>

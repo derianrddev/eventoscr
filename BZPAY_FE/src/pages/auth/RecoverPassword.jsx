@@ -6,7 +6,7 @@ import '../../css/auth/Login.css';
 import { useTranslation } from 'react-i18next';
 import Spinner from "react-spinkit";
 
-function RecoverPassword() {
+export const RecoverPassword = () => {
 
     const cookies = new Cookies();
     const navigate = useNavigate();
@@ -192,5 +192,3 @@ function RecoverPassword() {
         
         )
 }
-
-export default RecoverPassword;
