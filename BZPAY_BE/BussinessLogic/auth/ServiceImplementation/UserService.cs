@@ -50,6 +50,20 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             }
             return null;
         }
+        public async Task<UserDo?> RegisterAsync(RegisterRequest register)
+        {
+            var user = await _userRepository.GetUserByUserNameAsync(register.Username);
+            if (user != null) return null;
+
+            string userId = SecurityHelper.GenerateUserId();
+            string hashedPassword = SecurityHelper.HashPassword(register.Password);
+
+            var userDo = _mapper.Map<UserDo>(user);
+            //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
+            return userDo;
+ 
+            //return null;
+        }
 
         public async Task<UserDo?> GetUserByUserNameAsync(string username)
         {

@@ -57,6 +57,17 @@ namespace BZPAY_BE.Helpers
             return passwordVerificationResult == PasswordVerificationResult.Success;
         }
 
+        public static string GenerateUserId()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        public static string HashPassword(string password)
+        {
+            var passwordHasher = new PasswordHasher<string>();
+            return passwordHasher.HashPassword(null, password);
+        }
+
         public static string EncodePassword(string pass, int passwordFormat, string salt)
         {
             if (passwordFormat == 0)

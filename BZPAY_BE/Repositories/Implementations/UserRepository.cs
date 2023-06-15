@@ -30,6 +30,25 @@ namespace BZPAY_BE.Repositories.Implementations
             return user;
         }
 
+        //public async Task<User?> RegisterUserAsync(RegisterRequest register, string userId, string hashedPassword)
+        //{
+        //    var user = new User
+        //    {
+        //        Id = userId,
+        //        FechaReserva = DateTime.Now,
+        //        CreatedAt = DateTime.Now,
+        //        CreatedBy = userId,
+        //        UpdatedAt = DateTime.Now,
+        //        UpdatedBy = userId,
+        //        Active = true,
+        //        IdCliente = userId,
+        //        IdEntrada = idEntrada
+        //    };
+
+        //    //User user = await _context.User.Where(u => u.UserName == username).SingleOrDefaultAsync();
+        //    return user;
+        //}
+
         public async Task<User?> GetUserByIdAsync(string id)
         {
             User user = await _context.Users

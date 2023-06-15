@@ -24,6 +24,8 @@ namespace BZPAY_BE.Models.Entities
         public decimal Total { get; set; }
 
         public string? Evento { get; set; }
+        
+        public string? TipoEvento { get; set; }
 
         public string? Escenario { get; set; }
 

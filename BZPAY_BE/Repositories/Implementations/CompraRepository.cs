@@ -135,6 +135,7 @@ namespace BZPAY_BE.Repositories.Implementations
                                              Precio = en.Precio,
                                              Total = en.Precio * c.Cantidad,
                                              Evento = ev.Descripcion,
+                                             TipoEvento = te.Descripcion,
                                              Escenario = es.Nombre,
                                              IdCliente = c.IdCliente,
                                              UserName = us.UserName,
