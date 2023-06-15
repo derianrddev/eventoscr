@@ -58,3 +58,12 @@ export const postRequestUrl = async (url) => {
     };
   }
 };
+
+export const getUserDetails = async (userId) => {
+  const url = `https://localhost:7052/api/User/GetDetalleUsuariosById/${userId}`;
+  const result = await getRequest(url);
+
+  if (result.ok) {
+    localStorage.setItem('roleName', result.data.roleName);
+  }
+};

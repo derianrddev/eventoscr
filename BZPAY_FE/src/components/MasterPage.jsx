@@ -102,9 +102,18 @@ export const MasterPage = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#" onClick={() => logout()}>
-                    <i className="fa-solid fa-right-from-bracket"></i>
-                  </a>
+                  <button
+                    className="btn btn-danger mb-0"
+                    style={{
+                      backgroundColor: "#dc3545",
+                      borderRadius: "5px",
+                      height: "40px",
+                    }}
+                    onClick={() => logout()}
+                  >
+                    <i className="fa-solid fa-right-from-bracket"></i> Cerrar
+                    Sesión
+                  </button>
                 </li>
               </ul>
             </div>
@@ -173,7 +182,7 @@ export const MasterPage = () => {
           </div>
         </div>
       </nav>
-        <Outlet />
+      <Outlet />
       <footer className="text-center text-white bg-dark">
         <div className="py-3">Todos los derechos reservados hasta 2023.</div>
       </footer>

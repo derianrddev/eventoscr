@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
-import "../../css/auth/Login.css";
 import { setUser } from "../../store/auth/authSlice";
 import { useForm } from "../../hooks";
-import { getRequest } from "../../helpers";
+import { getUserDetails } from "../../helpers";
+import { AuthForm } from "../../components";
 
 const formData = {
   email: "",
@@ -80,77 +80,18 @@ export const Login = () => {
   };
 
   useEffect(() => {
+    let isMounted = true;
+
     if (cookies.get("email")) {
       navigate("/Home");
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const getUserDetails = async (userId) => {
-    const url = `https://localhost:7052/api/User/GetDetalleUsuariosById/${userId}`;
-    const result = await getRequest(url);
-
-    if (result.ok) {
-      localStorage.setItem('roleName', result.data.roleName);
-    }
-  };
-
   return (
-    <div className="m-0 vh-100 row justify-content-center align-items-center login">
-      <div className="container" style={{ padding: "35px 0" }}>
-        <div className="card card-container mt-5">
-          <br />
-          <h1
-            className="text-center text-white text-with-border"
-            style={{ borderRadius: "5px" }}
-          >
-            <span style={{ color: "#001489" }}>E</span>ve
-            <span style={{ color: "#DA291C" }}>nto</span>sC
-            <span style={{ color: "#001489" }}>R</span>
-          </h1>
-          <hr />
-          <form className="form-signin">
-            <p className="input_title text-dark">Correo</p>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              className="login_box"
-              onChange={onInputChange}
-              placeholder="correo@gmail.com"
-              required
-              autoFocus
-            />
-            <p className="input_title text-dark">Contraseña</p>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="login_box"
-              onChange={onInputChange}
-              placeholder="******"
-              required
-            />
-            <button
-              className="btn btn-lg btn-success"
-              type="submit"
-              onClick={handleSubmit}
-              disabled={formSubmitted}
-              style={{
-                backgroundColor: "#198754",
-                borderRadius: "5px",
-              }}
-            >
-              Iniciar sesión
-            </button>
-            <br />
-            <center>
-              <Link className="text-dark" to="/Register">
-                Crear cuenta
-              </Link>
-            </center>
-          </form>
-        </div>
-      </div>
-    </div>
+    <AuthForm page="login" onInputChange={onInputChange} handleSubmit={handleSubmit} formSubmitted={formSubmitted} />
   );
 };
