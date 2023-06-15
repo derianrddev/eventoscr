@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { formatDate, getRequest, postRequestUrl } from "../../helpers";
 import { TicketPDF } from "./TicketPDF";
 import { pdf } from "@react-pdf/renderer";
 
 
 export const TicketDelivery = () => {
+  const cookies = new Cookies();
   const location = useLocation();
   const navigate = useNavigate();
-  const userId = location.state.userId;
+  const userId = location.state?.userId;
   const role = localStorage.getItem('roleName');
 
   const [clientTickets, setClientsTickets] = useState([]);
 
   useEffect(() => {
-    if(role == 'Cliente'){
+    if (!cookies.get("email")) {
+      navigate("/");
+    }
+    if(role == 'Cliente' || !userId){
       navigate('/Home')
     }else{
       getClientsTickets();

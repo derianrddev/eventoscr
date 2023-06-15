@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import { getRequest, postRequestUrl } from "../../helpers";
-import { useSelector } from "react-redux";
 import { EventDetails, TicketItem } from "../../components";
 
 export const BuyTickets = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const location = useLocation();
-  const eventId = location.state.eventId;
+  const eventId = location.state?.eventId;
   const { user } = useSelector((state) => state.auth);
   const role = localStorage.getItem('roleName');
 
@@ -21,14 +23,15 @@ export const BuyTickets = () => {
   const [isBuying, setIsBuying] = useState(false);
 
   useEffect(() => {
-    if(role == 'Cajero'){
+    if (!cookies.get("email")) {
+      navigate("/");
+    }
+    if(role == 'Cajero' || !eventId){
       navigate('/Home')
     }else{
       getTickets();
     }
   }, []);
-
-
 
   const getTickets = async () => {
     const url = `https://localhost:7052/api/Entradas/GetDetalleEntradas/${eventId}`;

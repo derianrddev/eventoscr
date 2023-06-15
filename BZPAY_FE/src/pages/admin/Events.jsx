@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { formatDate, getRequest } from "../../helpers";
 import img from '../../images/tarea-completada.png';
 
 export const Events = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const role = localStorage.getItem('roleName');
 
   useEffect(() => {
+    if (!cookies.get("email")) {
+      navigate("/");
+    }
     if(role !== 'Administrador'){
       navigate('/Home')
     }else{
