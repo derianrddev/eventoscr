@@ -1,19 +1,40 @@
 import { useEffect, useState } from "react";
-import { getRequest } from "../../helpers";
+import { useLocation } from "react-router-dom";
+import { formatDate, getRequest, postRequestUrl } from "../../helpers";
+import { TicketPDF } from "./TicketPDF";
+import { pdf } from "@react-pdf/renderer";
 
 export const TicketDelivery = () => {
-  const [clients, setClients] = useState([]);
+  const location = useLocation();
+  const userId = location.state.userId;
+
+  const [clientTickets, setClientsTickets] = useState([]);
 
   useEffect(() => {
-    getClients();
+    getClientsTickets();
   }, []);
 
-  const getClients = async () => {
-    const url = "https://localhost:7052/api/User/GetUsersWithReservations";
+  const getClientsTickets = async () => {
+    const url = `https://localhost:7052/api/Compras/GetCompraByIdCliente/${userId}`;
     const result = await getRequest(url);
 
     if (result.ok) {
-      setClients(result.data);
+      setClientsTickets(result.data);
+    }
+  };
+
+  const handlePrintTicket = async (ticketId) => {
+    const url = `https://localhost:7052/api/Compras/ImprimirEntrada?idCompra=${ticketId}`;
+    const result = await postRequestUrl(url);
+
+    if (result.ok) {
+      const pdfBlob = await pdf(
+        <TicketPDF ticket={result.data} />
+      ).toBlob();
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      const win = window.open(pdfUrl, "_blank");
+      win.focus();
+      getClientsTickets();
     }
   };
 
@@ -22,21 +43,35 @@ export const TicketDelivery = () => {
       className="container text-center"
       style={{ minHeight: "calc(100vh - 56px)", paddingTop: "100px" }}
     >
-      <h1 className="mb-4 fw-bold">Clientes</h1>
-      <div className="table-responsive">
+      <h1 className="mb-4 fw-bold">Entrega de entradas</h1>
+      <div className="table-responsive mb-5">
         <table className="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Correo</th>
+              <th scope="col">Evento</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Fecha de reserva</th>
+              <th scope="col">Fecha de pago</th>
+              <th scope="col">Asiento</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Total</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {clients.map((client) => (
-              <tr key={client.id}>
-                <td>{client.userName}</td>
-                <td>{client.email}</td>
+            {clientTickets.map((ticket) => (
+              <tr key={ticket.id}>
+                <td>{ticket.evento}</td>
+                <td>{ticket.cantidad}</td>
+                <td>{formatDate(ticket.fechaReserva)}</td>
+                <td>
+                  {ticket.fechaPago !== "0001-01-01T00:00:00"
+                    ? formatDate(ticket.fechaPago)
+                    : "No ha realizado el pago"}
+                </td>
+                <td>{ticket.tipoAsiento}</td>
+                <td>{ticket.precio}</td>
+                <td>{ticket.total}</td>
                 <td>
                   <button
                     className="btn btn-primary m-0"
@@ -45,8 +80,9 @@ export const TicketDelivery = () => {
                       borderRadius: "5px",
                       height: "36px",
                     }}
+                    onClick={() => handlePrintTicket(ticket.id)}
                   >
-                    <i className="fa-solid fa-circle-info"></i>
+                    <i className="fa-solid fa-print"></i>
                   </button>
                 </td>
               </tr>

@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
-import { formatDate, getRequest, postRequestUrl } from "../../helpers";
+import { getRequest, postRequestUrl } from "../../helpers";
 import { useSelector } from "react-redux";
+import { EventDetails, TicketItem } from "../../components";
 
 export const BuyTickets = () => {
   const location = useLocation();
   const eventId = location.state.eventId;
   const { user } = useSelector((state) => state.auth);
 
-  const [event, setEvent] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -19,18 +19,8 @@ export const BuyTickets = () => {
   const [isBuying, setIsBuying] = useState(false);
 
   useEffect(() => {
-    getDetailEvent();
     getTickets();
   }, []);
-
-  const getDetailEvent = async () => {
-    const url = `https://localhost:7052/api/Eventos/GetDetalleEventosById/${eventId}`;
-    const result = await getRequest(url);
-
-    if (result.ok) {
-      setEvent(result.data);
-    }
-  };
 
   const getTickets = async () => {
     const url = `https://localhost:7052/api/Entradas/GetDetalleEntradas/${eventId}`;
@@ -41,20 +31,20 @@ export const BuyTickets = () => {
     }
   };
 
-  const ticketSelection = (ticket) => {
+  const handleTicketSelection = (ticket) => {
     setSelectedTicket(ticket);
     setQuantity(1);
     setTotalPrice(ticket.precio);
     setShowModal(true);
   };
 
-  const quantityChange = (e) => {
+  const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value);
     setQuantity(value);
     setTotalPrice(selectedTicket.precio * value);
   };
 
-  const buyTickets = async () => {
+  const handleBuyTickets = async () => {
     setIsBuying(true);
     if (selectedTicket.disponibles > quantity) {
       const url = `https://localhost:7052/api/Compras/CreateCompra?cantidad=${quantity}&idEntrada=${selectedTicket.id}&userId=${user.id}`;
@@ -62,18 +52,16 @@ export const BuyTickets = () => {
       if (data.ok === false) {
         Swal.fire("Error", "Lo siento, no fue posible realizar la compra de las entradas.", "error");
       } else {
-        // Actualizar el estado local de tickets utilizando prev
-        setTickets((prevTickets) => {
-          return prevTickets.map((ticket) => {
-            if (ticket.id === selectedTicket.id) {
-              return {
-                ...ticket,
-                disponibles: selectedTicket.disponibles - quantity,
-              };
-            }
-            return ticket;
-          });
+        const updatedTickets = tickets.map((ticket) => {
+          if (ticket.id === selectedTicket.id) {
+            return {
+              ...ticket,
+              disponibles: selectedTicket.disponibles - quantity,
+            };
+          }
+          return ticket;
         });
+        setTickets(updatedTickets);
         setShowModal(false);
         Swal.fire("Entradas compradas", "Las entradas del evento se han comprado exitosamente.", "success");
       }
@@ -84,64 +72,22 @@ export const BuyTickets = () => {
   };
 
   return (
-    <div
-      className="container text-center"
-      style={{ minHeight: "calc(100vh - 56px)", paddingTop: "100px" }}
-    >
-      <h1 className="mb-5 fw-bold">{event.descripcion}</h1>
+    <div className="container text-center" style={{ minHeight: "calc(100vh - 56px)", paddingTop: "100px" }}>
+      <h1 className="mb-5 fw-bold">Comprar entradas</h1>
       <div className="row text-center">
         <div className="col-lg-4">
-          <h3 className="mb-4 fw-bold">Detalles del evento</h3>
-          <h5 className="mb-4">
-            <strong>Tipo de evento:</strong> {event.tipoEvento}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Fecha:</strong> {formatDate(event.fecha)}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Escenario:</strong> {event.escenario}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Tipo de escenario:</strong> {event.tipoEscenario}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Localización:</strong> {event.localizacion}
-          </h5>
+          <EventDetails eventId={eventId} />
         </div>
         <div className="col-lg-8">
           <div className="row">
             <h3 className="mb-4 fw-bold">Entradas disponibles</h3>
             {tickets.map((ticket) => (
-              <div className="col-md-4" key={ticket.id}>
-                <div className="card mt-3">
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">{ticket.tipoAsiento}</h5>
-                    <p className="card-text">
-                      <i className="fa-solid fa-chair pe-2"></i>
-                      {ticket.disponibles}
-                    </p>
-                    <p className="card-text">
-                      <i className="fa-solid fa-tag pe-2"></i>₡{ticket.precio}
-                    </p>
-                    <button
-                      className="btn btn-success"
-                      style={{
-                        backgroundColor: "#198754",
-                        borderRadius: "5px",
-                      }}
-                      onClick={() => ticketSelection(ticket)}
-                    >
-                      Comprar entradas
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <TicketItem key={ticket.id} ticket={ticket} handleTicketSelection={handleTicketSelection} />
             ))}
           </div>
         </div>
       </div>
 
-      {/* Modal */}
       {showModal && (
         <div className="modal fade show" style={{ display: "block" }}>
           <div className="modal-dialog modal-dialog-centered">
@@ -173,7 +119,7 @@ export const BuyTickets = () => {
                       className="form-control text-end ms-3"
                       id="quantityInput"
                       value={quantity}
-                      onChange={quantityChange}
+                      onChange={handleQuantityChange}
                       min="1"
                       style={{ maxWidth: "150px", borderRadius: "5px" }}
                     />
@@ -197,7 +143,7 @@ export const BuyTickets = () => {
                 <button
                   type="button"
                   className="btn btn-success my-0"
-                  onClick={buyTickets}
+                  onClick={handleBuyTickets}
                   disabled={isBuying}
                   style={{
                     backgroundColor: "#198754",
@@ -211,7 +157,6 @@ export const BuyTickets = () => {
           </div>
         </div>
       )}
-      {/* End Modal */}
     </div>
   );
 };

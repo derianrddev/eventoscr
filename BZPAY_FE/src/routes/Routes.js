@@ -6,6 +6,7 @@ import { setUser } from "../store/auth/authSlice";
 import {
   AvailableEvents,
   BuyTickets,
+  Clients,
   CreateTickets,
   Events,
   ForgotPassword,
@@ -40,7 +41,8 @@ function App() {
           <Route exact path="/CreateTickets/:eventId" element={<CreateTickets />} />
           <Route exact path="/AvailableEvents" element={<AvailableEvents />} />
           <Route exact path="/BuyTickets/:eventId" element={<BuyTickets />} />
-          <Route exact path="/TicketDelivery" element={<TicketDelivery />} />
+          <Route exact path="/Clients" element={<Clients />} />
+          <Route exact path="/TicketDelivery/:userId" element={<TicketDelivery />} />
         </Route>
       </Routes>
     </Router>

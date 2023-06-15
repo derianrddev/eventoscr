@@ -94,7 +94,7 @@ export const MasterPage = () => {
                   <NavLink
                     className="nav-link"
                     exact="true"
-                    to="/TicketDelivery"
+                    to="/Clients"
                     activeclassname="active"
                     aria-current="page"
                   >
@@ -148,7 +148,7 @@ export const MasterPage = () => {
                 <NavLink
                   className="nav-link"
                   exact="true"
-                  to="/TicketDelivery"
+                  to="/Clients"
                   activeclassname="active"
                   aria-current="page"
                 >
