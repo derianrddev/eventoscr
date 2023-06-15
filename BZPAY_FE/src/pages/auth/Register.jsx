@@ -1,41 +1,43 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import "../../css/auth/Login.css";
-import { setUser } from "../../store/auth/authSlice";
 import { useForm } from "../../hooks";
+import { setUser } from "../../store/auth/authSlice";
 
 const formData = {
+  username: "",
   email: "",
   password: "",
 };
 
-export const Login = () => {
-  const cookies = new Cookies(); 
+export const Register = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const { email, password, onInputChange } = useForm(formData);
+  const { username, email, password, onInputChange } = useForm(formData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFormSubmitted( true );
 
-    console.log(password)
-
-    if (email.length < 1) {
+    if (username.length < 1) {
+      Swal.fire("Error", "El nombre de usuario es obligatorio", "error");
+    } else if (!email.includes("@") || !email.includes(".")) {
       Swal.fire("Error", "El correo debe de tener una @ y un punto.", "error");
     } else if (password.length < 6) {
       Swal.fire("Error", "La contraseña debe de tener más de 6 letras.", "error");
     } else {
-      const url = "https://localhost:7052/api/User/StartSession";
+      const url = "https://localhost:7052/api/User/Register";
       const origin = "https://localhost:3000";
 
-      const login = {
+      const register = {
+        username,
         email,
         password,
       };
@@ -48,15 +50,15 @@ export const Login = () => {
       const settings = {
         method: "post",
         headers: myHeaders,
-        body: JSON.stringify(login),
+        body: JSON.stringify(register),
       };
 
       try {
         const response = await fetch(url, settings);
         const data = await response.json();
 
-        if (!response.status == 200 || !response.status == 404) {
-          Swal.fire("Error", "Lo siento, ha ocurrido un error al iniciar sesión.", "error");
+        if (!response.status == 200) {
+          Swal.fire("Error", "Lo siento, ha ocurrido un error al registrar la cuenta.", "error");
         }
 
         if (response.status === 200) {
@@ -68,12 +70,8 @@ export const Login = () => {
 
           navigate("/Home");
         }
-
-        if (response.status === 404) {
-          Swal.fire("Error", "Las credenciales son incorrectas.", "error");
-        }
       } catch (error) {
-        Swal.fire("Error", "Lo siento, ha ocurrido un error al iniciar sesión.", "error");
+        Swal.fire("Error", "Lo siento, ha ocurrido un error al registrar la cuenta.", "error");
       }
     }
     setFormSubmitted( false );
@@ -100,6 +98,17 @@ export const Login = () => {
           </h1>
           <hr />
           <form className="form-signin">
+            <p className="input_title text-dark">Usuario</p>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="login_box"
+              onChange={onInputChange}
+              placeholder="pepe123"
+              required
+              autoFocus
+            />
             <p className="input_title text-dark">Correo</p>
             <input
               type="text"
@@ -131,12 +140,12 @@ export const Login = () => {
                 borderRadius: "5px",
               }}
             >
-              Iniciar sesión
+              Crear una cuenta
             </button>
             <br />
             <center>
-              <Link className="text-dark" to="/Register">
-                Crear cuenta
+              <Link className="text-dark" to="/">
+                Iniciar sesión
               </Link>
             </center>
           </form>

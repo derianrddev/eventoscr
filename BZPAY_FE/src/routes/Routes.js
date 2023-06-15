@@ -13,6 +13,7 @@ import {
   Home,
   Login,
   RecoverPassword,
+  Register,
   TicketDelivery,
 } from "../pages";
 
@@ -33,6 +34,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Login />} />
+        <Route exact path="/Register" element={<Register />} />
         <Route element={<MasterPage />}>
           <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
           <Route exact path="/RecoverPassword" element={<RecoverPassword />} />
