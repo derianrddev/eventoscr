@@ -19,6 +19,7 @@ namespace BZPAY_BE.Repositories.Interfaces
         Task<IEnumerable<User?>> GetUsersWithReservationsAsync();
         Task<UserRoles?> ChangeRoleToUserAsync(string userId, string roleId);
         Task<IEnumerable<Role?>> GetAllRolesAsync();
+        Task<Role?> GetRolesbyNameAsync(string name);
     }
 
 }

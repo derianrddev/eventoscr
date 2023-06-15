@@ -166,5 +166,11 @@ namespace BZPAY_BE.Repositories.Implementations
             var roles = await _context.Role.ToListAsync();
             return roles;
         }
+
+        public async Task<Role?> GetRolesbyNameAsync(string name)
+        {
+            var role = await _context.Role.Where(x => x.Name == name).FirstOrDefaultAsync();
+            return role;
+        }
     }
 }

@@ -57,11 +57,12 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             if (user != null) return null;
 
             var registerUser = _userRepository.CreateObjToRegisterUser(register);
-
             var newUser = await _userRepository.AddAsync(registerUser);
 
+            var role = await _userRepository.GetRolesbyNameAsync("Cliente");
+            await _userRepository.ChangeRoleToUserAsync(newUser.Id, role.Id);
+
             var userDo = _mapper.Map<UserDo>(newUser);
-            //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
             return userDo;
  
             //return null;
