@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { getRequest } from "../../helpers";
 
 export const Clients = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const [clients, setClients] = useState([]);
   const role = localStorage.getItem('roleName');
 
   useEffect(() => {
+    if (!cookies.get("email")) {
+      navigate("/");
+    }
     if(role == 'Cliente'){
       navigate('/Home')
     }else{

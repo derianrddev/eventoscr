@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { MasterPage } from "../components/MasterPage";
 import { setUser } from "../store/auth/authSlice";
@@ -46,6 +46,7 @@ function App() {
           <Route exact path="/Clients" element={<Clients />} />
           <Route exact path="/TicketDelivery/:userId" element={<TicketDelivery />} />
         </Route>
+        <Route path='/*' element={ <Navigate to="/" /> } />
       </Routes>
     </Router>
   );

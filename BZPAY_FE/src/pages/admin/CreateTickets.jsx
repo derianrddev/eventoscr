@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import { formatDate, getRequest, postRequestUrl } from "../../helpers";
 
 export const CreateTickets = () => {
+  const cookies = new Cookies();
   const location = useLocation();
   const navigate = useNavigate();
-  const eventId = location.state.eventId;
+  const eventId = location.state?.eventId;
   const { user } = useSelector((state) => state.auth);
   const role = localStorage.getItem('roleName');
 
@@ -16,7 +18,10 @@ export const CreateTickets = () => {
   const [seating, setSeating] = useState([]);
 
   useEffect(() => {
-    if(role !== 'Administrador'){
+    if (!cookies.get("email")) {
+      navigate("/");
+    }
+    if(role !== 'Administrador' || !eventId){
       navigate('/Home')
     }else{
       getDetailEvent();

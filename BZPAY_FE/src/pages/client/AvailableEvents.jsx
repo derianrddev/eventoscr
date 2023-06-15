@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { formatDate, getRequest } from "../../helpers";
 import img from '../../images/llorando.png';
 
 export const AvailableEvents = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const role = localStorage.getItem('roleName');
 
   useEffect(() => {
+    if (!cookies.get("email")) {
+      navigate("/");
+    }
     if(role == 'Cajero'){
       navigate('/Home')
     }else{
