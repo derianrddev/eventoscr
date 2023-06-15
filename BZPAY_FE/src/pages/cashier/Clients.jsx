@@ -9,9 +9,9 @@ export const Clients = () => {
   const [clients, setClients] = useState([]);
   const role = localStorage.getItem('roleName');
 
-  window.addEventListener("load", function(event) {
-    navigate('/Home')
-  });
+  // window.addEventListener("load", function(event) {
+  //   navigate('/Home')
+  // });
 
   useEffect(() => {
     if (!cookies.get("email")) {

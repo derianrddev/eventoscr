@@ -10,9 +10,9 @@ export const AvailableEvents = () => {
   const [events, setEvents] = useState([]);
   const role = localStorage.getItem('roleName');
 
-  window.addEventListener("load", function(event) {
-    navigate('/Home')
-  });
+  // window.addEventListener("load", function(event) {
+  //   navigate('/Home')
+  // });
 
   useEffect(() => {
     if (!cookies.get("email")) {
