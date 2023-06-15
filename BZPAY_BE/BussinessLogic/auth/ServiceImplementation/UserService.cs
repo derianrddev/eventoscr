@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using BZPAY_BE.Models;
+using BZPAY_BE.Repositories.Implementations;
 
 namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
 {
@@ -41,9 +42,30 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             //var encrypt = SecurityHelper.EncodePassword(login.Password, 1, user.AspnetMembership.PasswordSalt);
             //if (encrypt != user.AspnetMembership.Password)
             //    return null;
-            var userDo = _mapper.Map<UserDo>(user);
-            //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
+            var passwordValidation = SecurityHelper.ValidatePassword(login.Password, user.PasswordHash);
+            if (passwordValidation)
+            {
+                var userDo = _mapper.Map<UserDo>(user);
+                //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
+                return userDo;
+            }
+            return null;
+        }
+        public async Task<UserDo?> RegisterAsync(RegisterRequest register)
+        {
+            var user = await _userRepository.GetUserByUserNameAsync(register.Username);
+            if (user != null) return null;
+
+            var registerUser = _userRepository.CreateObjToRegisterUser(register);
+            var newUser = await _userRepository.AddAsync(registerUser);
+
+            var role = await _userRepository.GetRolesbyNameAsync("Cliente");
+            await _userRepository.ChangeRoleToUserAsync(newUser.Id, role.Id);
+
+            var userDo = _mapper.Map<UserDo>(newUser);
             return userDo;
+ 
+            //return null;
         }
 
         public async Task<UserDo?> GetUserByUserNameAsync(string username)

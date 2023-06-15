@@ -4,6 +4,7 @@ using BZPAY_BE.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 using BZPAY_BE.Models.Entities;
 using BZPAY_BE.DataAccess;
+using BZPAY_BE.Helpers;
 
 namespace BZPAY_BE.Repositories.Implementations
 {
@@ -25,6 +26,34 @@ namespace BZPAY_BE.Repositories.Implementations
             User user = await _context.Users
                 //.Include(x => x.AspnetMembership)
                 .SingleOrDefaultAsync(x => x.UserName == username);
+
+            //User user = await _context.User.Where(u => u.UserName == username).SingleOrDefaultAsync();
+            return user;
+        }
+
+        public User? CreateObjToRegisterUser(RegisterRequest register)
+        {
+            string userId = SecurityHelper.GenerateUserId();
+            string hashedPassword = SecurityHelper.HashPassword(register.Password);
+
+            var user = new User
+            {
+                Id = userId,
+                UserName = register.Username,
+                NormalizedUserName = SecurityHelper.NormalizeString(register.Username),
+                Email = register.Email,
+                NormalizedEmail = SecurityHelper.NormalizeString(register.Email),
+                EmailConfirmed = false,
+                PasswordHash = hashedPassword,
+                SecurityStamp = null,
+                ConcurrencyStamp = null,
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+            };
 
             //User user = await _context.User.Where(u => u.UserName == username).SingleOrDefaultAsync();
             return user;
@@ -136,6 +165,12 @@ namespace BZPAY_BE.Repositories.Implementations
         {
             var roles = await _context.Role.ToListAsync();
             return roles;
+        }
+
+        public async Task<Role?> GetRolesbyNameAsync(string name)
+        {
+            var role = await _context.Role.Where(x => x.Name == name).FirstOrDefaultAsync();
+            return role;
         }
     }
 }

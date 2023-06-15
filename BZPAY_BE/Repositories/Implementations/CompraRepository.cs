@@ -112,9 +112,13 @@ namespace BZPAY_BE.Repositories.Implementations
 
         public async Task<ImprimirEntrada> ImprimirEntradaAsync(int? idCompra)
         {
-            DateTime currentDateTime = DateTime.Now;
+            //DateTime defaultDate = DateTime.Parse("0001-01-01 00:00:00");
             var compra = await _context.Compras.FindAsync(idCompra);
-            compra.FechaPago = currentDateTime;
+            DateTime currentDateTime = DateTime.Now;
+            if (compra.FechaPago == DateTime.Parse("0001-01-01 00:00:00"))
+            {
+                compra.FechaPago = currentDateTime;
+            }
 
             await _context.SaveChangesAsync();
 
@@ -130,11 +134,12 @@ namespace BZPAY_BE.Repositories.Implementations
                                              Id = c.Id,
                                              Cantidad = c.Cantidad,
                                              FechaReserva = c.FechaReserva,
-                                             FechaPago = currentDateTime,
+                                             FechaPago = c.FechaPago,
                                              TipoAsiento = en.TipoAsiento,
                                              Precio = en.Precio,
                                              Total = en.Precio * c.Cantidad,
                                              Evento = ev.Descripcion,
+                                             TipoEvento = te.Descripcion,
                                              Escenario = es.Nombre,
                                              IdCliente = c.IdCliente,
                                              UserName = us.UserName,

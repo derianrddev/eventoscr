@@ -11,6 +11,7 @@ namespace BZPAY_BE.Repositories.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<User?> GetUserByUserNameAsync(string username);
+        User? CreateObjToRegisterUser(RegisterRequest register);
         Task<User?> GetUserByIdAsync(string id);
         Task<IEnumerable<User?>> GetAllUsersAsync();
         Task<IEnumerable<DetalleUsuarios?>> GetAllDetalleUsuariosAsync();
@@ -18,6 +19,7 @@ namespace BZPAY_BE.Repositories.Interfaces
         Task<IEnumerable<User?>> GetUsersWithReservationsAsync();
         Task<UserRoles?> ChangeRoleToUserAsync(string userId, string roleId);
         Task<IEnumerable<Role?>> GetAllRolesAsync();
+        Task<Role?> GetRolesbyNameAsync(string name);
     }
 
 }
