@@ -25,8 +25,6 @@ export const Login = () => {
     event.preventDefault();
     setFormSubmitted( true );
 
-    console.log(password)
-
     if (email.length < 1) {
       Swal.fire("Error", "El correo debe de tener una @ y un punto.", "error");
     } else if (password.length < 6) {

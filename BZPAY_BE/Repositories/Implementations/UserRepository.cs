@@ -31,6 +31,16 @@ namespace BZPAY_BE.Repositories.Implementations
             return user;
         }
 
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            User user = await _context.Users
+                //.Include(x => x.AspnetMembership)
+                .SingleOrDefaultAsync(x => x.Email == email);
+
+            //User user = await _context.User.Where(u => u.UserName == username).SingleOrDefaultAsync();
+            return user;
+        }
+
         public User? CreateObjToRegisterUser(RegisterRequest register)
         {
             string userId = SecurityHelper.GenerateUserId();
