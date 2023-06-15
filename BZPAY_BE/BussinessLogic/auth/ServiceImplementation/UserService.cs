@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using BZPAY_BE.Models;
+using BZPAY_BE.Repositories.Implementations;
 
 namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
 {
@@ -55,10 +56,11 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
             var user = await _userRepository.GetUserByUserNameAsync(register.Username);
             if (user != null) return null;
 
-            string userId = SecurityHelper.GenerateUserId();
-            string hashedPassword = SecurityHelper.HashPassword(register.Password);
+            var registerUser = _userRepository.CreateObjToRegisterUser(register);
 
-            var userDo = _mapper.Map<UserDo>(user);
+            var newUser = await _userRepository.AddAsync(registerUser);
+
+            var userDo = _mapper.Map<UserDo>(newUser);
             //userDo.Membership = _mapper.Map<AspnetMembershipDo>(user.AspnetMembership);
             return userDo;
  

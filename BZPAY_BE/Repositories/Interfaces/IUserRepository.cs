@@ -11,6 +11,7 @@ namespace BZPAY_BE.Repositories.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<User?> GetUserByUserNameAsync(string username);
+        User? CreateObjToRegisterUser(RegisterRequest register);
         Task<User?> GetUserByIdAsync(string id);
         Task<IEnumerable<User?>> GetAllUsersAsync();
         Task<IEnumerable<DetalleUsuarios?>> GetAllDetalleUsuariosAsync();

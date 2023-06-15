@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace BZPAY_BE.Helpers
 {
@@ -66,6 +68,32 @@ namespace BZPAY_BE.Helpers
         {
             var passwordHasher = new PasswordHasher<string>();
             return passwordHasher.HashPassword(null, password);
+        }
+
+        public static string RemoveAccents(string input)
+        {
+            string normalizedString = input.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (char c in normalizedString)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public static string ConvertToUpperCase(string input)
+        {
+            return input.ToUpper();
+        }
+
+        public static string NormalizeString(string input)
+        {
+            string removedAccents = RemoveAccents(input);
+            string upperCase = ConvertToUpperCase(removedAccents);
+            return upperCase;
         }
 
         public static string EncodePassword(string pass, int passwordFormat, string salt)

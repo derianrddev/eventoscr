@@ -13,6 +13,7 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceInterface
     public interface IUserService
     {
         Task<UserDo?> StartSessionAsync(LoginRequest login);
+        Task<UserDo?> RegisterAsync(RegisterRequest register);
         Task<UserDo?> GetUserByUserNameAsync(string username);
         Task<UserDo?> GetUserByIdAsync(string id);
         Task<IEnumerable<UserDo?>> GetAllUsersAsync();

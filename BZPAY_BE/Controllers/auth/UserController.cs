@@ -32,6 +32,15 @@ namespace BZPAY_BE.Controllers
             return (result is null) ? NotFound() : Ok(result);  
         }
 
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
+        public async Task<ActionResult<UserDo>> RegisterAsync(RegisterRequest register)
+        {
+            UserDo result = await _service.RegisterAsync(register);
+            return (result is null) ? NotFound() : Ok(result);
+        }
+
         [HttpGet("{username}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(UserDo), StatusCodes.Status200OK)]
