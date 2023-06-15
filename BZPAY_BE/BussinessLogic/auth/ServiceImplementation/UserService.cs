@@ -37,7 +37,7 @@ namespace BZPAY_BE.BussinessLogic.auth.ServiceImplementation
 
         public async Task<UserDo?> StartSessionAsync(LoginRequest login)
         {
-            var user = await _userRepository.GetUserByUserNameAsync(login.Username);
+            var user = await _userRepository.GetUserByEmailAsync(login.Email);
             if (user == null) return null;
             //var encrypt = SecurityHelper.EncodePassword(login.Password, 1, user.AspnetMembership.PasswordSalt);
             //if (encrypt != user.AspnetMembership.Password)

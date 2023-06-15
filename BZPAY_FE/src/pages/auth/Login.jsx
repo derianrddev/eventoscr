@@ -74,7 +74,7 @@ export const Login = () => {
     const origin = "https://localhost:3000";
 
     const login = {
-      username: form.username,
+      email: form.username,
       password: form.password,
     };
 
