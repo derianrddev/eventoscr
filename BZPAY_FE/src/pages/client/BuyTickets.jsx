@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 import { getRequest, postRequestUrl } from "../../helpers";
@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import { EventDetails, TicketItem } from "../../components";
 
 export const BuyTickets = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const eventId = location.state.eventId;
   const { user } = useSelector((state) => state.auth);
+  const role = localStorage.getItem('roleName');
 
   const [tickets, setTickets] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
@@ -19,8 +21,14 @@ export const BuyTickets = () => {
   const [isBuying, setIsBuying] = useState(false);
 
   useEffect(() => {
-    getTickets();
+    if(role == 'Cajero'){
+      navigate('/Home')
+    }else{
+      getTickets();
+    }
   }, []);
+
+
 
   const getTickets = async () => {
     const url = `https://localhost:7052/api/Entradas/GetDetalleEntradas/${eventId}`;

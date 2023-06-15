@@ -7,6 +7,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/auth/authSlice";
+import { getRequest } from "../../helpers";
 
 export const Login = () => {
   const captcha = useRef(null);
@@ -101,6 +102,7 @@ export const Login = () => {
       if (response.status === 200) {
         cookies.set("username", data.userName, { path: "/" });
         dispatch(setUser(data));
+        getUserDetails(data.id);
 
         // Guardar la información en el localStorage
         localStorage.setItem("user", JSON.stringify(data));
@@ -121,6 +123,15 @@ export const Login = () => {
       navigate("/Home");
     }
   }, []);
+
+  const getUserDetails = async (userId) => {
+    const url = `https://localhost:7052/api/User/GetDetalleUsuariosById/${userId}`;
+    const result = await getRequest(url);
+
+    if (result.ok) {
+      localStorage.setItem('roleName', result.data.roleName);
+    }
+  };
 
   return (
     <div className="m-0 vh-100 row justify-content-center align-items-center login">

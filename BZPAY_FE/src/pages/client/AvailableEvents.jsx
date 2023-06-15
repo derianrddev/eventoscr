@@ -6,9 +6,14 @@ import img from '../../images/llorando.png';
 export const AvailableEvents = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const role = localStorage.getItem('roleName');
 
   useEffect(() => {
-    getEvents();
+    if(role == 'Cajero'){
+      navigate('/Home')
+    }else{
+      getEvents();
+    }
   }, []);
 
   const getEvents = async () => {

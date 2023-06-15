@@ -5,9 +5,14 @@ import { getRequest } from "../../helpers";
 export const Clients = () => {
   const navigate = useNavigate();
   const [clients, setClients] = useState([]);
+  const role = localStorage.getItem('roleName');
 
   useEffect(() => {
-    getClients();
+    if(role == 'Cliente'){
+      navigate('/Home')
+    }else{
+      getClients();
+    }
   }, []);
 
   const getClients = async () => {

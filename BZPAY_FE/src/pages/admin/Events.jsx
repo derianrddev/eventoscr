@@ -6,9 +6,14 @@ import img from '../../images/tarea-completada.png';
 export const Events = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const role = localStorage.getItem('roleName');
 
   useEffect(() => {
-    fetchEvents();
+    if(role !== 'Administrador'){
+      navigate('/Home')
+    }else{
+      fetchEvents();
+    }
   }, []);
 
   const fetchEvents = async () => {

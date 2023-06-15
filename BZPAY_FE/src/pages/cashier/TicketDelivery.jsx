@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { formatDate, getRequest, postRequestUrl } from "../../helpers";
 import { TicketPDF } from "./TicketPDF";
 import { pdf } from "@react-pdf/renderer";
 
+
 export const TicketDelivery = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const userId = location.state.userId;
+  const role = localStorage.getItem('roleName');
 
   const [clientTickets, setClientsTickets] = useState([]);
 
   useEffect(() => {
-    getClientsTickets();
+    if(role == 'Cliente'){
+      navigate('/Home')
+    }else{
+      getClientsTickets();
+    }
   }, []);
 
   const getClientsTickets = async () => {

@@ -10,13 +10,18 @@ export const CreateTickets = () => {
   const navigate = useNavigate();
   const eventId = location.state.eventId;
   const { user } = useSelector((state) => state.auth);
+  const role = localStorage.getItem('roleName');
 
   const [event, setEvent] = useState([]);
   const [seating, setSeating] = useState([]);
 
   useEffect(() => {
-    getDetailEvent();
-    getSeating();
+    if(role !== 'Administrador'){
+      navigate('/Home')
+    }else{
+      getDetailEvent();
+      getSeating();
+    }
   }, []);
 
   const getDetailEvent = async () => {
