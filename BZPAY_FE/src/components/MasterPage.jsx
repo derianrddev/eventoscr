@@ -9,7 +9,7 @@ export const MasterPage = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    cookies.remove("username", { path: "/" });
+    cookies.remove("email", { path: "/" });
     dispatch(cleanUser());
 
     // Limpiar los datos del localStorage

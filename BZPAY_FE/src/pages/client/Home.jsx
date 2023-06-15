@@ -8,7 +8,7 @@ export const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!cookies.get("username")) {
+    if (!cookies.get("email")) {
       navigate("/");
     }
   }, []);
