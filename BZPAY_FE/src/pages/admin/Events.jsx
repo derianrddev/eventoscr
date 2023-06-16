@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { formatDate, getRequest } from "../../helpers";
+import { getRequest } from "../../helpers";
 import img from '../../images/tarea-completada.png';
+import { EventCard } from "../../components";
 
 export const Events = () => {
   const cookies = new Cookies();
@@ -21,13 +22,12 @@ export const Events = () => {
     if(role !== 'Administrador'){
       navigate('/Home')
     }else{
-      fetchEvents();
+      getEvents();
     }
   }, []);
 
-  const fetchEvents = async () => {
-    const url =
-      "https://localhost:7052/api/Eventos/GetAllDetalleEventosSinEntradas";
+  const getEvents = async () => {
+    const url = "https://localhost:7052/api/Eventos/GetAllDetalleEventosSinEntradas";
     const result = await getRequest(url);
 
     if (result.ok) {
@@ -35,7 +35,7 @@ export const Events = () => {
     }
   };
 
-  const createTicket = async (eventId) => {
+  const handleCreateTicket = async (eventId) => {
     navigate(`/CreateTickets/${eventId}`, { state: { eventId } });
   };
 
@@ -54,35 +54,7 @@ export const Events = () => {
           <h1 className="mb-4 fw-bold">Eventos sin entradas creadas</h1>
           <div className="row">
             {events.map((event) => (
-              <div className="col-md-4" key={event.id}>
-                <div className="card mt-3">
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">{event.descripcion}</h5>
-                    <p className="card-text">
-                      <i className="fa-solid fa-calendar-days pe-2"></i>
-                      {formatDate(event.fecha)}
-                    </p>
-                    <p className="card-text">
-                      <i className="fa-solid fa-location-dot pe-2"></i>
-                      {event.escenario}
-                    </p>
-                    <p className="card-text">
-                      <i className="fa-solid fa-people-group pe-2"></i>
-                      {event.tipoEvento}
-                    </p>
-                    <button
-                      className="btn btn-success"
-                      style={{
-                        backgroundColor: "#198754",
-                        borderRadius: "5px",
-                      }}
-                      onClick={() => createTicket(event.id)}
-                    >
-                      Crear Entrada
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <EventCard key={event.id} event={event} handleEvent={handleCreateTicket} />
             ))}
           </div>
         </>

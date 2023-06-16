@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
-import { formatDate, getRequest, postRequestUrl } from "../../helpers";
+import { getRequest, postRequestUrl } from "../../helpers";
+import { EventDetails, SeatItem } from "../../components";
 
 export const CreateTickets = () => {
   const cookies = new Cookies();
@@ -14,7 +15,6 @@ export const CreateTickets = () => {
   const { user } = useSelector((state) => state.auth);
   const role = localStorage.getItem('roleName');
 
-  const [event, setEvent] = useState([]);
   const [seating, setSeating] = useState([]);
 
   useEffect(() => {
@@ -24,19 +24,9 @@ export const CreateTickets = () => {
     if(role !== 'Administrador' || !eventId){
       navigate('/Home')
     }else{
-      getDetailEvent();
       getSeating();
     }
   }, []);
-
-  const getDetailEvent = async () => {
-    const url = `https://localhost:7052/api/Eventos/GetDetalleEventosById/${eventId}`;
-    const result = await getRequest(url);
-
-    if (result.ok) {
-      setEvent(result.data);
-    }
-  };
 
   const getSeating = async () => {
     const url = `https://localhost:7052/api/Eventos/GetDetalleAsientos/${eventId}`;
@@ -48,7 +38,7 @@ export const CreateTickets = () => {
     }
   };
 
-  const onChangePrice = (seatId, price) => {
+  const handleChangePrice = (seatId, price) => {
     setSeating((prevSeating) =>
       prevSeating.map((seat) =>
         seat.id === seatId ? { ...seat, precio: price } : seat
@@ -56,7 +46,7 @@ export const CreateTickets = () => {
     );
   };
 
-  const createTicket = async () => {
+  const handleCreateTicket = async () => {
     const isEmptyInput = seating.some(
       (seat) => seat.precio === 0 || seat.precio === ""
     );
@@ -86,55 +76,15 @@ export const CreateTickets = () => {
       className="container text-center"
       style={{ minHeight: "calc(100vh - 56px)", paddingTop: "100px" }}
     >
-      <h1 className="mb-5 fw-bold">{event.descripcion}</h1>
+      <h1 className="mb-5 fw-bold">Crear entradas</h1>
       <div className="row">
         <div className="col-md-6">
-          <h3 className="mb-4 fw-bold">Detalles del evento</h3>
-          <h5 className="mb-4">
-            <strong>Tipo de evento:</strong> {event.tipoEvento}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Fecha:</strong> {formatDate(event.fecha)}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Escenario:</strong> {event.escenario}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Tipo de escenario:</strong> {event.tipoEscenario}
-          </h5>
-          <h5 className="mb-4">
-            <strong>Localización:</strong> {event.localizacion}
-          </h5>
+          <EventDetails eventId={eventId} />
         </div>
         <div className="col-md-6">
           <h3 className="mb-4 fw-bold">Asientos</h3>
           {seating.map((seat) => (
-            <div className="mb-3 row d-flex align-items-center" key={seat.id}>
-              <div className="col-md-6">
-                <h5 className="fw-bold">{seat.tipoAsiento}</h5>
-                <p className="mb-1">Cantidad: {seat.cantidad}</p>
-              </div>
-              <div className="col-md-6">
-                <div className="input-group d-flex justify-content-center align-items-center">
-                  <label
-                    htmlFor={`precio-${seat.id}`}
-                    className="form-label m-0"
-                  >
-                    Precio:
-                  </label>
-                  <input
-                    type="number"
-                    id={`precio-${seat.id}`}
-                    name={`precio-${seat.id}`}
-                    className="form-control text-end ms-2"
-                    style={{ maxWidth: "150px", borderRadius: "5px" }}
-                    min="1"
-                    value={seat.precio}
-                    onChange={(e) => onChangePrice(seat.id, e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
+            <SeatItem key={seat.id} seat={seat} handleChangePrice={handleChangePrice} />
           ))}
           <button
             type="submit"
@@ -145,7 +95,7 @@ export const CreateTickets = () => {
               margin: "20px 0px 35px",
               width: "50%",
             }}
-            onClick={createTicket}
+            onClick={handleCreateTicket}
           >
             Guardar
           </button>

@@ -1,5 +1,5 @@
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import { formatDate } from "../../helpers";
+import { formatDate } from "../helpers";
 
 export const TicketPDF = ({ ticket }) => {
   return (

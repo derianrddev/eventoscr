@@ -26,7 +26,7 @@ export const BuyTickets = () => {
     if (!cookies.get("email")) {
       navigate("/");
     }
-    if(role == 'Cajero' || !eventId){
+    if(role !== 'Cliente' || !eventId){
       navigate('/Home')
     }else{
       getTickets();

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { formatDate, getRequest, postRequestUrl } from "../../helpers";
-import { TicketPDF } from "./TicketPDF";
 import { pdf } from "@react-pdf/renderer";
-
+import { formatDate, getRequest, postRequestUrl } from "../../helpers";
+import { TicketPDF } from "../../components";
 
 export const TicketDelivery = () => {
   const cookies = new Cookies();
@@ -19,7 +18,7 @@ export const TicketDelivery = () => {
     if (!cookies.get("email")) {
       navigate("/");
     }
-    if(role == 'Cliente' || !userId){
+    if(role !== 'Cajero' || !userId){
       navigate('/Home')
     }else{
       getClientsTickets();

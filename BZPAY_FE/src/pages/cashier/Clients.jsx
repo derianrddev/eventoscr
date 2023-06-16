@@ -17,7 +17,7 @@ export const Clients = () => {
     if (!cookies.get("email")) {
       navigate("/");
     }
-    if(role == 'Cliente'){
+    if(role !== 'Cajero'){
       navigate('/Home')
     }else{
       getClients();

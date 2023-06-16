@@ -1,23 +1,7 @@
-import { useDispatch } from "react-redux";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-import { cleanUser } from "../store/auth/authSlice";
+import { Link, Outlet } from "react-router-dom";
+import { NavigationMenu } from "./NavigationMenu";
 
 export const MasterPage = () => {
-  const cookies = new Cookies();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const logout = () => {
-    cookies.remove("email", { path: "/" });
-    dispatch(cleanUser());
-
-    // Limpiar los datos del localStorage
-    localStorage.removeItem("user");
-
-    navigate("/");
-  };
-
   return (
     <>
       <nav className="navbar navbar-dark bg-dark fixed-top">
@@ -57,127 +41,13 @@ export const MasterPage = () => {
             </div>
             <div className="offcanvas-body pt-0">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link"
-                    exact="true"
-                    to="/Home"
-                    activeclassname="active"
-                    aria-current="page"
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link"
-                    exact="true"
-                    to="/Events"
-                    activeclassname="active"
-                    aria-current="page"
-                  >
-                    Crear entradas
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link"
-                    exact="true"
-                    to="/AvailableEvents"
-                    activeclassname="active"
-                    aria-current="page"
-                  >
-                    Reservar entradas
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    className="nav-link"
-                    exact="true"
-                    to="/Clients"
-                    activeclassname="active"
-                    aria-current="page"
-                  >
-                    Entrega de entradas
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <button
-                    className="btn btn-danger mb-0"
-                    style={{
-                      backgroundColor: "#dc3545",
-                      borderRadius: "5px",
-                      height: "40px",
-                    }}
-                    onClick={() => logout()}
-                  >
-                    <i className="fa-solid fa-right-from-bracket"></i> Cerrar
-                    Sesión
-                  </button>
-                </li>
+                <NavigationMenu />
               </ul>
             </div>
           </div>
           <div className="d-none d-lg-flex">
             <ul className="navbar-nav flex-row justify-content-end flex-grow-1 pe-3 gap-2">
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  exact="true"
-                  to="/Home"
-                  activeclassname="active"
-                  aria-current="page"
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  exact="true"
-                  to="/Events"
-                  activeclassname="active"
-                  aria-current="page"
-                >
-                  Crear entradas
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  exact="true"
-                  to="/AvailableEvents"
-                  activeclassname="active"
-                  aria-current="page"
-                >
-                  Reservar entradas
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
-                  exact="true"
-                  to="/Clients"
-                  activeclassname="active"
-                  aria-current="page"
-                >
-                  Entrega de entradas
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn btn-danger mb-0"
-                  style={{
-                    backgroundColor: "#dc3545",
-                    borderRadius: "5px",
-                    height: "40px",
-                  }}
-                  onClick={() => logout()}
-                >
-                  <i className="fa-solid fa-right-from-bracket"></i> Cerrar
-                  Sesión
-                </button>
-              </li>
+              <NavigationMenu />
             </ul>
           </div>
         </div>

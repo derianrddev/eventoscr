@@ -61,7 +61,7 @@ export const Login = () => {
         if (response.status === 200) {
           cookies.set("email", data.email, { path: "/" });
           dispatch(setUser(data));
-          getUserDetails(data.id);
+          await getUserDetails(data.id);
 
           // Guardar la información en el localStorage
           localStorage.setItem("user", JSON.stringify(data));

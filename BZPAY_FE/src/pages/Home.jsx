@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import "../../css/Home.css";
+import "../css/Home.css";
 import Cookies from "universal-cookie";
 
 export const Home = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
+  const role = localStorage.getItem("roleName");
 
   useEffect(() => {
     if (!cookies.get("email")) {
@@ -33,20 +34,24 @@ export const Home = () => {
               <p className="text-light">
                 Reserva entradas para los mejores eventos en Costa Rica
               </p>
-              <NavLink
-                className="btn btn-success btn-lg"
-                style={{
-                  backgroundColor: "#198754",
-                  borderRadius: "5px",
-                  height: "48px",
-                  cursor: "pointer"
-                }}
-                exact="true"
-                to="/AvailableEvents"
-                aria-current="page"
-              >
-                Explorar eventos
-              </NavLink>
+              {role === "Cliente" && (
+                <>
+                  <NavLink
+                    className="btn btn-success btn-lg"
+                    style={{
+                      backgroundColor: "#198754",
+                      borderRadius: "5px",
+                      height: "48px",
+                      cursor: "pointer",
+                    }}
+                    exact="true"
+                    to="/AvailableEvents"
+                    aria-current="page"
+                  >
+                    Explorar eventos
+                  </NavLink>
+                </>
+              )}
             </div>
           </div>
         </div>
